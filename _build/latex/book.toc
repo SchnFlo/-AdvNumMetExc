@@ -1,0 +1,13 @@
+\selectlanguage *{english}
+\contentsline {section}{\numberline {0.1}Exercise 1 \sphinxhyphen {} Heat Conduction with multiple layers and variable properties}{1}{section.0.1}%
+\contentsline {subsection}{\numberline {0.1.1}Space discretication}{2}{subsection.0.1.1}%
+\contentsline {subsection}{\numberline {0.1.2}Time Integration}{2}{subsection.0.1.2}%
+\contentsline {subsubsection}{Stability}{3}{subsubsection*.3}%
+\contentsline {subsubsection}{Steady state criteria}{3}{subsubsection*.4}%
+\contentsline {subsection}{\numberline {0.1.3}Implementation}{3}{subsection.0.1.3}%
+\contentsline {subsubsection}{construction of the layer and boundary objects}{4}{subsubsection*.5}%
+\contentsline {subsubsection}{Definition of the simulation time and the step size.}{4}{subsubsection*.6}%
+\contentsline {subsubsection}{Construction of the \(K\) and \(F_o^*\) matrices}{4}{subsubsection*.7}%
+\contentsline {subsubsection}{Determine the time in hours when a 3\sphinxhyphen {}layered component reaches the steady state}{7}{subsubsection*.8}%
+\contentsline {subsection}{\numberline {0.1.4}References}{7}{subsection.0.1.4}%
+\contentsline {chapter}{Bibliography}{9}{chapter*.9}%

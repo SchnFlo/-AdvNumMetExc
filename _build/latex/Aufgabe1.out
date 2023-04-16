@@ -1,0 +1,11 @@
+\BOOKMARK [1][-]{section.0.1}{Space\040discretication}{}% 1
+\BOOKMARK [1][-]{section.0.2}{Time\040Integration}{}% 2
+\BOOKMARK [2][-]{subsection.0.2.1}{Stability}{section.0.2}% 3
+\BOOKMARK [2][-]{subsection.0.2.2}{Steady\040state\040criteria}{section.0.2}% 4
+\BOOKMARK [1][-]{section.0.3}{Implementation}{}% 5
+\BOOKMARK [2][-]{subsection.0.3.1}{construction\040of\040the\040layer\040and\040boundary\040objects}{section.0.3}% 6
+\BOOKMARK [2][-]{subsection.0.3.2}{Definition\040of\040the\040simulation\040time\040and\040the\040step\040size.}{section.0.3}% 7
+\BOOKMARK [2][-]{subsection.0.3.3}{Construction\040of\040the\040K\040and\040Fo*\040matrices}{section.0.3}% 8
+\BOOKMARK [2][-]{subsection.0.3.4}{Determine\040the\040time\040in\040hours\040when\040a\0403-layered\040component\040reaches\040the\040steady\040state}{section.0.3}% 9
+\BOOKMARK [1][-]{section.0.4}{References}{}% 10
+\BOOKMARK [0][-]{chapter*.3}{Bibliography}{}% 11

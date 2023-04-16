@@ -1,0 +1,22 @@
+% Encoding: UTF-8
+@book{walther2021,
+title
+ = {{Building Physics Applications in Python}},
+author
+ = {Walther, E.},
+year
+ = {2021},
+publisher = {DIY Spring},
+address
+ = {Paris}
+}
+
+@Book{hagenthoft2001,
+  title     = {Introduction to building physics},
+  publisher = {Studentlitteratur, Lund},
+  year      = {2001},
+  author    = {Carl-Eric Hagentoft},
+  url       = {https://buildingphysicshagentoft.com/text-books/introduction-to-building-physics/},
+}
+
+@Comment{jabref-meta: databaseType:bibtex;}
