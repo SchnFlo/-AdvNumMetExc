@@ -363,6 +363,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-of-the-timestep-size">Definition of the timestep size.</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#construction-of-the-k-and-f-o-matrices">Construction of the <span class="math notranslate nohighlight">\(K\)</span> and <span class="math notranslate nohighlight">\(F_o^*\)</span> matrices</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-the-temperature-field">Calculating the temperature field</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#determine-the-time-in-hours-when-a-3-layered-component-reaches-the-steady-state">Determine the time in hours when a 3-layered component reaches the steady state</a></li>
 </ul>
 </li>
@@ -680,9 +681,13 @@ q_{w} &amp;= \lambda_w \cdot \frac{T_P-T_W}{\Delta x_w}
 </div>
 </div>
 </div>
+</section>
+<section id="results">
+<h3>Results<a class="headerlink" href="#results" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_pos</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">])</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Calculate cell locations for plot</span>
+<span class="n">x_pos</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">])</span>
 <span class="n">counter</span><span class="o">=</span><span class="mi">0</span>
 <span class="n">width_sum</span><span class="o">=</span><span class="mi">0</span>
 <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">layers</span><span class="p">:</span>
@@ -746,19 +751,6 @@ q_{w} &amp;= \lambda_w \cdot \frac{T_P-T_W}{\Delta x_w}
 <dd><p>E. Walther. <em>Building Physics Applications in Python</em>. DIY Spring, Paris, 2021.</p>
 </dd>
 </dl>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">layer</span><span class="o">.</span><span class="n">width_sum</span><span class="p">,</span><span class="n">layer</span><span class="o">.</span><span class="n">width_sum</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">35</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7faf6958aa10&gt;]
-</pre></div>
-</div>
-<img alt="_images/3cab5da75d4a3e0a0177de42c64a38155747adec28a1aa4d7924b304f02d17c3.png" src="_images/3cab5da75d4a3e0a0177de42c64a38155747adec28a1aa4d7924b304f02d17c3.png" />
-</div>
 </div>
 </section>
 </section>
@@ -832,6 +824,7 @@ q_{w} &amp;= \lambda_w \cdot \frac{T_P-T_W}{\Delta x_w}
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-of-the-timestep-size">Definition of the timestep size.</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#construction-of-the-k-and-f-o-matrices">Construction of the <span class="math notranslate nohighlight">\(K\)</span> and <span class="math notranslate nohighlight">\(F_o^*\)</span> matrices</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-the-temperature-field">Calculating the temperature field</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#determine-the-time-in-hours-when-a-3-layered-component-reaches-the-steady-state">Determine the time in hours when a 3-layered component reaches the steady state</a></li>
 </ul>
 </li>
