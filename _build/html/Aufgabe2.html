@@ -353,12 +353,6 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#space-discretisation">Space discretisation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-integration">Time Integration</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stability">Stability</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#steady-state-criteria">Steady state criteria</a></li>
-</ul>
-</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#construction-of-the-node-convection-and-conduction-objects">Construction of the node, convection and conduction objects</a></li>
 </ul>
@@ -370,7 +364,7 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variant-2-without-convection">Variant 2 - without convection</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#alteration-of-the-k-matrix-and-the-boundary-vector-i-0">Alteration of the <span class="math notranslate nohighlight">\(K\)</span> matrix and the boundary vector <span class="math notranslate nohighlight">\(I_0\)</span></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Calculating the temperature field</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Calculating the temperature field</a></li>
 </ul>
 </li>
 </ul>
@@ -395,95 +389,6 @@ document.write(`
 <p><span class="caption-number">Fig. 2 </span><span class="caption-text">Conveductance network with three nodes <span id="id1">[<a class="reference internal" href="Aufgabe1.html#id8" title="Carl-Eric Hagentoft. Introduction to building physics. Studentlitteratur, Lund, 2001. URL: https://buildingphysicshagentoft.com/text-books/introduction-to-building-physics/.">2</a>]</span></span><a class="headerlink" href="#fig-rc-networks" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>To allow a numerical solution of the problem, the partial differential equation for heat conduction must be discretised. The equation for heat conduction is shown in <a class="reference internal" href="#equation-heatflow">(7)</a> <span id="id2">[<a class="reference internal" href="Aufgabe1.html#id7" title="E. Walther. Building Physics Applications in Python. DIY Spring, Paris, 2021.">3</a>]</span>:</p>
-<div class="math notranslate nohighlight" id="equation-heatflow">
-<span class="eqno">(7)<a class="headerlink" href="#equation-heatflow" title="Permalink to this equation">#</a></span>\[\rho \cdot c \cdot \frac{dT}{dt} = \nabla (\lambda \nabla T) \]</div>
-<p>reduced to one dimension:</p>
-<div class="math notranslate nohighlight">
-\[ \rho \cdot c \cdot \frac{dT}{dt} =  \frac{d}{dx}(\lambda \frac{dT}{dx}) \]</div>
-<section id="space-discretisation">
-<h2>Space discretisation<a class="headerlink" href="#space-discretisation" title="Permalink to this heading">#</a></h2>
-<p>The discretisation is done using the finite volume method and a representation as RC-Networks. Each cell is represented by a resistance and the conductivity to the neighbouring cells. The conductivity between Interrior cells is calculated as follows (for simplicity, the surface resistance between layers is neglected. <span class="math notranslate nohighlight">\( R_{ci} =0 \)</span> ) <span id="id3">[<a class="reference internal" href="Aufgabe1.html#id8" title="Carl-Eric Hagentoft. Introduction to building physics. Studentlitteratur, Lund, 2001. URL: https://buildingphysicshagentoft.com/text-books/introduction-to-building-physics/.">2</a>]</span>:</p>
-<div class="math notranslate nohighlight" id="equation-conductivityinterior">
-<span class="eqno">(8)<a class="headerlink" href="#equation-conductivityinterior" title="Permalink to this equation">#</a></span>\[K_{i-0.5} = \frac{1}{\frac{0.5 \Delta x_{i-1}}{\lambda_{i-1}} + R_{ci} + \frac{0.5 \Delta x_{i}}{\lambda_{i}}} \]</div>
-<p>For a cell inside a layer (<span class="math notranslate nohighlight">\(\lambda_{i-1} = \lambda_{i} = \lambda_{i+1}\)</span> and <span class="math notranslate nohighlight">\(\Delta x_{i-1} = \Delta x_{i} = \Delta x_{i+1}\)</span>) <a class="reference internal" href="#equation-conductivityinterior">(8)</a> collapses to <a class="reference internal" href="#equation-conductivityinteriorcoll">(9)</a>:</p>
-<div class="math notranslate nohighlight" id="equation-conductivityinteriorcoll">
-<span class="eqno">(9)<a class="headerlink" href="#equation-conductivityinteriorcoll" title="Permalink to this equation">#</a></span>\[ K_{i-0.5} = K_{i+0.5} = \frac{\lambda_{i}}{\Delta x_{i}} \]</div>
-<p>And for Cells at the boundary:</p>
-<div class="math notranslate nohighlight">
-\[ K_{BC,1} = K_{0.5} = \frac{1}{R_{s,1} + \frac{0.5 \Delta x_{1}}{\lambda_{1}}} \]</div>
-</section>
-<section id="time-integration">
-<h2>Time Integration<a class="headerlink" href="#time-integration" title="Permalink to this heading">#</a></h2>
-<p>Using the explicit euler sheme the next Timestep can be calculated as follows:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{aligned}
-    &amp;\text{for cells at the left boundary:}&amp; &amp;T_1^{n+1} = T_1^n+F_{o,1}^* \cdot (K_{BC,1} \cdot   T_{BC}^n  - (K_{BC,l}+K_{2}) \cdot   T_{1}^n + K_{2} \cdot   T_{2}^n)&amp; \\
-    &amp;\text{for interior cells:}&amp; &amp;T_i^{n+1} = T_1^n+F_{o,i}^* \cdot (K_{i-1} \cdot   T_{i-1}^n  - (K_{i-1}+K_{i+1}) \cdot   T_{i}^n + K_{i+1} \cdot   T_{i+1}^n)&amp; \\
-    &amp;\text{for cells at the right boundary:}&amp; &amp;T_j^{n+1} = T_j^n+F_{o,j}^* \cdot (K_{j-1} \cdot   T_{j-1}^n  - (K_{j-1}+K_{BC,2}) \cdot   T_{j}^n + K_{BC,2} \cdot   T_{BC,2}^n)&amp; \\
-\end{aligned}
-\end{split}\]</div>
-<p>or generally written (based on <span id="id4">[<a class="reference internal" href="Aufgabe1.html#id7" title="E. Walther. Building Physics Applications in Python. DIY Spring, Paris, 2021.">3</a>]</span>):</p>
-<div class="math notranslate nohighlight" id="equation-timeint">
-<span class="eqno">(10)<a class="headerlink" href="#equation-timeint" title="Permalink to this equation">#</a></span>\[ T^{n+1} = T^n + F_{o}^* \cdot K \cdot T^n \]</div>
-<p>With the conductivity matrix <span class="math notranslate nohighlight">\( K \)</span>:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split} K = \left [ 
-\begin{array}{ccccccc}
-    0 &amp; 0 &amp; 0 &amp; 0 &amp; (...) &amp; 0 &amp; 0 &amp; 0  &amp; 0\\
-    K_{BC,1} &amp; -(K_{BC,1} + K_w) &amp; K_w &amp; 0 &amp; (...) &amp; 0 &amp; 0 &amp; 0 &amp; 0\\
-    0 &amp; K_e &amp; -(K_e + K_w) &amp; K_w &amp; (...) &amp; 0 &amp; 0  &amp; 0 &amp; 0\\
-    (...) &amp; (...) &amp; (...) &amp; (...) &amp; (...) &amp; (...) &amp; (...)  &amp; (...) &amp; (...)\\
-    0 &amp; 0 &amp; 0 &amp; 0 &amp;(...) &amp; K_{e} &amp; -(K_e + K_w) &amp; K_w &amp; 0 \\
-    0 &amp; 0 &amp; 0 &amp; 0 &amp;(...) &amp; 0 &amp; K_{e} &amp; -(K_e + K_{BC,2}) &amp; K_{BC,2} \\
-    0 &amp; 0 &amp; 0 &amp; 0 &amp;(...) &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
-\end{array}
-\right] \end{split}\]</div>
-<p>and the adapted “resistance” matrix <span class="math notranslate nohighlight">\(F_{o}^*\)</span> (example for layers a,b,c):</p>
-<div class="math notranslate nohighlight">
-\[\begin{split} F_{o}^* = \left [ 
-\begin{array}{ccccccc}
-    F_{o,a}^* &amp; 0\\
-    0 &amp; F_{o,a}^*  &amp; 0\\ 
-     &amp;  0 &amp;  (...)  &amp; 0\\
-      &amp;   &amp;  0 &amp; F_{o,b}^* &amp; 0\\
-      &amp;   &amp;    &amp; 0 &amp; F_{o,b}^* &amp; 0\\
-      &amp;   &amp;   &amp;    &amp; 0  &amp;  (...) &amp; 0\\
-      &amp;   &amp;   &amp;   &amp;    &amp; 0 &amp;  F_{o,c}^* &amp; 0\\
-\end{array}
-\right]  \quad F_{o,i}^* = \frac{\Delta t}{\Delta x_i} \cdot \frac{1}{\rho_i \cdot c_i}\end{split}\]</div>
-<p>with the heat capacity <span class="math notranslate nohighlight">\(c_i\)</span> and the density <span class="math notranslate nohighlight">\(\rho_i\)</span>.</p>
-<section id="stability">
-<h3>Stability<a class="headerlink" href="#stability" title="Permalink to this heading">#</a></h3>
-<p><a class="reference internal" href="#equation-stability">(11)</a> shows a condition to ensure <span class="math notranslate nohighlight">\(F_o^* \cdot K\)</span> results in a diagonally dominant (invertible) matrix  as a function of the Fourier’s number <span id="id5">[<a class="reference internal" href="Aufgabe1.html#id7" title="E. Walther. Building Physics Applications in Python. DIY Spring, Paris, 2021.">3</a>]</span>.</p>
-<div class="math notranslate nohighlight" id="equation-stability">
-<span class="eqno">(11)<a class="headerlink" href="#equation-stability" title="Permalink to this equation">#</a></span>\[ (1-2 F_o) \geq 0 \longrightarrow F_o = \frac{\lambda}{\rho \cdot c} \cdot \frac{\Delta t}{\Delta x^2} \le 0.5 \]</div>
-<p>To insure a stable simulation this condition is tested during the construction of the conductivity matrix <span class="math notranslate nohighlight">\(K\)</span>.</p>
-</section>
-<section id="steady-state-criteria">
-<h3>Steady state criteria<a class="headerlink" href="#steady-state-criteria" title="Permalink to this heading">#</a></h3>
-<p>The simulation stops once a steady state is achieved. The ISO 10211 <span id="id6">[<a class="reference internal" href="Aufgabe1.html#id9" title="ISO/TC 59/SC 13. Iso 10211:2017 thermal bridges in building construction — heat flows and surface temperatures — detailed calculations. International Organization for Standardization, 03 2016.">1</a>]</span> norm gives a steady state criterea for thermal bridges in building constructions. For iterative solvers the following limit is defined:</p>
-<div class="math notranslate nohighlight">
-\[ \sum q_{in} - \frac{\sum q}{2} &lt; 0.0001 \]</div>
-<p>As derived in the exercise the heatflow through the surface of a finite volume can be approximated as follows:</p>
-<div class="math notranslate nohighlight" id="equation-flows">
-<span class="eqno">(12)<a class="headerlink" href="#equation-flows" title="Permalink to this equation">#</a></span>\[\begin{split}
-\begin{aligned}
-q_{e} &amp;= \lambda_e \cdot \frac{T_E-T_P}{\Delta x_e} \\
-q_{w} &amp;= \lambda_w \cdot \frac{T_P-T_W}{\Delta x_w}
-\end{aligned}
-\end{split}\]</div>
-<p>Specifing for the first and last cells with <span class="math notranslate nohighlight">\(\Delta x /2\)</span> and <span class="math notranslate nohighlight">\(R_{se}\)</span> / <span class="math notranslate nohighlight">\(R_{si}\)</span> the heatflow in and out of the construction can be written as:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{aligned}
- q_{in} = K_{BC1} \cdot (T_{BC1}-T_{1}) \\
- q_{out} = K_{BC2} \cdot (T_{BC2}-T_{n}) 
-\end{aligned}
-\end{split}\]</div>
-</section>
-</section>
 <section id="implementation">
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
@@ -763,8 +668,8 @@ q_{w} &amp;= \lambda_w \cdot \frac{T_P-T_W}{\Delta x_w}
 </div>
 </div>
 </section>
-<section id="id7">
-<h3>Calculating the temperature field<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
+<section id="id2">
+<h3>Calculating the temperature field<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">K</span><span class="p">,</span><span class="o">-</span><span class="n">I0</span><span class="p">)</span>
@@ -846,12 +751,6 @@ q_{w} &amp;= \lambda_w \cdot \frac{T_P-T_W}{\Delta x_w}
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#space-discretisation">Space discretisation</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-integration">Time Integration</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stability">Stability</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#steady-state-criteria">Steady state criteria</a></li>
-</ul>
-</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#construction-of-the-node-convection-and-conduction-objects">Construction of the node, convection and conduction objects</a></li>
 </ul>
@@ -863,7 +762,7 @@ q_{w} &amp;= \lambda_w \cdot \frac{T_P-T_W}{\Delta x_w}
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variant-2-without-convection">Variant 2 - without convection</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#alteration-of-the-k-matrix-and-the-boundary-vector-i-0">Alteration of the <span class="math notranslate nohighlight">\(K\)</span> matrix and the boundary vector <span class="math notranslate nohighlight">\(I_0\)</span></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">Calculating the temperature field</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Calculating the temperature field</a></li>
 </ul>
 </li>
 </ul>
