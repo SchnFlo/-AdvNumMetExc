@@ -384,14 +384,14 @@ document.write(`
     <font size="2">Florian Schnabel, 11807470, SS 2023</font><br />
 </body><section class="tex2jax_ignore mathjax_ignore" id="exercise-4-coupled-simulation-of-latent-heat-effects">
 <h1>Exercise 4 - Coupled Simulation of latent heat effects<a class="headerlink" href="#exercise-4-coupled-simulation-of-latent-heat-effects" title="Permalink to this heading">#</a></h1>
-<p>This script is an extension of the script elaborated in <code class="xref std std-numref docutils literal notranslate"><span class="pre">sec:Ex1</span></code>. It aims to calculate the temperature and moisture field across a multi-layered building component. Such a multi-layered building component is shown in <a class="reference internal" href="#fig-multilaycomp"><span class="std std-numref">Fig. 3</span></a>.</p>
-<figure class="align-default" id="fig-multilaycomp">
+<p>This script is an extension of the script elaborated in <a class="reference internal" href="Aufgabe1.html#sec-ex1"><span class="std std-ref">Exercise 1</span></a>. It aims to calculate the temperature and moisture field across a multi-layered building component. Such a multi-layered building component is shown in <a class="reference internal" href="#fig-multilaycompex2"><span class="std std-numref">Fig. 3</span></a>.</p>
+<figure class="align-default" id="fig-multilaycompex2">
 <a class="reference internal image-reference" href="_images/BuildingComponent.png"><img alt="_images/BuildingComponent.png" src="_images/BuildingComponent.png" style="width: 350px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 3 </span><span class="caption-text">Multi-layered building component and discretisation requirements [excersise Description]</span><a class="headerlink" href="#fig-multilaycomp" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text">Multi-layered building component and discretisation requirements [excersise Description]</span><a class="headerlink" href="#fig-multilaycompex2" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>Unlike in the version shown in <code class="xref std std-numref docutils literal notranslate"><span class="pre">sec:Ex1</span></code> the following restrictions introduced, to reduce the complexity of the coupled problem.</p>
+<p>Unlike in the version shown in <a class="reference internal" href="Aufgabe1.html#sec-ex1"><span class="std std-ref">Exercise 1</span></a> the following restrictions introduced, to reduce the complexity of the coupled problem.</p>
 <ul class="simple">
 <li><p>the script is only aplicable to mineral wool</p></li>
 <li><p>both density and heatcapacity will be kept constant</p></li>
@@ -399,16 +399,16 @@ document.write(`
 </ul>
 <section id="balance-equations">
 <h2>Balance Equations<a class="headerlink" href="#balance-equations" title="Permalink to this heading">#</a></h2>
-<p>To consider the latent heat effect the time derivative of the Temperaturefield (seen in <code class="xref eq docutils literal notranslate"><span class="pre">gl:heatflow</span></code>) is expandend by the moisture induced pressure field.  The equation for heat conduction including latent heat effect is shown in <a class="reference internal" href="#equation-gl-heatmoist">(13)</a>:</p>
-<div class="math notranslate nohighlight" id="equation-gl-heatmoist">
-<span class="eqno">(13)<a class="headerlink" href="#equation-gl-heatmoist" title="Permalink to this equation">#</a></span>\[\rho \cdot c \cdot \frac{dT}{dt} = \nabla (\lambda \nabla T + L_v \delta_v \nabla p_{vap}) \]</div>
+<p>To consider the latent heat effect the time derivative of the Temperaturefield (seen in <code class="xref eq docutils literal notranslate"><span class="pre">gl:heatflow</span></code>) is expandend by the moisture induced pressure field.  The equation for heat conduction including latent heat effect is shown in <a class="reference internal" href="#equation-gl-heatmoist2">(13)</a>:</p>
+<div class="math notranslate nohighlight" id="equation-gl-heatmoist2">
+<span class="eqno">(13)<a class="headerlink" href="#equation-gl-heatmoist2" title="Permalink to this equation">#</a></span>\[\rho \cdot c \cdot \frac{dT}{dt} = \nabla (\lambda \nabla T + L_v \delta_v \nabla p_{vap}) \]</div>
 <p>The introduced moisture field is defined by the balance euqation for moisture transport (<code class="xref eq docutils literal notranslate"><span class="pre">gl:moist</span></code>):</p>
 <div class="math notranslate nohighlight">
 \[ \frac{dw}{dt} =  \nabla (\delta_v \nabla p_{vap}) \]</div>
 </section>
 <section id="space-discretisation">
 <h2>Space discretisation<a class="headerlink" href="#space-discretisation" title="Permalink to this heading">#</a></h2>
-<p>The discretisation of ({eq}gl:heatmoist) and ({eq}gl:moist) is done similar to section <code class="xref std std-numref docutils literal notranslate"><span class="pre">sec:Ex1</span></code> using the finite volume method and a representation as RC-Networks. Evaluating for a cell P surrounded by a cell to the east and west results in (<a class="reference internal" href="#equation-gl-heatmoistdis">(16)</a>) and (<a class="reference internal" href="#equation-gl-moistdis">(15)</a>):</p>
+<p>The discretisation of ({eq}gl:heatmoist) and ({eq}gl:moist) is done similar to section <a class="reference internal" href="Aufgabe1.html#sec-ex1"><span class="std std-ref">Exercise 1</span></a> using the finite volume method and a representation as RC-Networks. Evaluating for a cell P surrounded by a cell to the east and west results in (<a class="reference internal" href="#equation-gl-heatmoistdis">(16)</a>) and (<a class="reference internal" href="#equation-gl-moistdis">(15)</a>):</p>
 <div class="math notranslate nohighlight" id="equation-gl-heatmoistdis">
 <span class="eqno">(16)<a class="headerlink" href="#equation-gl-heatmoistdis" title="Permalink to this equation">#</a></span>\[\rho \cdot c \cdot \frac{T^{n+1}_P - T^n_P  }{\Delta t} = \frac{\lambda \cdot ( T^n_E - 2T^n_P + T^n_W) }{\Delta x^2} + \frac{L_v \cdot \delta_v \cdot ( p_{vap,E}^n - 2 p_{vap,P}^n +  p_{vap,W}^n) }{\Delta x^2} \]</div>
 <div class="math notranslate nohighlight" id="equation-gl-moistdis">
@@ -416,7 +416,7 @@ document.write(`
 <p>or written in matrix notation:</p>
 <div class="math notranslate nohighlight" id="equation-gl-heatmoistdis">
 <span class="eqno">(16)<a class="headerlink" href="#equation-gl-heatmoistdis" title="Permalink to this equation">#</a></span>\[\rho \cdot c \cdot \frac{T^{n+1}_P - T^n_P  }{\Delta t} = \lambda  \cdot K \cdot T + L_v \cdot \delta_v  \cdot M \cdot p_{vap} \]</div>
-<p>Unlike in the version shown in <code class="xref std std-numref docutils literal notranslate"><span class="pre">sec:Ex1</span></code> the conductivity is not included in the <span class="math notranslate nohighlight">\(K\)</span> matrix. This leads to a constant conductivity matrix, at the cost of an error at the surface resistance. The conductivity matrix K can therefore be Written as follows:</p>
+<p>Unlike in the version shown in <a class="reference internal" href="Aufgabe1.html#sec-ex1"><span class="std std-ref">Exercise 1</span></a> the conductivity is not included in the <span class="math notranslate nohighlight">\(K\)</span> matrix. This leads to a constant conductivity matrix, at the cost of an error at the surface resistance. The conductivity matrix K can therefore be Written as follows:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split} K = \left [ 
 \begin{array}{ccccccc}
@@ -465,6 +465,20 @@ document.write(`
 <span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">scipy</span>
 <span class="kn">import</span> <span class="nn">copy</span> <span class="k">as</span> <span class="nn">copy</span>
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">integrate</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">4</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s1">&#39;reset&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="c1">#Libraries</span>
+<span class="ne">----&gt; </span><span class="mi">4</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">scipy</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;numpy&#39;
 </pre></div>
 </div>
 </div>
@@ -582,7 +596,7 @@ document.write(`
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Sorption Isotherm - mineral wool&#39;)
 </pre></div>
 </div>
-<img alt="_images/daa6e7d87a658d3ce997f564284383833d3dded2fe774cd8b4ef39b192358a85.png" src="_images/daa6e7d87a658d3ce997f564284383833d3dded2fe774cd8b4ef39b192358a85.png" />
+<img alt="_images/7bfb62eee38a57c57c5c184e9116115a99ac0b5983750f4b35216cc22d3fcb61.png" src="_images/7bfb62eee38a57c57c5c184e9116115a99ac0b5983750f4b35216cc22d3fcb61.png" />
 </div>
 </div>
 </section>
@@ -650,10 +664,10 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f52a8283710&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fd073e27f50&gt;]
 </pre></div>
 </div>
-<img alt="_images/024fbf1733c64a41e5eb3b41ee4cf136c9d5a30ad1f655fa1fc8d5f6680fb645.png" src="_images/024fbf1733c64a41e5eb3b41ee4cf136c9d5a30ad1f655fa1fc8d5f6680fb645.png" />
+<img alt="_images/567b0bca15cbfdfd2cc947f27b4a81cd6729fc38c0c6613731f45cb541542c46.png" src="_images/567b0bca15cbfdfd2cc947f27b4a81cd6729fc38c0c6613731f45cb541542c46.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -668,10 +682,10 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f52a80923d0&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fd073e42210&gt;]
 </pre></div>
 </div>
-<img alt="_images/4e31e8af99cf30f87a34e4dec3932de23eabf9ad50a47dd958bbcf8228ea96e6.png" src="_images/4e31e8af99cf30f87a34e4dec3932de23eabf9ad50a47dd958bbcf8228ea96e6.png" />
+<img alt="_images/b0b43d8a49d7306d0cb361e698e62044a404005afbecbd7c153aa61849a35222.png" src="_images/b0b43d8a49d7306d0cb361e698e62044a404005afbecbd7c153aa61849a35222.png" />
 </div>
 </div>
 </section>
@@ -858,83 +872,6 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">27</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1">#dt_w_dt(t,vec_T_w)</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">result_coupled</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">integrate</span><span class="o">.</span><span class="n">solve_ivp</span><span class="p">(</span><span class="n">dt_w_dt</span><span class="p">,(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1800000</span><span class="p">),</span><span class="n">vec_T_w</span><span class="p">,</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;Radau&quot;</span><span class="p">,</span><span class="n">atol</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">,</span><span class="n">rtol</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">)</span>
-
-<span class="nn">File ~/.local/lib/python3.11/site-packages/scipy/integrate/_ivp/ivp.py:591,</span> in <span class="ni">solve_ivp</span><span class="nt">(fun, t_span, y0, method, t_eval, dense_output, events, vectorized, args, **options)</span>
-<span class="g g-Whitespace">    </span><span class="mi">589</span> <span class="n">status</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="g g-Whitespace">    </span><span class="mi">590</span> <span class="k">while</span> <span class="n">status</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">591</span>     <span class="n">message</span> <span class="o">=</span> <span class="n">solver</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">593</span>     <span class="k">if</span> <span class="n">solver</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="s1">&#39;finished&#39;</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">594</span>         <span class="n">status</span> <span class="o">=</span> <span class="mi">0</span>
-
-<span class="nn">File ~/.local/lib/python3.11/site-packages/scipy/integrate/_ivp/base.py:181,</span> in <span class="ni">OdeSolver.step</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">179</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">180</span>     <span class="n">t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">t</span>
-<span class="ne">--&gt; </span><span class="mi">181</span>     <span class="n">success</span><span class="p">,</span> <span class="n">message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_step_impl</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">183</span>     <span class="k">if</span> <span class="ow">not</span> <span class="n">success</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">184</span>         <span class="bp">self</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;failed&#39;</span>
-
-<span class="nn">File ~/.local/lib/python3.11/site-packages/scipy/integrate/_ivp/radau.py:506,</span> in <span class="ni">Radau._step_impl</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">504</span> <span class="n">f_new</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fun</span><span class="p">(</span><span class="n">t_new</span><span class="p">,</span> <span class="n">y_new</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">505</span> <span class="k">if</span> <span class="n">recompute_jac</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">506</span>     <span class="n">J</span> <span class="o">=</span> <span class="n">jac</span><span class="p">(</span><span class="n">t_new</span><span class="p">,</span> <span class="n">y_new</span><span class="p">,</span> <span class="n">f_new</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">507</span>     <span class="n">current_jac</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="g g-Whitespace">    </span><span class="mi">508</span> <span class="k">elif</span> <span class="n">jac</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-
-<span class="nn">File ~/.local/lib/python3.11/site-packages/scipy/integrate/_ivp/radau.py:352,</span> in <span class="ni">Radau._validate_jac.&lt;locals&gt;.jac_wrapped</span><span class="nt">(t, y, f)</span>
-<span class="g g-Whitespace">    </span><span class="mi">350</span> <span class="k">def</span> <span class="nf">jac_wrapped</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">351</span>     <span class="bp">self</span><span class="o">.</span><span class="n">njev</span> <span class="o">+=</span> <span class="mi">1</span>
-<span class="ne">--&gt; </span><span class="mi">352</span>     <span class="n">J</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">jac_factor</span> <span class="o">=</span> <span class="n">num_jac</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fun_vectorized</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">353</span>                                  <span class="bp">self</span><span class="o">.</span><span class="n">atol</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">jac_factor</span><span class="p">,</span>
-<span class="g g-Whitespace">    </span><span class="mi">354</span>                                  <span class="n">sparsity</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">355</span>     <span class="k">return</span> <span class="n">J</span>
-
-<span class="nn">File ~/.local/lib/python3.11/site-packages/scipy/integrate/_ivp/common.py:318,</span> in <span class="ni">num_jac</span><span class="nt">(fun, t, y, f, threshold, factor, sparsity)</span>
-<span class="g g-Whitespace">    </span><span class="mi">315</span>         <span class="n">h</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">factor</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">y_scale</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">-</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-<span class="g g-Whitespace">    </span><span class="mi">317</span> <span class="k">if</span> <span class="n">sparsity</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">318</span>     <span class="k">return</span> <span class="n">_dense_num_jac</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">factor</span><span class="p">,</span> <span class="n">y_scale</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">319</span> <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">320</span>     <span class="n">structure</span><span class="p">,</span> <span class="n">groups</span> <span class="o">=</span> <span class="n">sparsity</span>
-
-<span class="nn">File ~/.local/lib/python3.11/site-packages/scipy/integrate/_ivp/common.py:328,</span> in <span class="ni">_dense_num_jac</span><span class="nt">(fun, t, y, f, h, factor, y_scale)</span>
-<span class="g g-Whitespace">    </span><span class="mi">326</span> <span class="n">n</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="g g-Whitespace">    </span><span class="mi">327</span> <span class="n">h_vecs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">328</span> <span class="n">f_new</span> <span class="o">=</span> <span class="n">fun</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">+</span> <span class="n">h_vecs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">329</span> <span class="n">diff</span> <span class="o">=</span> <span class="n">f_new</span> <span class="o">-</span> <span class="n">f</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span>
-<span class="g g-Whitespace">    </span><span class="mi">330</span> <span class="n">max_ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">diff</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-
-<span class="nn">File ~/.local/lib/python3.11/site-packages/scipy/integrate/_ivp/base.py:133,</span> in <span class="ni">OdeSolver.__init__.&lt;locals&gt;.fun_vectorized</span><span class="nt">(t, y)</span>
-<span class="g g-Whitespace">    </span><span class="mi">131</span> <span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">132</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">yi</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">T</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">133</span>     <span class="n">f</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fun</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">yi</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">134</span> <span class="k">return</span> <span class="n">f</span>
-
-<span class="nn">File ~/.local/lib/python3.11/site-packages/scipy/integrate/_ivp/base.py:20,</span> in <span class="ni">check_arguments.&lt;locals&gt;.fun_wrapped</span><span class="nt">(t, y)</span>
-<span class="g g-Whitespace">     </span><span class="mi">19</span> <span class="k">def</span> <span class="nf">fun_wrapped</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
-<span class="ne">---&gt; </span><span class="mi">20</span>     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">fun</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
-
-<span class="nn">Cell In[26], line 16,</span> in <span class="ni">dt_w_dt</span><span class="nt">(t, vec_T_w)</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="n">thermConduct</span> <span class="o">=</span> <span class="n">fc_lambda_w</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="n">deltapv</span> <span class="o">=</span> <span class="n">fc_deltapv_T</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">T</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">16</span> <span class="n">pvap</span> <span class="o">=</span> <span class="n">fc_psat_T</span><span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="o">*</span> <span class="n">phi</span> <span class="o">/</span><span class="mi">100</span>
-<span class="g g-Whitespace">     </span><span class="mi">18</span> <span class="n">delta_T</span> <span class="o">=</span>  <span class="p">(</span><span class="n">thermConduct</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">K</span><span class="p">,</span><span class="n">T</span><span class="p">)</span> <span class="o">+</span>  <span class="n">deltapv</span> <span class="o">*</span> <span class="n">Lv</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">pvap</span><span class="p">)</span> <span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">c</span><span class="o">*</span><span class="n">rho</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span> <span class="n">delta_w</span> <span class="o">=</span>  <span class="n">deltapv</span> <span class="o">*</span>  <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">pvap</span><span class="p">)</span> 
-
-<span class="nn">Cell In[9], line 4,</span> in <span class="ni">fc_psat_T</span><span class="nt">(T)</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="k">def</span> <span class="nf">fc_psat_T</span> <span class="p">(</span><span class="n">T</span><span class="p">):</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span>     <span class="c1">#    return 610.5 * np.exp( 17.269*T / (237.3+T)) # T&gt;0</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span>     <span class="c1">#    return 610.5 * np.exp( 21.875*T / (265.5+T)) # T&lt;0</span>
-<span class="ne">----&gt; </span><span class="mi">4</span>     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">7.625</span><span class="o">*</span><span class="n">T</span><span class="o">/</span><span class="p">(</span><span class="mi">241</span><span class="o">+</span><span class="n">T</span><span class="p">)</span><span class="o">+</span><span class="mf">2.7877</span><span class="p">)</span>
-
-<span class="ne">KeyboardInterrupt</span>: 
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -957,7 +894,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fd9a4903310&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fd073f42550&gt;
 </pre></div>
 </div>
 <img alt="_images/689994fb9619ad0074a7d6d362faa07a0908799478eadb1b6feb063b59f26f8b.png" src="_images/689994fb9619ad0074a7d6d362faa07a0908799478eadb1b6feb063b59f26f8b.png" />
@@ -984,7 +921,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fd9a497ef50&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fd073f9b990&gt;
 </pre></div>
 </div>
 <img alt="_images/b551fa0df81b5d88e6b035d50ec5c6104b5dc58c58ab2134dcff8ba3e024892f.png" src="_images/b551fa0df81b5d88e6b035d50ec5c6104b5dc58c58ab2134dcff8ba3e024892f.png" />
@@ -1007,7 +944,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fd9a46dce90&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fd073e13410&gt;
 </pre></div>
 </div>
 <img alt="_images/a0089e68f393d66fb5814a2fb1fd967269a859b45aefce0f938d14badcc81230.png" src="_images/a0089e68f393d66fb5814a2fb1fd967269a859b45aefce0f938d14badcc81230.png" />
@@ -1028,7 +965,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fd9a493f490&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fd073da2a50&gt;
 </pre></div>
 </div>
 <img alt="_images/98bfe0cee29652b5b75cd1560167a976f0cbe7310eb0c2416a506558fca5e4ef.png" src="_images/98bfe0cee29652b5b75cd1560167a976f0cbe7310eb0c2416a506558fca5e4ef.png" />
