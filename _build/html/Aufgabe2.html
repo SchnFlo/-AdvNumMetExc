@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Exercise 2 - Conduction and Convection with RC-Networks! &#8212; Advanced Numerical Methods in Building Science - Exercise</title>
+    <title>Exercise 2 - Conduction and Convection with RC-Networks &#8212; Advanced Numerical Methods in Building Science - Exercise</title>
   
   
   
@@ -160,7 +160,7 @@ const thebe_selector_output = ".output, .cell_output"
         </ul>
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="Aufgabe1.html">Exercise 1 - Heat Conduction with multiple layers and variable properties</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Exercise 2 - Conduction and Convection with RC-Networks!</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Exercise 2 - Conduction and Convection with RC-Networks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Aufgabe3.html">Exercise 4 - Coupled Simulation of latent heat effects</a></li>
 </ul>
 
@@ -345,7 +345,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Exercise 2 - Conduction and Convection with RC-Networks!</h1>
+    <h1>Exercise 2 - Conduction and Convection with RC-Networks</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -363,18 +363,18 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#class-definition">Class definition</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#construction-of-the-node-convection-and-conduction-objects">Construction of the node, convection and conduction objects</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variant-1-without-convection">Variant 1 - without convection</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#construction-of-the-k-matrix-and-the-boundary-vector-i-0">Construction of the <span class="math notranslate nohighlight">\(K\)</span> matrix and the boundary vector <span class="math notranslate nohighlight">\(I_0\)</span></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-the-temperature-field">Calculating the temperature field</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-results">Plot the Results</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variant-1-without-convection">Variant 1 - without convection</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#construction-of-the-k-matrix-and-the-boundary-vector-i-0">Construction of the <span class="math notranslate nohighlight">\(K\)</span> matrix and the boundary vector <span class="math notranslate nohighlight">\(I_0\)</span></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-the-temperature-field">Calculating the temperature field</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-results">Plot the Results</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variant-2-without-convection">Variant 2 - without convection</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#alteration-of-the-k-matrix-and-the-boundary-vector-i-0">Alteration of the <span class="math notranslate nohighlight">\(K\)</span> matrix and the boundary vector <span class="math notranslate nohighlight">\(I_0\)</span></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Calculating the temperature field</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Plot the Results</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variant-2-without-convection">Variant 2 - without convection</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#alteration-of-the-k-matrix-and-the-boundary-vector-i-0">Alteration of the <span class="math notranslate nohighlight">\(K\)</span> matrix and the boundary vector <span class="math notranslate nohighlight">\(I_0\)</span></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Calculating the temperature field</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Plot the Results</a></li>
 </ul>
 </li>
 </ul>
@@ -391,23 +391,23 @@ document.write(`
   <body>
     <font size="2">Florian Schnabel, 11807470, SS 2023</font><br />
 </body><section class="tex2jax_ignore mathjax_ignore" id="exercise-2-conduction-and-convection-with-rc-networks">
-<h1>Exercise 2 - Conduction and Convection with RC-Networks!<a class="headerlink" href="#exercise-2-conduction-and-convection-with-rc-networks" title="Permalink to this heading">#</a></h1>
-<p>This script aims to calculate the temperatures of an arbitrary number of nodes in a steady state. The nodes themselves are connected through conductances representing convection and thermal heat transfer <a class="reference internal" href="#fig-rc-networks"><span class="std std-numref">Fig. 2</span></a>.</p>
+<h1>Exercise 2 - Conduction and Convection with RC-Networks<a class="headerlink" href="#exercise-2-conduction-and-convection-with-rc-networks" title="Permalink to this heading">#</a></h1>
+<p>This script aims to calculate the temperatures of an arbitrary number of nodes in a steady state. The script takes heatflows as a result of conduction, convection and heatsources into account <a class="reference internal" href="#fig-rc-networks"><span class="std std-numref">Fig. 2</span></a>.</p>
 <figure class="align-default" id="fig-rc-networks">
 <a class="reference internal image-reference" href="_images/RC-Networks.png"><img alt="_images/RC-Networks.png" src="_images/RC-Networks.png" style="width: 350px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Conveductance network with three nodes <span id="id1">[<a class="reference internal" href="Aufgabe3.html#id4" title="Carl-Eric Hagentoft. Introduction to building physics. Studentlitteratur, Lund, 2001. URL: https://buildingphysicshagentoft.com/text-books/introduction-to-building-physics/.">2</a>]</span></span><a class="headerlink" href="#fig-rc-networks" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Conveductance network with three nodes <span id="id1">[]</span></span><a class="headerlink" href="#fig-rc-networks" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <section id="fundamentals">
 <h2>Fundamentals<a class="headerlink" href="#fundamentals" title="Permalink to this heading">#</a></h2>
 <section id="conservation">
 <h3>Conservation<a class="headerlink" href="#conservation" title="Permalink to this heading">#</a></h3>
-<p>As this application aims to calculate a steady state, the formulation of conservation of energy inside nodes can be simplified to</p>
+<p>As this application aims to calculate a steady state, the formulation of conservation of energy inside nodes can be simplified as follows <span id="id2">[]</span>:</p>
 <div class="math notranslate nohighlight" id="equation-gl-heatbalance">
 <span class="eqno">(7)<a class="headerlink" href="#equation-gl-heatbalance" title="Permalink to this equation">#</a></span>\[\sum\limits Q_i = \sum\limits_{j=1}^{j=n}K_{j,i} \cdot (T_j - T_i) + I_{0,i} = 0\]</div>
 <p>or in matrix notation:
-$<span class="math notranslate nohighlight">\(\sum\limits Q = K \cdot T + I_{0} = 0\)</span>$ (gl:heatbalance)
+$<span class="math notranslate nohighlight">\(\sum\limits Q = K \cdot T + I_{0} = 0\)</span>$ (gl:heatbalance_matr)
 with:</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(K_{i,j}\ \dots\)</span> Conductivity Matrix</p></li>
@@ -419,8 +419,8 @@ with:</p>
 <section id="conductivity-convection-and-conveductance">
 <h3>Conductivity, Convection and Conveductance<a class="headerlink" href="#conductivity-convection-and-conveductance" title="Permalink to this heading">#</a></h3>
 <p>To solve the heat balance equations for a three node system (connected to eachother), a conductancy matrix in the following form can be used:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split} K = \left [ 
+<div class="math notranslate nohighlight" id="equation-gl-cond-matr">
+<span class="eqno">(8)<a class="headerlink" href="#equation-gl-cond-matr" title="Permalink to this equation">#</a></span>\[\begin{split} K = \left [ 
 \begin{array}{ccccccc}
     -K_1 &amp; K_{12} &amp; K_{13} \\
     K_{21} &amp; -K_2 &amp; K_{23} \\
@@ -430,9 +430,9 @@ with:</p>
 <p>If only conductance is taken into account the conductivities in the diagonal result in the negative sum of the conductivities to all connected nodes and boundaries:</p>
 <div class="math notranslate nohighlight" id="equation-gl-diagoconduct">
 <span class="eqno">(9)<a class="headerlink" href="#equation-gl-diagoconduct" title="Permalink to this equation">#</a></span>\[ K_1 = K_{0,1} + K_{12} + K_{13} \]</div>
-<p>Taking convection into account (often reffered to as conveductances <span id="id2">[<a class="reference internal" href="Aufgabe3.html#id4" title="Carl-Eric Hagentoft. Introduction to building physics. Studentlitteratur, Lund, 2001. URL: https://buildingphysicshagentoft.com/text-books/introduction-to-building-physics/.">2</a>]</span>) adds a dependency on direction to the conductances. Therefore <span class="math notranslate nohighlight">\(K_{ij} \neq K_{ji}\)</span>. For the three node system {eq} <code class="docutils literal notranslate"><span class="pre">gl:diagoconduct</span></code> remains true, but the now directional conveductances can be further split up:</p>
-<div class="math notranslate nohighlight" id="equation-gl-diagoconduct">
-<span class="eqno">(9)<a class="headerlink" href="#equation-gl-diagoconduct" title="Permalink to this equation">#</a></span>\[ K_{12} =  K_{12}^* +  K_{12}^a \qquad \text{and} \qquad  K_{21} =  K_{12}^* +  K_{12}^a \]</div>
+<p>Taking convection into account (often reffered to as conveductances <span id="id3">[]</span>) adds a dependency on direction to the conductances. Therefore <span class="math notranslate nohighlight">\(K_{ij} \neq K_{ji}\)</span>. For the three node system {eq} <code class="docutils literal notranslate"><span class="pre">gl:diagoconduct</span></code> remains true, but the now directional conveductances can be further split up:</p>
+<div class="math notranslate nohighlight" id="equation-gl-offdiagoconduct">
+<span class="eqno">(10)<a class="headerlink" href="#equation-gl-offdiagoconduct" title="Permalink to this equation">#</a></span>\[ K_{12} =  K_{12}^* +  K_{12}^a \qquad \text{and} \qquad  K_{21} =  K_{12}^* +  K_{12}^a \]</div>
 <p>with:</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(K_{i,j}\ \dots\)</span> conveductance from <span class="math notranslate nohighlight">\(i\)</span> to <span class="math notranslate nohighlight">\(j\)</span></p></li>
@@ -440,10 +440,10 @@ with:</p>
 <li><p><span class="math notranslate nohighlight">\(K_{i,j}^a\ \dots\)</span> convection interpreted as conduction as a result of airflow from <span class="math notranslate nohighlight">\(i\)</span> to <span class="math notranslate nohighlight">\(j\)</span></p></li>
 </ul>
 <p>The heatflow as a result of convection can be descriped by the product of the energy carried by the air and the massflow of the air.</p>
-<div class="math notranslate nohighlight">
-\[Q = E \cdot \dot{M}= c_a T \dot{M}  \qquad \text{and} \qquad  Q = KT\]</div>
-<div class="math notranslate nohighlight">
-\[\Longrightarrow K^a = c_a \cdot \dot{M}\]</div>
+<div class="math notranslate nohighlight" id="equation-gl-energy1">
+<span class="eqno">(11)<a class="headerlink" href="#equation-gl-energy1" title="Permalink to this equation">#</a></span>\[Q = E \cdot \dot{M}= c_a T \dot{M}  \qquad \text{and} \qquad  Q = KT\]</div>
+<div class="math notranslate nohighlight" id="equation-gl-energy2">
+<span class="eqno">(12)<a class="headerlink" href="#equation-gl-energy2" title="Permalink to this equation">#</a></span>\[\Longrightarrow K^a = c_a \cdot \dot{M}\]</div>
 </section>
 </section>
 <section id="implementation">
@@ -570,11 +570,10 @@ with:</p>
 </div>
 </div>
 </section>
-</section>
 <section id="variant-1-without-convection">
-<h2>Variant 1 - without convection<a class="headerlink" href="#variant-1-without-convection" title="Permalink to this heading">#</a></h2>
+<h3>Variant 1 - without convection<a class="headerlink" href="#variant-1-without-convection" title="Permalink to this heading">#</a></h3>
 <section id="construction-of-the-k-matrix-and-the-boundary-vector-i-0">
-<h3>Construction of the <span class="math notranslate nohighlight">\(K\)</span> matrix and the boundary vector <span class="math notranslate nohighlight">\(I_0\)</span><a class="headerlink" href="#construction-of-the-k-matrix-and-the-boundary-vector-i-0" title="Permalink to this heading">#</a></h3>
+<h4>Construction of the <span class="math notranslate nohighlight">\(K\)</span> matrix and the boundary vector <span class="math notranslate nohighlight">\(I_0\)</span><a class="headerlink" href="#construction-of-the-k-matrix-and-the-boundary-vector-i-0" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># reference number of nodes to increase readability</span>
@@ -622,7 +621,7 @@ with:</p>
 </div>
 </section>
 <section id="calculating-the-temperature-field">
-<h3>Calculating the temperature field<a class="headerlink" href="#calculating-the-temperature-field" title="Permalink to this heading">#</a></h3>
+<h4>Calculating the temperature field<a class="headerlink" href="#calculating-the-temperature-field" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">K</span><span class="p">,</span><span class="o">-</span><span class="n">I0</span><span class="p">)</span>
@@ -632,7 +631,7 @@ with:</p>
 </div>
 </section>
 <section id="plot-the-results">
-<h3>Plot the Results<a class="headerlink" href="#plot-the-results" title="Permalink to this heading">#</a></h3>
+<h4>Plot the Results<a class="headerlink" href="#plot-the-results" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">=</span> <span class="p">[]</span>
@@ -666,9 +665,9 @@ with:</p>
 </section>
 </section>
 <section id="variant-2-without-convection">
-<h2>Variant 2 - without convection<a class="headerlink" href="#variant-2-without-convection" title="Permalink to this heading">#</a></h2>
+<h3>Variant 2 - without convection<a class="headerlink" href="#variant-2-without-convection" title="Permalink to this heading">#</a></h3>
 <section id="alteration-of-the-k-matrix-and-the-boundary-vector-i-0">
-<h3>Alteration of the <span class="math notranslate nohighlight">\(K\)</span> matrix and the boundary vector <span class="math notranslate nohighlight">\(I_0\)</span><a class="headerlink" href="#alteration-of-the-k-matrix-and-the-boundary-vector-i-0" title="Permalink to this heading">#</a></h3>
+<h4>Alteration of the <span class="math notranslate nohighlight">\(K\)</span> matrix and the boundary vector <span class="math notranslate nohighlight">\(I_0\)</span><a class="headerlink" href="#alteration-of-the-k-matrix-and-the-boundary-vector-i-0" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
@@ -682,8 +681,8 @@ with:</p>
 </div>
 </div>
 </section>
-<section id="id3">
-<h3>Calculating the temperature field<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
+<section id="id4">
+<h4>Calculating the temperature field<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">K</span><span class="p">,</span><span class="o">-</span><span class="n">I0</span><span class="p">)</span>
@@ -692,8 +691,8 @@ with:</p>
 </div>
 </div>
 </section>
-<section id="id4">
-<h3>Plot the Results<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
+<section id="id5">
+<h4>Plot the Results<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">=</span> <span class="p">[]</span>
@@ -727,6 +726,7 @@ with:</p>
 <img alt="_images/bd6eba7e4714a394efc285621a590a6ad2628a57a058e3232613213259185387.png" src="_images/bd6eba7e4714a394efc285621a590a6ad2628a57a058e3232613213259185387.png" />
 </div>
 </div>
+</section>
 </section>
 </section>
 </section>
@@ -806,18 +806,18 @@ with:</p>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#class-definition">Class definition</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#construction-of-the-node-convection-and-conduction-objects">Construction of the node, convection and conduction objects</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variant-1-without-convection">Variant 1 - without convection</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#construction-of-the-k-matrix-and-the-boundary-vector-i-0">Construction of the <span class="math notranslate nohighlight">\(K\)</span> matrix and the boundary vector <span class="math notranslate nohighlight">\(I_0\)</span></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-the-temperature-field">Calculating the temperature field</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-results">Plot the Results</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variant-1-without-convection">Variant 1 - without convection</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#construction-of-the-k-matrix-and-the-boundary-vector-i-0">Construction of the <span class="math notranslate nohighlight">\(K\)</span> matrix and the boundary vector <span class="math notranslate nohighlight">\(I_0\)</span></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-the-temperature-field">Calculating the temperature field</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plot-the-results">Plot the Results</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variant-2-without-convection">Variant 2 - without convection</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#alteration-of-the-k-matrix-and-the-boundary-vector-i-0">Alteration of the <span class="math notranslate nohighlight">\(K\)</span> matrix and the boundary vector <span class="math notranslate nohighlight">\(I_0\)</span></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Calculating the temperature field</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Plot the Results</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variant-2-without-convection">Variant 2 - without convection</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#alteration-of-the-k-matrix-and-the-boundary-vector-i-0">Alteration of the <span class="math notranslate nohighlight">\(K\)</span> matrix and the boundary vector <span class="math notranslate nohighlight">\(I_0\)</span></a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Calculating the temperature field</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Plot the Results</a></li>
 </ul>
 </li>
 </ul>

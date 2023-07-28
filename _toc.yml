@@ -4,6 +4,7 @@
 format: jb-article
 root: intro
 sections:
-- file: Aufgabe1.ipynb
-- file: Aufgabe2.ipynb
-- file: Aufgabe3.ipynb
+  - file: Aufgabe1.ipynb
+  - file: Aufgabe2.ipynb
+  - file: Aufgabe3.ipynb
+  - file: References.ipynb
