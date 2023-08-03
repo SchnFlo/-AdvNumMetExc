@@ -391,32 +391,32 @@ document.write(`
 <p><span class="caption-number">Fig. 3 </span><span class="caption-text">Multi-layered building component and discretisation requirements [excersise Description]</span><a class="headerlink" href="#fig-multilaycompex2" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>Unlike in the version shown in <a class="reference internal" href="Aufgabe1.html#sec-ex1"><span class="std std-ref">Exercise 1</span></a> the following restrictions introduced, to reduce the complexity of the coupled problem.</p>
+<p>In difference to the version shown in <a class="reference internal" href="Aufgabe1.html#sec-ex1"><span class="std std-ref">Exercise 1</span></a> the following restrictions are introduced to reduce the complexity of the coupled problem:</p>
 <ul class="simple">
-<li><p>the script is only aplicable to mineral wool</p></li>
-<li><p>both density and heatcapacity will be kept constant</p></li>
-<li><p>for the heat conductivity and the vapor diffusion coefficient are linear functions</p></li>
+<li><p>the script is only applicable to mineral wool</p></li>
+<li><p>both density and heatcapacity are assumed constant</p></li>
+<li><p>heat conductivity and vapor diffusion coefficient are described by a linear relation</p></li>
 </ul>
 <section id="balance-equations">
 <h2>Balance Equations<a class="headerlink" href="#balance-equations" title="Permalink to this heading">#</a></h2>
-<p>To consider the latent heat effect the time derivative of the Temperaturefield (seen in <code class="xref eq docutils literal notranslate"><span class="pre">gl:heatflow</span></code>) is expandend by the moisture induced pressure field.  The equation for heat conduction including latent heat effect is shown in <a class="reference internal" href="#equation-gl-heatmoist2">(13)</a>:</p>
+<p>To consider the latent heat effect the time derivative of the Temperaturefield seen in <a class="reference internal" href="Aufgabe1.html#equation-heatflow">(1)</a> is expandend by the moisture induced pressure field.  The equation for heat conduction including latent heat is shown in <a class="reference internal" href="#equation-gl-heatmoist2">(14)</a>:</p>
 <div class="math notranslate nohighlight" id="equation-gl-heatmoist2">
-<span class="eqno">(13)<a class="headerlink" href="#equation-gl-heatmoist2" title="Permalink to this equation">#</a></span>\[\rho \cdot c \cdot \frac{dT}{dt} = \nabla (\lambda \nabla T + L_v \delta_v \nabla p_{vap}) \]</div>
-<p>The introduced moisture field is defined by the balance euqation for moisture transport (<code class="xref eq docutils literal notranslate"><span class="pre">gl:moist</span></code>):</p>
-<div class="math notranslate nohighlight">
-\[ \frac{dw}{dt} =  \nabla (\delta_v \nabla p_{vap}) \]</div>
+<span class="eqno">(14)<a class="headerlink" href="#equation-gl-heatmoist2" title="Permalink to this equation">#</a></span>\[\rho \cdot c \cdot \frac{dT}{dt} = \nabla (\lambda \nabla T + L_v \delta_v \nabla p_{vap}) \]</div>
+<p>The introduced moisture field is defined by the balance euqation for moisture transport <a class="reference internal" href="#equation-gl-moist">(15)</a>:</p>
+<div class="math notranslate nohighlight" id="equation-gl-moist">
+<span class="eqno">(15)<a class="headerlink" href="#equation-gl-moist" title="Permalink to this equation">#</a></span>\[ \frac{dw}{dt} =  \nabla (\delta_v \nabla p_{vap}) \]</div>
 </section>
 <section id="space-discretisation">
 <h2>Space discretisation<a class="headerlink" href="#space-discretisation" title="Permalink to this heading">#</a></h2>
-<p>The discretisation of ({eq}gl:heatmoist) and ({eq}gl:moist) is done similar to section <a class="reference internal" href="Aufgabe1.html#sec-ex1"><span class="std std-ref">Exercise 1</span></a> using the finite volume method and a representation as RC-Networks. Evaluating for a cell P surrounded by a cell to the east and west results in (<a class="reference internal" href="#equation-gl-heatmoistdis">(16)</a>) and (<a class="reference internal" href="#equation-gl-moistdis">(15)</a>):</p>
+<p>The discretisation of {eq}gl:heatmoist and {eq}gl:moist is done similar to section <a class="reference internal" href="Aufgabe1.html#sec-ex1"><span class="std std-ref">Exercise 1</span></a> using the finite volume method and a representation as RC-Networks. Evaluating for a cell P surrounded by a cell to the east and west results in <a class="reference internal" href="#equation-gl-heatmoistdis">(18)</a> and <a class="reference internal" href="#equation-gl-moistdis">(17)</a>:</p>
 <div class="math notranslate nohighlight" id="equation-gl-heatmoistdis">
-<span class="eqno">(16)<a class="headerlink" href="#equation-gl-heatmoistdis" title="Permalink to this equation">#</a></span>\[\rho \cdot c \cdot \frac{T^{n+1}_P - T^n_P  }{\Delta t} = \frac{\lambda \cdot ( T^n_E - 2T^n_P + T^n_W) }{\Delta x^2} + \frac{L_v \cdot \delta_v \cdot ( p_{vap,E}^n - 2 p_{vap,P}^n +  p_{vap,W}^n) }{\Delta x^2} \]</div>
+<span class="eqno">(18)<a class="headerlink" href="#equation-gl-heatmoistdis" title="Permalink to this equation">#</a></span>\[\rho \cdot c \cdot \frac{T^{n+1}_P - T^n_P  }{\Delta t} = \frac{\lambda \cdot ( T^n_E - 2T^n_P + T^n_W) }{\Delta x^2} + \frac{L_v \cdot \delta_v \cdot ( p_{vap,E}^n - 2 p_{vap,P}^n +  p_{vap,W}^n) }{\Delta x^2} \]</div>
 <div class="math notranslate nohighlight" id="equation-gl-moistdis">
-<span class="eqno">(15)<a class="headerlink" href="#equation-gl-moistdis" title="Permalink to this equation">#</a></span>\[\frac{w_{P}^{n+1} - w_{P}^n }{\Delta t} =\frac{\delta_v \cdot ( p_{vap,E}^n - 2 p_{vap,P}^n +  p_{vap,W}^n) }{\Delta x^2} \]</div>
+<span class="eqno">(17)<a class="headerlink" href="#equation-gl-moistdis" title="Permalink to this equation">#</a></span>\[\frac{w_{P}^{n+1} - w_{P}^n }{\Delta t} =\frac{\delta_v \cdot ( p_{vap,E}^n - 2 p_{vap,P}^n +  p_{vap,W}^n) }{\Delta x^2} \]</div>
 <p>or written in matrix notation:</p>
 <div class="math notranslate nohighlight" id="equation-gl-heatmoistdis">
-<span class="eqno">(16)<a class="headerlink" href="#equation-gl-heatmoistdis" title="Permalink to this equation">#</a></span>\[\rho \cdot c \cdot \frac{T^{n+1}_P - T^n_P  }{\Delta t} = \lambda  \cdot K \cdot T + L_v \cdot \delta_v  \cdot M \cdot p_{vap} \]</div>
-<p>Unlike in the version shown in <a class="reference internal" href="Aufgabe1.html#sec-ex1"><span class="std std-ref">Exercise 1</span></a> the conductivity is not included in the <span class="math notranslate nohighlight">\(K\)</span> matrix. This leads to a constant conductivity matrix, at the cost of an error at the surface resistance. The conductivity matrix K can therefore be Written as follows:</p>
+<span class="eqno">(18)<a class="headerlink" href="#equation-gl-heatmoistdis" title="Permalink to this equation">#</a></span>\[\rho \cdot c \cdot \frac{T^{n+1}_P - T^n_P  }{\Delta t} = \lambda  \cdot K \cdot T + L_v \cdot \delta_v  \cdot M \cdot p_{vap} \]</div>
+<p>Unlike in the version shown in <a class="reference internal" href="Aufgabe1.html#sec-ex1"><span class="std std-ref">Exercise 1</span></a> the conductivity is not included in the <span class="math notranslate nohighlight">\(K\)</span> matrix. This leads to a constant conductivity matrix, at the cost of an error at the surface resistance. The conductivity matrix K can therefore be written as follows:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split} K = \left [ 
 \begin{array}{ccccccc}
@@ -451,7 +451,7 @@ document.write(`
 </section>
 <section id="time-integration">
 <h2>Time Integration<a class="headerlink" href="#time-integration" title="Permalink to this heading">#</a></h2>
-<p>The integration will be achieved bay using a solver from the <strong>scipy</strong> library.</p>
+<p>The integration will be achieved by the use of a solver from the <strong>scipy</strong> library.</p>
 </section>
 <section id="implementation">
 <h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this heading">#</a></h2>
@@ -664,7 +664,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fd073e27f50&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f90781f6510&gt;]
 </pre></div>
 </div>
 <img alt="_images/567b0bca15cbfdfd2cc947f27b4a81cd6729fc38c0c6613731f45cb541542c46.png" src="_images/567b0bca15cbfdfd2cc947f27b4a81cd6729fc38c0c6613731f45cb541542c46.png" />
@@ -682,7 +682,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fd073e42210&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f90780c8650&gt;]
 </pre></div>
 </div>
 <img alt="_images/b0b43d8a49d7306d0cb361e698e62044a404005afbecbd7c153aa61849a35222.png" src="_images/b0b43d8a49d7306d0cb361e698e62044a404005afbecbd7c153aa61849a35222.png" />
@@ -894,7 +894,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fd073f42550&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f907816a490&gt;
 </pre></div>
 </div>
 <img alt="_images/689994fb9619ad0074a7d6d362faa07a0908799478eadb1b6feb063b59f26f8b.png" src="_images/689994fb9619ad0074a7d6d362faa07a0908799478eadb1b6feb063b59f26f8b.png" />
@@ -921,7 +921,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fd073f9b990&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f9073c56690&gt;
 </pre></div>
 </div>
 <img alt="_images/b551fa0df81b5d88e6b035d50ec5c6104b5dc58c58ab2134dcff8ba3e024892f.png" src="_images/b551fa0df81b5d88e6b035d50ec5c6104b5dc58c58ab2134dcff8ba3e024892f.png" />
@@ -944,7 +944,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fd073e13410&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f9073e08e90&gt;
 </pre></div>
 </div>
 <img alt="_images/a0089e68f393d66fb5814a2fb1fd967269a859b45aefce0f938d14badcc81230.png" src="_images/a0089e68f393d66fb5814a2fb1fd967269a859b45aefce0f938d14badcc81230.png" />
@@ -965,7 +965,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7fd073da2a50&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f9073e91890&gt;
 </pre></div>
 </div>
 <img alt="_images/98bfe0cee29652b5b75cd1560167a976f0cbe7310eb0c2416a506558fca5e4ef.png" src="_images/98bfe0cee29652b5b75cd1560167a976f0cbe7310eb0c2416a506558fca5e4ef.png" />
