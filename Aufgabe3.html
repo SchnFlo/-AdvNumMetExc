@@ -384,7 +384,7 @@ document.write(`
     <font size="2">Florian Schnabel, 11807470, SS 2023</font><br />
 </body><section class="tex2jax_ignore mathjax_ignore" id="exercise-4-coupled-simulation-of-latent-heat-effects">
 <h1>Exercise 4 - Coupled Simulation of latent heat effects<a class="headerlink" href="#exercise-4-coupled-simulation-of-latent-heat-effects" title="Permalink to this heading">#</a></h1>
-<p>This script is an extension of the script elaborated in <a class="reference internal" href="Aufgabe1.html#sec-ex1"><span class="std std-ref">Exercise 1</span></a>. It aims to calculate the temperature and moisture field across a multi-layered building component. Such a multi-layered building component is shown in <a class="reference internal" href="#fig-multilaycompex2"><span class="std std-numref">Fig. 3</span></a>.</p>
+<p>This script is an extension of the script elaborated in <a class="reference internal" href="Aufgabe1.html#sec-ex1"><span class="std std-ref">Exercise 1</span></a>. It aims to calculate the temperature and moisture field across a multi-layered building component. Such a multi-layered building component is shown in <code class="xref std std-numref docutils literal notranslate"><span class="pre">fig:multilayCompEx2</span></code>.</p>
 <figure class="align-default" id="fig-multilaycompex2">
 <a class="reference internal image-reference" href="_images/BuildingComponent.png"><img alt="_images/BuildingComponent.png" src="_images/BuildingComponent.png" style="width: 350px;" /></a>
 <figcaption>
@@ -399,16 +399,16 @@ document.write(`
 </ul>
 <section id="balance-equations">
 <h2>Balance Equations<a class="headerlink" href="#balance-equations" title="Permalink to this heading">#</a></h2>
-<p>To consider the latent heat effect the time derivative of the Temperaturefield seen in <a class="reference internal" href="Aufgabe1.html#equation-heatflow">(1)</a> is expandend by the moisture induced pressure field.  The equation for heat conduction including latent heat is shown in <a class="reference internal" href="#equation-gl-heatmoist2">(14)</a>:</p>
+<p>To consider the latent heat effect the time derivative of the Temperaturefield seen in <a class="reference internal" href="Aufgabe1.html#equation-heatflow">(1)</a> is expandend by the moisture induced pressure field.  The equation for heat conduction including latent heat is shown in <a class="reference internal" href="Aufgabe4.html#equation-gl-heatmoist2">()</a>:</p>
 <div class="math notranslate nohighlight" id="equation-gl-heatmoist2">
 <span class="eqno">(14)<a class="headerlink" href="#equation-gl-heatmoist2" title="Permalink to this equation">#</a></span>\[\rho \cdot c \cdot \frac{dT}{dt} = \nabla (\lambda \nabla T + L_v \delta_v \nabla p_{vap}) \]</div>
-<p>The introduced moisture field is defined by the balance euqation for moisture transport <a class="reference internal" href="#equation-gl-moist">(15)</a>:</p>
+<p>The introduced moisture field is defined by the balance euqation for moisture transport <a class="reference internal" href="Aufgabe4.html#equation-gl-moist">()</a>:</p>
 <div class="math notranslate nohighlight" id="equation-gl-moist">
 <span class="eqno">(15)<a class="headerlink" href="#equation-gl-moist" title="Permalink to this equation">#</a></span>\[ \frac{dw}{dt} =  \nabla (\delta_v \nabla p_{vap}) \]</div>
 </section>
 <section id="space-discretisation">
 <h2>Space discretisation<a class="headerlink" href="#space-discretisation" title="Permalink to this heading">#</a></h2>
-<p>The discretisation of {eq}gl:heatmoist and {eq}gl:moist is done similar to section <a class="reference internal" href="Aufgabe1.html#sec-ex1"><span class="std std-ref">Exercise 1</span></a> using the finite volume method and a representation as RC-Networks. Evaluating for a cell P surrounded by a cell to the east and west results in <a class="reference internal" href="#equation-gl-heatmoistdis">(18)</a> and <a class="reference internal" href="#equation-gl-moistdis">(17)</a>:</p>
+<p>The discretisation of {eq}gl:heatmoist and {eq}gl:moist is done similar to section <a class="reference internal" href="Aufgabe1.html#sec-ex1"><span class="std std-ref">Exercise 1</span></a> using the finite volume method and a representation as RC-Networks. Evaluating for a cell P surrounded by a cell to the east and west results in <a class="reference internal" href="Aufgabe4.html#equation-gl-heatmoistdis">()</a> and <a class="reference internal" href="Aufgabe4.html#equation-gl-moistdis">()</a>:</p>
 <div class="math notranslate nohighlight" id="equation-gl-heatmoistdis">
 <span class="eqno">(18)<a class="headerlink" href="#equation-gl-heatmoistdis" title="Permalink to this equation">#</a></span>\[\rho \cdot c \cdot \frac{T^{n+1}_P - T^n_P  }{\Delta t} = \frac{\lambda \cdot ( T^n_E - 2T^n_P + T^n_W) }{\Delta x^2} + \frac{L_v \cdot \delta_v \cdot ( p_{vap,E}^n - 2 p_{vap,P}^n +  p_{vap,W}^n) }{\Delta x^2} \]</div>
 <div class="math notranslate nohighlight" id="equation-gl-moistdis">
@@ -447,7 +447,7 @@ document.write(`
 \right] \end{split}\]</div>
 <div class="math notranslate nohighlight">
 \[ K_{BC,1} = K_{0.5} = \frac{1}{h_{v}  \cdot \Delta x \cdot \delta_v + 0.5 \cdot \Delta x^2} \]</div>
-<p>with the surface mass transfer coefficient <span class="math notranslate nohighlight">\(h_v = 3 \cdot 10^{-8}\ m/s\)</span>  <span id="id1">[<a class="reference internal" href="References.html#id2" title="E. Walther. Building Physics Applications in Python. DIY Spring, Paris, 2021.">3</a>]</span>.</p>
+<p>with the surface mass transfer coefficient <span class="math notranslate nohighlight">\(h_v = 3 \cdot 10^{-8}\ m/s\)</span>  <span id="id1">[<a class="reference internal" href="References.html#id2" title="E. Walther. Building Physics Applications in Python. DIY Spring, Paris, 2021.">4</a>]</span>.</p>
 </section>
 <section id="time-integration">
 <h2>Time Integration<a class="headerlink" href="#time-integration" title="Permalink to this heading">#</a></h2>
