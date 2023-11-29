@@ -159,15 +159,9 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../../Aufgabe1.html">Exercise 1 - Heat Conduction with multiple layers and variable properties</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Aufgabe2.html">Exercise 2 - Conduction and Convection with RC-Networks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../Aufgabe3.html">Exercise 4 - Coupled Simulation of latent heat effects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Aufgabe3.html">Exercise 3 - Coupled Simulation of latent heat effects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../Aufgabe4.html">Exercise 4 - Integration of liquid water transport</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../Aufgabe5.html">Construction of the System Matrix</a></li>
-
-
-
-
-
-
+<li class="toctree-l1"><a class="reference internal" href="../../Aufgabe5.html">Excersise 5  : Air flow through a rectangular-channel</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../References.html">References</a></li>
 </ul>
 
@@ -656,7 +650,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f84d4ce47d0&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fc2b6374cd0&gt;]
 </pre></div>
 </div>
 <img alt="../../_images/024fbf1733c64a41e5eb3b41ee4cf136c9d5a30ad1f655fa1fc8d5f6680fb645.png" src="../../_images/024fbf1733c64a41e5eb3b41ee4cf136c9d5a30ad1f655fa1fc8d5f6680fb645.png" />
@@ -674,7 +668,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f84d2b36e10&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fc2b603ba90&gt;]
 </pre></div>
 </div>
 <img alt="../../_images/4e31e8af99cf30f87a34e4dec3932de23eabf9ad50a47dd958bbcf8228ea96e6.png" src="../../_images/4e31e8af99cf30f87a34e4dec3932de23eabf9ad50a47dd958bbcf8228ea96e6.png" />
@@ -924,18 +918,19 @@ document.write(`
 <span class="g g-Whitespace">     </span><span class="mi">19</span> <span class="k">def</span> <span class="nf">fun_wrapped</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
 <span class="ne">---&gt; </span><span class="mi">20</span>     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">fun</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
 
-<span class="nn">Cell In[26], line 16,</span> in <span class="ni">dt_w_dt</span><span class="nt">(t, vec_T_w)</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="n">thermConduct</span> <span class="o">=</span> <span class="n">fc_lambda_w</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="n">deltapv</span> <span class="o">=</span> <span class="n">fc_deltapv_T</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">T</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">16</span> <span class="n">pvap</span> <span class="o">=</span> <span class="n">fc_psat_T</span><span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="o">*</span> <span class="n">phi</span> <span class="o">/</span><span class="mi">100</span>
+<span class="nn">Cell In[26], line 22,</span> in <span class="ni">dt_w_dt</span><span class="nt">(t, vec_T_w)</span>
 <span class="g g-Whitespace">     </span><span class="mi">18</span> <span class="n">delta_T</span> <span class="o">=</span>  <span class="p">(</span><span class="n">thermConduct</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">K</span><span class="p">,</span><span class="n">T</span><span class="p">)</span> <span class="o">+</span>  <span class="n">deltapv</span> <span class="o">*</span> <span class="n">Lv</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">pvap</span><span class="p">)</span> <span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">c</span><span class="o">*</span><span class="n">rho</span><span class="p">)</span>
 <span class="g g-Whitespace">     </span><span class="mi">20</span> <span class="n">delta_w</span> <span class="o">=</span>  <span class="n">deltapv</span> <span class="o">*</span>  <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">pvap</span><span class="p">)</span> 
+<span class="ne">---&gt; </span><span class="mi">22</span> <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">delta_T</span><span class="p">,</span><span class="n">delta_w</span><span class="p">)</span>
 
-<span class="nn">Cell In[9], line 1,</span> in <span class="ni">fc_psat_T</span><span class="nt">(T)</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="k">def</span> <span class="nf">fc_psat_T</span> <span class="p">(</span><span class="n">T</span><span class="p">):</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span>     <span class="c1">#    return 610.5 * np.exp( 17.269*T / (237.3+T)) # T&gt;0</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span>     <span class="c1">#    return 610.5 * np.exp( 21.875*T / (265.5+T)) # T&lt;0</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span>     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">7.625</span><span class="o">*</span><span class="n">T</span><span class="o">/</span><span class="p">(</span><span class="mi">241</span><span class="o">+</span><span class="n">T</span><span class="p">)</span><span class="o">+</span><span class="mf">2.7877</span><span class="p">)</span> <span class="c1"># Lehrbuch</span>
+<span class="nn">File &lt;__array_function__ internals&gt;:200,</span> in <span class="ni">append</span><span class="nt">(*args, **kwargs)</span>
+
+<span class="nn">File ~/.local/lib/python3.11/site-packages/numpy/lib/function_base.py:5499,</span> in <span class="ni">append</span><span class="nt">(arr, values, axis)</span>
+<span class="g g-Whitespace">   </span><span class="mi">5497</span>     <span class="n">values</span> <span class="o">=</span> <span class="n">ravel</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">5498</span>     <span class="n">axis</span> <span class="o">=</span> <span class="n">arr</span><span class="o">.</span><span class="n">ndim</span><span class="o">-</span><span class="mi">1</span>
+<span class="ne">-&gt; </span><span class="mi">5499</span> <span class="k">return</span> <span class="n">concatenate</span><span class="p">((</span><span class="n">arr</span><span class="p">,</span> <span class="n">values</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">)</span>
+
+<span class="nn">File &lt;__array_function__ internals&gt;:200,</span> in <span class="ni">concatenate</span><span class="nt">(*args, **kwargs)</span>
 
 <span class="ne">KeyboardInterrupt</span>: 
 </pre></div>

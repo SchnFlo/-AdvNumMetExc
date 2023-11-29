@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Construction of the System Matrix &#8212; Advanced Numerical Methods in Building Science - Exercise</title>
+    <title>Excersise 5 : Air flow through a rectangular-channel &#8212; Advanced Numerical Methods in Building Science - Exercise</title>
   
   
   
@@ -159,15 +159,9 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="Aufgabe1.html">Exercise 1 - Heat Conduction with multiple layers and variable properties</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Aufgabe2.html">Exercise 2 - Conduction and Convection with RC-Networks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Aufgabe3.html">Exercise 4 - Coupled Simulation of latent heat effects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Aufgabe3.html">Exercise 3 - Coupled Simulation of latent heat effects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Aufgabe4.html">Exercise 4 - Integration of liquid water transport</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Construction of the System Matrix</a></li>
-
-
-
-
-
-
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Excersise 5  : Air flow through a rectangular-channel</a></li>
 <li class="toctree-l1"><a class="reference internal" href="References.html">References</a></li>
 </ul>
 
@@ -352,7 +346,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Construction of the System Matrix</h1>
+    <h1>Excersise 5  : Air flow through a rectangular-channel</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -362,15 +356,14 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Construction of the System Matrix</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-state">Initial State</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#transport-coefficients">Transport coefficients</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-the-pressure-field">Solving the Pressure Field</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#velocity-field-and-averaging">Velocity field and averaging</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#comparision-to-analytical-solution">Comparision to Analytical Solution</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#convergence-study">Convergence study</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#construction-of-the-system-matrix">Construction of the System Matrix</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-state">Initial State</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transport-coefficients">Transport coefficients</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-the-pressure-field">Solving the Pressure Field</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#velocity-field-and-averaging">Velocity field and averaging</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparision-to-analytical-solution">Comparision to Analytical Solution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convergence-study">Convergence study</a></li>
 </ul>
-
             </nav>
         </div>
     </div>
@@ -381,7 +374,9 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article" role="main">
                   
-  <div class="cell docutils container">
+  <section class="tex2jax_ignore mathjax_ignore" id="excersise-5-air-flow-through-a-rectangular-channel">
+<h1>Excersise 5  : Air flow through a rectangular-channel<a class="headerlink" href="#excersise-5-air-flow-through-a-rectangular-channel" title="Permalink to this heading">#</a></h1>
+<div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -411,7 +406,7 @@ document.write(`
 </div>
 </div>
 <section id="construction-of-the-system-matrix">
-<h1>Construction of the System Matrix<a class="headerlink" href="#construction-of-the-system-matrix" title="Permalink to this heading">#</a></h1>
+<h2>Construction of the System Matrix<a class="headerlink" href="#construction-of-the-system-matrix" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">newSystemMatrix_nx_ny</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span><span class="n">ny</span><span class="p">,</span><span class="n">deltax</span><span class="p">,</span><span class="n">deltay</span><span class="p">):</span>
@@ -459,13 +454,13 @@ document.write(`
 <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">A</span> <span class="o">=</span> <span class="n">newSystemMatrix_nx_ny</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span><span class="n">ny</span><span class="p">,</span><span class="n">deltax</span><span class="p">,</span><span class="n">deltay</span><span class="p">)</span>
 
-<span class="nn">Cell In[4], line 22,</span> in <span class="ni">newSystemMatrix_nx_ny</span><span class="nt">(nx, ny, deltax, deltay)</span>
+<span class="nn">Cell In[4], line 19,</span> in <span class="ni">newSystemMatrix_nx_ny</span><span class="nt">(nx, ny, deltax, deltay)</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="n">A</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">#Right</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">nx</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span>     <span class="c1">#First cell of each row</span>
+<span class="ne">---&gt; </span><span class="mi">19</span>     <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="n">nx</span><span class="p">,:]</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="g g-Whitespace">     </span><span class="mi">20</span>     <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="n">nx</span><span class="p">,</span><span class="n">i</span><span class="o">*</span><span class="n">nx</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="g g-Whitespace">     </span><span class="mi">21</span>     <span class="c1">#Last cell of each row</span>
-<span class="ne">---&gt; </span><span class="mi">22</span>     <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="n">nx</span><span class="o">+</span><span class="n">nx</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="g g-Whitespace">     </span><span class="mi">23</span>     <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="n">nx</span><span class="o">+</span><span class="n">nx</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="o">*</span><span class="n">nx</span><span class="o">+</span><span class="n">nx</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="c1">#Neumann</span>
-<span class="g g-Whitespace">     </span><span class="mi">25</span> <span class="c1">#A[range(nx,nx*2),range(0,nx)]*=2 #Bottom </span>
 
 <span class="nn">File ~/.local/lib/python3.11/site-packages/scipy/sparse/_lil.py:331,</span> in <span class="ni">lil_matrix.__setitem__</span><span class="nt">(self, key, x)</span>
 <span class="g g-Whitespace">    </span><span class="mi">329</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_set_intXint</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">key</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="p">)</span>
@@ -491,7 +486,7 @@ document.write(`
 </div>
 </section>
 <section id="initial-state">
-<h1>Initial State<a class="headerlink" href="#initial-state" title="Permalink to this heading">#</a></h1>
+<h2>Initial State<a class="headerlink" href="#initial-state" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">newPinit</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span><span class="n">ny</span><span class="p">,</span><span class="n">Pbcr</span><span class="p">,</span><span class="n">Pbcl</span><span class="p">):</span>
@@ -513,7 +508,7 @@ document.write(`
 </div>
 </section>
 <section id="transport-coefficients">
-<h1>Transport coefficients<a class="headerlink" href="#transport-coefficients" title="Permalink to this heading">#</a></h1>
+<h2>Transport coefficients<a class="headerlink" href="#transport-coefficients" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#height of the channel</span>
@@ -527,7 +522,7 @@ document.write(`
 </div>
 </section>
 <section id="solving-the-pressure-field">
-<h1>Solving the Pressure Field<a class="headerlink" href="#solving-the-pressure-field" title="Permalink to this heading">#</a></h1>
+<h2>Solving the Pressure Field<a class="headerlink" href="#solving-the-pressure-field" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">solveP</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span><span class="n">ny</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">P_init</span><span class="p">):</span>
@@ -550,7 +545,7 @@ document.write(`
 </div>
 </section>
 <section id="velocity-field-and-averaging">
-<h1>Velocity field and averaging<a class="headerlink" href="#velocity-field-and-averaging" title="Permalink to this heading">#</a></h1>
+<h2>Velocity field and averaging<a class="headerlink" href="#velocity-field-and-averaging" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">averageV</span><span class="p">(</span><span class="n">P_matrix</span><span class="p">,</span><span class="n">deltax</span><span class="p">,</span><span class="n">nx</span><span class="p">,</span><span class="n">ny</span><span class="p">,</span><span class="n">mu</span><span class="p">,</span><span class="n">k</span><span class="p">):</span>
@@ -570,7 +565,7 @@ document.write(`
 </div>
 </section>
 <section id="comparision-to-analytical-solution">
-<h1>Comparision to Analytical Solution<a class="headerlink" href="#comparision-to-analytical-solution" title="Permalink to this heading">#</a></h1>
+<h2>Comparision to Analytical Solution<a class="headerlink" href="#comparision-to-analytical-solution" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">v_ana</span> <span class="o">=</span> <span class="n">h</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">12</span> <span class="o">/</span> <span class="n">mu</span> <span class="o">*</span> <span class="p">(</span><span class="n">P_init</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">P_init</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">lx</span>
@@ -612,7 +607,7 @@ document.write(`
 </div>
 </section>
 <section id="convergence-study">
-<h1>Convergence study<a class="headerlink" href="#convergence-study" title="Permalink to this heading">#</a></h1>
+<h2>Convergence study<a class="headerlink" href="#convergence-study" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">cvgStudy</span><span class="p">(</span><span class="n">gridsizes</span><span class="p">,</span><span class="n">lx</span><span class="p">,</span><span class="n">ly</span><span class="p">,</span><span class="n">Pbcr</span><span class="p">,</span><span class="n">Pbcl</span><span class="p">,</span><span class="n">h</span><span class="p">,</span><span class="n">mu</span><span class="p">):</span>
@@ -675,6 +670,7 @@ document.write(`
 <img alt="_images/bf756c9ee66a401bd8f4c54378db0c3123ecd71a783334706bdfc326fda16745.png" src="_images/bf756c9ee66a401bd8f4c54378db0c3123ecd71a783334706bdfc326fda16745.png" />
 </div>
 </div>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -744,15 +740,14 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Construction of the System Matrix</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-state">Initial State</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#transport-coefficients">Transport coefficients</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-the-pressure-field">Solving the Pressure Field</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#velocity-field-and-averaging">Velocity field and averaging</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#comparision-to-analytical-solution">Comparision to Analytical Solution</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#convergence-study">Convergence study</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#construction-of-the-system-matrix">Construction of the System Matrix</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-state">Initial State</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transport-coefficients">Transport coefficients</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-the-pressure-field">Solving the Pressure Field</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#velocity-field-and-averaging">Velocity field and averaging</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparision-to-analytical-solution">Comparision to Analytical Solution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convergence-study">Convergence study</a></li>
 </ul>
-
   </nav></div>
 
 </div></div>
