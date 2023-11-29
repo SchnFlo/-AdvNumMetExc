@@ -1,0 +1,1161 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Exercise 4 - Coupled Simulation of latent heat effects &#8212; Advanced Numerical Methods in Building Science - Exercise</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_oldbuild/jupyter_execute/Aufgabe3';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../Aufgabe1.html">Exercise 1 - Heat Conduction with multiple layers and variable properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Aufgabe2.html">Exercise 2 - Conduction and Convection with RC-Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Aufgabe3.html">Exercise 4 - Coupled Simulation of latent heat effects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Aufgabe4.html">Exercise 4 - Integration of liquid water transport</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Aufgabe5.html">Construction of the System Matrix</a></li>
+
+
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="../../References.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F_oldbuild/jupyter_execute/Aufgabe3.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/_oldbuild/jupyter_execute/Aufgabe3.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Exercise 4 - Coupled Simulation of latent heat effects</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#balance-equations">Balance Equations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#space-discretisation">Space discretisation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-integration">Time Integration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#construction-of-the-layer-and-boundary-objects">Construction of the layer and boundary objects</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sorption-isotherm">Sorption Isotherm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#water-permability-saturated-vapor-pressure-and-heat-conductivity">Water permability, saturated vapor pressure and heat conductivity</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#construction-of-the-conductivity-matrix-k-and-m">Construction of the conductivity matrix <span class="math notranslate nohighlight">\(K\)</span> and <span class="math notranslate nohighlight">\(M\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-the-temperature-field">Calculating the temperature field</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variant-1-heat-conductivity">Variant 1 - Heat conductivity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variant-2-coupled-simulation">Variant 2 - Coupled Simulation</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <body>
+    <font size="2">Florian Schnabel, 11807470, SS 2023</font><br />
+</body><section class="tex2jax_ignore mathjax_ignore" id="exercise-4-coupled-simulation-of-latent-heat-effects">
+<h1>Exercise 4 - Coupled Simulation of latent heat effects<a class="headerlink" href="#exercise-4-coupled-simulation-of-latent-heat-effects" title="Permalink to this heading">#</a></h1>
+<p>This script is an extension of the script elaborated in <a class="reference internal" href="Aufgabe1.html#sec-ex1"><span class="std std-ref">Exercise 1</span></a>. It aims to calculate the temperature and moisture field across a multi-layered building component. Such a multi-layered building component is shown in <code class="xref std std-numref docutils literal notranslate"><span class="pre">fig:multilayCompEx2</span></code>.</p>
+<figure class="align-default" id="fig-multilaycompex2">
+<a class="reference internal image-reference" href="_oldbuild/jupyter_execute/Figures/BuildingComponent.png"><img alt="_oldbuild/jupyter_execute/Figures/BuildingComponent.png" src="_oldbuild/jupyter_execute/Figures/BuildingComponent.png" style="width: 350px;" /></a>
+<figcaption>
+<p><span class="caption-text">Multi-layered building component and discretisation requirements [excersise Description]</span><a class="headerlink" href="#fig-multilaycompex2" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>In difference to the version shown in <a class="reference internal" href="Aufgabe1.html#sec-ex1"><span class="std std-ref">Exercise 1</span></a> the following restrictions are introduced to reduce the complexity of the coupled problem:</p>
+<ul class="simple">
+<li><p>the script is only applicable to mineral wool</p></li>
+<li><p>both density and heatcapacity are assumed constant</p></li>
+<li><p>heat conductivity and vapor diffusion coefficient are described by a linear relation</p></li>
+</ul>
+<section id="balance-equations">
+<h2>Balance Equations<a class="headerlink" href="#balance-equations" title="Permalink to this heading">#</a></h2>
+<p>To consider the latent heat effect the time derivative of the Temperaturefield seen in <a class="reference internal" href="Aufgabe1.html#equation-heatflow">()</a> is expandend by the moisture induced pressure field.  The equation for heat conduction including latent heat is shown in <a class="reference internal" href="#equation-gl-heatmoist2">()</a>:</p>
+<div class="math notranslate nohighlight" id="equation-gl-heatmoist2">
+<span class="eqno">()<a class="headerlink" href="#equation-gl-heatmoist2" title="Permalink to this equation">#</a></span>\[\rho \cdot c \cdot \frac{dT}{dt} = \nabla (\lambda \nabla T + L_v \delta_v \nabla p_{vap}) \]</div>
+<p>The introduced moisture field is defined by the balance euqation for moisture transport <a class="reference internal" href="#equation-gl-moist">()</a>:</p>
+<div class="math notranslate nohighlight" id="equation-gl-moist">
+<span class="eqno">()<a class="headerlink" href="#equation-gl-moist" title="Permalink to this equation">#</a></span>\[ \frac{dw}{dt} =  \nabla (\delta_v \nabla p_{vap}) \]</div>
+</section>
+<section id="space-discretisation">
+<h2>Space discretisation<a class="headerlink" href="#space-discretisation" title="Permalink to this heading">#</a></h2>
+<p>The discretisation of {eq}gl:heatmoist and {eq}gl:moist is done similar to section <a class="reference internal" href="Aufgabe1.html#sec-ex1"><span class="std std-ref">Exercise 1</span></a> using the finite volume method and a representation as RC-Networks. Evaluating for a cell P surrounded by a cell to the east and west results in <a class="reference internal" href="#equation-gl-heatmoistdis">()</a> and <a class="reference internal" href="#equation-gl-moistdis">()</a>:</p>
+<div class="math notranslate nohighlight" id="equation-gl-heatmoistdis">
+<span class="eqno">()<a class="headerlink" href="#equation-gl-heatmoistdis" title="Permalink to this equation">#</a></span>\[\rho \cdot c \cdot \frac{T^{n+1}_P - T^n_P  }{\Delta t} = \frac{\lambda \cdot ( T^n_E - 2T^n_P + T^n_W) }{\Delta x^2} + \frac{L_v \cdot \delta_v \cdot ( p_{vap,E}^n - 2 p_{vap,P}^n +  p_{vap,W}^n) }{\Delta x^2} \]</div>
+<div class="math notranslate nohighlight" id="equation-gl-moistdis">
+<span class="eqno">()<a class="headerlink" href="#equation-gl-moistdis" title="Permalink to this equation">#</a></span>\[\frac{w_{P}^{n+1} - w_{P}^n }{\Delta t} =\frac{\delta_v \cdot ( p_{vap,E}^n - 2 p_{vap,P}^n +  p_{vap,W}^n) }{\Delta x^2} \]</div>
+<p>or written in matrix notation:</p>
+<div class="math notranslate nohighlight" id="equation-gl-heatmoistdis">
+<span class="eqno">()<a class="headerlink" href="#equation-gl-heatmoistdis" title="Permalink to this equation">#</a></span>\[\rho \cdot c \cdot \frac{T^{n+1}_P - T^n_P  }{\Delta t} = \lambda  \cdot K \cdot T + L_v \cdot \delta_v  \cdot M \cdot p_{vap} \]</div>
+<p>Unlike in the version shown in <a class="reference internal" href="Aufgabe1.html#sec-ex1"><span class="std std-ref">Exercise 1</span></a> the conductivity is not included in the <span class="math notranslate nohighlight">\(K\)</span> matrix. This leads to a constant conductivity matrix, at the cost of an error at the surface resistance. The conductivity matrix K can therefore be written as follows:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} K = \left [ 
+\begin{array}{ccccccc}
+    0 &amp; 0 &amp; 0 &amp; 0 &amp; (...) &amp; 0 &amp; 0 &amp; 0  &amp; 0\\
+    K_{BC,1} &amp; -(K_{BC,1} + \frac{1}{\Delta x^2}) &amp; \frac{1}{\Delta x^2} &amp; 0 &amp; (...) &amp; 0 &amp; 0 &amp; 0 &amp; 0\\
+    0 &amp; \frac{1}{\Delta x^2} &amp; -\frac{2}{\Delta x^2} &amp; \frac{1}{\Delta x^2} &amp; (...) &amp; 0 &amp; 0  &amp; 0 &amp; 0\\
+    (...) &amp; (...) &amp; (...) &amp; (...) &amp; (...) &amp; (...) &amp; (...)  &amp; (...) &amp; (...)\\
+    0 &amp; 0 &amp; 0 &amp; 0 &amp;(...) &amp; \frac{1}{\Delta x^2} &amp; -\frac{2}{\Delta x^2} &amp; \frac{1}{\Delta x^2} &amp; 0 \\
+    0 &amp; 0 &amp; 0 &amp; 0 &amp;(...) &amp; 0 &amp; 1 &amp; -(\frac{1}{\Delta x^2} + K_{BC,2}) &amp; K_{BC,2} \\
+    0 &amp; 0 &amp; 0 &amp; 0 &amp;(...) &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+\end{array}
+\right] \end{split}\]</div>
+<p>And for Cells at the boundary:</p>
+<div class="math notranslate nohighlight">
+\[ K_{BC,1} = K_{0.5} = \frac{1}{R_{s,1}  \cdot \Delta x \cdot \lambda + 0.5 \cdot \Delta x^2} \]</div>
+<p>To allow a consturction on <span class="math notranslate nohighlight">\(K\)</span> outside of the integrator, <span class="math notranslate nohighlight">\(\lambda_1\)</span> is constant. This results in the above mentioned error. <span class="math notranslate nohighlight">\(M\)</span> is calculated the in the same way as:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split} M = \left [ 
+\begin{array}{ccccccc}
+    0 &amp; 0 &amp; 0 &amp; 0 &amp; (...) &amp; 0 &amp; 0 &amp; 0  &amp; 0\\
+    M_{BC,1} &amp; -(M_{BC,1} + \frac{1}{\Delta x^2}) &amp; \frac{1}{\Delta x^2} &amp; 0 &amp; (...) &amp; 0 &amp; 0 &amp; 0 &amp; 0\\
+    0 &amp; \frac{1}{\Delta x^2} &amp; -\frac{2}{\Delta x^2} &amp; \frac{1}{\Delta x^2} &amp; (...) &amp; 0 &amp; 0  &amp; 0 &amp; 0\\
+    (...) &amp; (...) &amp; (...) &amp; (...) &amp; (...) &amp; (...) &amp; (...)  &amp; (...) &amp; (...)\\
+    0 &amp; 0 &amp; 0 &amp; 0 &amp;(...) &amp; \frac{1}{\Delta x^2} &amp; -\frac{2}{\Delta x^2} &amp; \frac{1}{\Delta x^2} &amp; 0 \\
+    0 &amp; 0 &amp; 0 &amp; 0 &amp;(...) &amp; 0 &amp; 1 &amp; -(\frac{1}{\Delta x^2} + M_{BC,2}) &amp; M_{BC,2} \\
+    0 &amp; 0 &amp; 0 &amp; 0 &amp;(...) &amp; 0 &amp; 0 &amp; 0 &amp; 0 \\
+\end{array}
+\right] \end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[ K_{BC,1} = K_{0.5} = \frac{1}{h_{v}  \cdot \Delta x \cdot \delta_v + 0.5 \cdot \Delta x^2} \]</div>
+<p>with the surface mass transfer coefficient <span class="math notranslate nohighlight">\(h_v = 3 \cdot 10^{-8}\ m/s\)</span>  <span id="id1">[<a class="reference internal" href="References.html#id2" title="E. Walther. Building Physics Applications in Python. DIY Spring, Paris, 2021.">4</a>]</span>.</p>
+</section>
+<section id="time-integration">
+<h2>Time Integration<a class="headerlink" href="#time-integration" title="Permalink to this heading">#</a></h2>
+<p>The integration will be achieved by the use of a solver from the <strong>scipy</strong> library.</p>
+</section>
+<section id="implementation">
+<h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">reset</span>
+
+<span class="c1">#Libraries</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">scipy</span>
+<span class="kn">import</span> <span class="nn">copy</span> <span class="k">as</span> <span class="nn">copy</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">integrate</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">boundary</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">temperature1</span><span class="p">,</span> <span class="n">temperature2</span><span class="p">,</span> <span class="n">resistance1</span><span class="p">,</span> <span class="n">resistance2</span><span class="p">,</span><span class="n">humidity1</span><span class="p">,</span> <span class="n">humidity2</span><span class="p">,</span>  <span class="n">humresistance1</span><span class="p">,</span> <span class="n">humresistance2</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">temperature1</span> <span class="o">=</span> <span class="n">temperature1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">temperature2</span> <span class="o">=</span> <span class="n">temperature2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resistance1</span> <span class="o">=</span> <span class="n">resistance1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resistance2</span> <span class="o">=</span> <span class="n">resistance2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">humidity1</span> <span class="o">=</span> <span class="n">humidity1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">humidity2</span> <span class="o">=</span> <span class="n">humidity2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">humresistance1</span> <span class="o">=</span> <span class="n">humresistance1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">humresistance2</span> <span class="o">=</span> <span class="n">humresistance2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">layer</span><span class="p">:</span>
+    <span class="c1"># n summarizes the number of all cells</span>
+    <span class="c1"># start value for n = number of boundaries, makes place for boundary temp</span>
+    <span class="n">n</span><span class="o">=</span><span class="mi">2</span>
+    <span class="c1"># width sumarizes the thickness of all layers</span>
+    <span class="n">width_sum</span> <span class="o">=</span><span class="mi">0</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">material</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">n_cells</span><span class="p">,</span> <span class="n">thermConduct</span><span class="p">,</span> <span class="n">heatCap</span><span class="p">,</span> <span class="n">density</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">material</span> <span class="o">=</span> <span class="n">material</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">width</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_cells</span> <span class="o">=</span> <span class="n">n_cells</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">thermConduct</span> <span class="o">=</span> <span class="n">thermConduct</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">heatCap</span> <span class="o">=</span> <span class="n">heatCap</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">density</span> <span class="o">=</span> <span class="n">density</span>
+
+        <span class="c1"># Adding number of cells and width to class counters</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">n</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_cells</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">width_sum</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="construction-of-the-layer-and-boundary-objects">
+<h3>Construction of the layer and boundary objects<a class="headerlink" href="#construction-of-the-layer-and-boundary-objects" title="Permalink to this heading">#</a></h3>
+<p>Input Values according to the excersise description with the following units:</p>
+<ul class="simple">
+<li><p>[<span class="math notranslate nohighlight">\(\lambda\)</span>]= <span class="math notranslate nohighlight">\(W m^{-2} K^{-1}\)</span></p></li>
+<li><p>[<span class="math notranslate nohighlight">\(R_s\)</span>]= <span class="math notranslate nohighlight">\(W^{-1} m^{2} K\)</span></p></li>
+<li><p>[<span class="math notranslate nohighlight">\(T\)</span>]= <span class="math notranslate nohighlight">\(^\circ C\)</span></p></li>
+<li><p>[<span class="math notranslate nohighlight">\(t\)</span>]= <span class="math notranslate nohighlight">\(m\)</span></p></li>
+<li><p>[<span class="math notranslate nohighlight">\(c\)</span>]= <span class="math notranslate nohighlight">\(J kg^{-1} K^{-1}\)</span></p></li>
+<li><p>[<span class="math notranslate nohighlight">\(\rho\)</span>]= <span class="math notranslate nohighlight">\(kg m^{-3}\)</span></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">boundaries</span> <span class="o">=</span> <span class="n">boundary</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.13</span><span class="p">,</span><span class="mf">0.13</span><span class="p">,</span><span class="mi">80</span><span class="p">,</span><span class="mi">90</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mf">3e-8</span><span class="p">),</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mf">3e-8</span><span class="p">))</span>
+
+<span class="c1">#Beware, each layer must have at least 3 cells!</span>
+<span class="n">layers</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">layer</span><span class="p">(</span><span class="s2">&quot;Dämmung&quot;</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">160</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="sorption-isotherm">
+<h3>Sorption Isotherm<a class="headerlink" href="#sorption-isotherm" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fc_w_phi</span><span class="p">(</span><span class="n">phi</span><span class="p">):</span>
+    <span class="n">a</span><span class="o">=</span><span class="mi">1000</span>
+    <span class="n">b</span><span class="o">=</span><span class="mi">250</span><span class="o">*</span><span class="mf">1e-6</span>
+    <span class="n">c</span><span class="o">=</span><span class="mi">1</span>
+    <span class="n">res</span><span class="o">=</span> <span class="n">a</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">phi</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span><span class="o">/</span><span class="n">b</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="n">c</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">res</span> <span class="o">*</span> <span class="mf">1e-3</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fc_phi_w</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>
+    <span class="n">a</span><span class="o">=</span><span class="mi">1000</span>
+    <span class="n">b</span><span class="o">=</span><span class="mf">250e-6</span>
+    <span class="n">c</span><span class="o">=</span><span class="mi">1</span>
+    <span class="n">phi</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">b</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="n">a</span><span class="o">/</span><span class="n">w</span><span class="o">/</span><span class="mi">1000</span><span class="p">)</span><span class="o">**</span><span class="n">c</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span> 
+    <span class="k">return</span> <span class="n">phi</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">=</span><span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fc_w_phi</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Relative Humidity $\phi$ [\%]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Moisture content w [kg/kg]&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">a</span><span class="p">,</span>  <span class="n">alpha</span><span class="o">=</span><span class="mf">0.65</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Sorption Isotherm - mineral wool&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Sorption Isotherm - mineral wool&#39;)
+</pre></div>
+</div>
+<img alt="../../_images/daa6e7d87a658d3ce997f564284383833d3dded2fe774cd8b4ef39b192358a85.png" src="../../_images/daa6e7d87a658d3ce997f564284383833d3dded2fe774cd8b4ef39b192358a85.png" />
+</div>
+</div>
+</section>
+<section id="water-permability-saturated-vapor-pressure-and-heat-conductivity">
+<h3>Water permability, saturated vapor pressure and heat conductivity<a class="headerlink" href="#water-permability-saturated-vapor-pressure-and-heat-conductivity" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fc_psat_T</span> <span class="p">(</span><span class="n">T</span><span class="p">):</span>
+    <span class="c1">#    return 610.5 * np.exp( 17.269*T / (237.3+T)) # T&gt;0</span>
+    <span class="c1">#    return 610.5 * np.exp( 21.875*T / (265.5+T)) # T&lt;0</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">7.625</span><span class="o">*</span><span class="n">T</span><span class="o">/</span><span class="p">(</span><span class="mi">241</span><span class="o">+</span><span class="n">T</span><span class="p">)</span><span class="o">+</span><span class="mf">2.7877</span><span class="p">)</span> <span class="c1"># Lehrbuch</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fc_deltapv_T</span> <span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">T</span><span class="p">):</span>
+    <span class="n">a</span><span class="o">=</span> <span class="p">(</span><span class="mf">22.2</span> <span class="o">+</span> <span class="mf">0.14</span><span class="o">*</span><span class="n">T</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**-</span><span class="mi">6</span>
+    <span class="n">b</span><span class="o">=</span> <span class="o">-</span><span class="n">a</span> 
+    <span class="k">return</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">*</span><span class="n">w</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fc_lambda_w</span> <span class="p">(</span><span class="n">w</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mf">0.04</span> <span class="o">+</span> <span class="mi">6</span><span class="o">*</span><span class="n">w</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">update_Cm</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">phi</span><span class="p">,</span><span class="n">T</span><span class="p">):</span>
+	<span class="n">epsilon</span><span class="o">=</span><span class="mf">0.001</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+	<span class="n">wp</span><span class="o">=</span><span class="n">w</span><span class="o">+</span><span class="n">epsilon</span>
+	<span class="n">phip</span><span class="o">=</span><span class="n">fc_phi_w</span><span class="p">(</span><span class="n">wp</span><span class="p">)</span>
+	<span class="n">dw</span><span class="o">=</span><span class="nb">abs</span><span class="p">(</span><span class="n">wp</span><span class="o">-</span><span class="n">w</span><span class="p">)</span>
+	<span class="n">dphi</span><span class="o">=</span><span class="nb">abs</span><span class="p">(</span><span class="n">phip</span><span class="o">-</span><span class="n">phi</span><span class="p">)</span><span class="o">/</span><span class="mi">100</span>
+	<span class="n">pvs</span><span class="o">=</span><span class="n">fc_psat_T</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+	<span class="n">Cm</span><span class="o">=</span><span class="n">dw</span><span class="o">/</span><span class="n">dphi</span><span class="o">/</span><span class="n">pvs</span>
+	<span class="k">return</span> <span class="n">Cm</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Lv</span> <span class="o">=</span> <span class="mi">2503000</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">fc_deltapv_T</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)),</span><span class="o">-</span><span class="mf">22.0</span><span class="o">/</span><span class="mf">0.14</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Vapor diffusion coefficient $\delta_v$ [$m^2/s$]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Moisture content [kg/kg]&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.01</span><span class="p">),</span> <span class="n">b</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.65</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f84d4ce47d0&gt;]
+</pre></div>
+</div>
+<img alt="../../_images/024fbf1733c64a41e5eb3b41ee4cf136c9d5a30ad1f655fa1fc8d5f6680fb645.png" src="../../_images/024fbf1733c64a41e5eb3b41ee4cf136c9d5a30ad1f655fa1fc8d5f6680fb645.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">fc_lambda_w</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.1</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Heat Conductivity $\lambda$ [$W/m^2/K$]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Moisture content [kg/kg]&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.1</span><span class="p">),</span> <span class="n">b</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.65</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f84d2b36e10&gt;]
+</pre></div>
+</div>
+<img alt="../../_images/4e31e8af99cf30f87a34e4dec3932de23eabf9ad50a47dd958bbcf8228ea96e6.png" src="../../_images/4e31e8af99cf30f87a34e4dec3932de23eabf9ad50a47dd958bbcf8228ea96e6.png" />
+</div>
+</div>
+</section>
+<section id="construction-of-the-conductivity-matrix-k-and-m">
+<h3>Construction of the conductivity matrix <span class="math notranslate nohighlight">\(K\)</span> and <span class="math notranslate nohighlight">\(M\)</span><a class="headerlink" href="#construction-of-the-conductivity-matrix-k-and-m" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># reference number of cells to increase readability</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">layer</span><span class="o">.</span><span class="n">n</span>
+
+<span class="c1"># Initialising conductivity matrix K and M</span>
+<span class="n">K</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">))</span>
+
+<span class="c1"># iterater to keep track of cell numbers</span>
+<span class="n">counter</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">layers</span><span class="p">:</span>
+    <span class="c1">#step size for the current layer</span>
+    <span class="n">deltaX</span><span class="o">=</span><span class="n">layer</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="n">layer</span><span class="o">.</span><span class="n">n_cells</span>
+
+    <span class="c1">#initialize empty conductivity matrix for the current layer</span>
+    <span class="n">K_current</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">))</span>
+
+    <span class="c1">#defining the &quot;east&quot; and &quot;west&quot; conductivity for interior cells</span>
+    <span class="n">K_current</span><span class="p">[</span><span class="nb">range</span><span class="p">(</span><span class="n">counter</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">counter</span><span class="o">+</span><span class="n">layer</span><span class="o">.</span><span class="n">n_cells</span><span class="p">),</span><span class="nb">range</span><span class="p">(</span><span class="n">counter</span><span class="p">,</span><span class="n">counter</span><span class="o">+</span><span class="n">layer</span><span class="o">.</span><span class="n">n_cells</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span><span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">deltaX</span><span class="o">**</span><span class="mi">2</span>
+    <span class="n">K_current</span><span class="p">[</span><span class="nb">range</span><span class="p">(</span><span class="n">counter</span><span class="p">,</span><span class="n">counter</span><span class="o">+</span><span class="n">layer</span><span class="o">.</span><span class="n">n_cells</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span><span class="nb">range</span><span class="p">(</span><span class="n">counter</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">counter</span><span class="o">+</span><span class="n">layer</span><span class="o">.</span><span class="n">n_cells</span><span class="p">)]</span><span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">deltaX</span><span class="o">**</span><span class="mi">2</span>
+    
+    <span class="c1">#defining the &quot;east&quot; and &quot;west&quot; conductivity for the last and first cell of each layer</span>
+    <span class="c1">#these are added up between layers, thus half the cell distance and inverted</span>
+    <span class="n">K_current</span><span class="p">[(</span><span class="n">counter</span><span class="p">,</span><span class="n">counter</span><span class="o">+</span><span class="n">layer</span><span class="o">.</span><span class="n">n_cells</span><span class="p">),(</span><span class="n">counter</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">counter</span><span class="o">+</span><span class="n">layer</span><span class="o">.</span><span class="n">n_cells</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span><span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span>   <span class="n">deltaX</span><span class="o">**</span><span class="mi">2</span>
+    <span class="n">K_current</span><span class="p">[(</span><span class="n">counter</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">counter</span><span class="o">+</span><span class="n">layer</span><span class="o">.</span><span class="n">n_cells</span><span class="o">-</span><span class="mi">1</span><span class="p">),(</span><span class="n">counter</span><span class="p">,</span><span class="n">counter</span><span class="o">+</span><span class="n">layer</span><span class="o">.</span><span class="n">n_cells</span><span class="p">)]</span><span class="o">=</span> <span class="mi">1</span><span class="o">/</span> <span class="mi">2</span>  <span class="o">*</span> <span class="n">deltaX</span><span class="o">**</span><span class="mi">2</span>
+    
+    <span class="n">K</span> <span class="o">+=</span> <span class="n">K_current</span>
+    
+    <span class="c1">#Inverting the Konductivity between surfaces after adding them</span>
+    <span class="n">K</span><span class="p">[(</span><span class="n">counter</span><span class="p">),(</span><span class="n">counter</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">K</span><span class="p">[(</span><span class="n">counter</span><span class="p">),(</span><span class="n">counter</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
+    <span class="n">K</span><span class="p">[(</span><span class="n">counter</span><span class="o">-</span><span class="mi">1</span><span class="p">),(</span><span class="n">counter</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="n">K</span><span class="p">[(</span><span class="n">counter</span><span class="o">-</span><span class="mi">1</span><span class="p">),(</span><span class="n">counter</span><span class="p">)]</span>
+
+        
+    <span class="n">counter</span> <span class="o">+=</span> <span class="n">layer</span><span class="o">.</span><span class="n">n_cells</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Initialising M as a copy of K</span>
+<span class="n">M</span><span class="o">=</span><span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">K</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Boundary Conditions for K</span>
+<span class="n">deltaX_l</span> <span class="o">=</span> <span class="p">(</span><span class="n">layers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="n">layers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">n_cells</span><span class="p">)</span>
+<span class="n">deltaX_r</span> <span class="o">=</span> <span class="p">(</span><span class="n">layers</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="n">layers</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">n_cells</span><span class="p">)</span>
+<span class="n">K_l</span> <span class="o">=</span>  <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">boundaries</span><span class="o">.</span><span class="n">resistance1</span> <span class="o">*</span>  <span class="n">layers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">thermConduct</span> <span class="o">*</span> <span class="n">deltaX_l</span><span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span><span class="n">deltaX_l</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">K_r</span> <span class="o">=</span>  <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">boundaries</span><span class="o">.</span><span class="n">resistance2</span> <span class="o">*</span> <span class="n">layers</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">thermConduct</span> <span class="o">*</span><span class="n">deltaX_r</span><span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span><span class="n">deltaX_r</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">K</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">K_l</span>
+<span class="n">K</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">K</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">K</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">K_r</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Boundary Conditions for M</span>
+<span class="n">deltapv_l</span><span class="o">=</span><span class="n">fc_deltapv_T</span><span class="p">(</span><span class="n">fc_w_phi</span><span class="p">(</span><span class="n">boundaries</span><span class="o">.</span><span class="n">humidity1</span><span class="p">),</span><span class="n">boundaries</span><span class="o">.</span><span class="n">temperature1</span> <span class="p">)</span>
+<span class="n">deltapv_r</span><span class="o">=</span><span class="n">fc_deltapv_T</span><span class="p">(</span><span class="n">fc_w_phi</span><span class="p">(</span><span class="n">boundaries</span><span class="o">.</span><span class="n">humidity2</span><span class="p">),</span><span class="n">boundaries</span><span class="o">.</span><span class="n">temperature2</span> <span class="p">)</span>
+<span class="n">M_l</span> <span class="o">=</span>  <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span><span class="n">deltaX_l</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">M_r</span> <span class="o">=</span>  <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span><span class="n">deltaX_r</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">M</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">M_l</span>
+<span class="n">M</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">K</span><span class="p">)</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">K</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">M_r</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#The diagonal of the conductivity matrix is defined as the negative sum of the </span>
+<span class="c1">#&quot;east&quot; and &quot;west&quot; conductivity for the cell</span>
+<span class="n">K</span><span class="p">[</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">K</span><span class="p">)),</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">K</span><span class="p">))]</span><span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">K</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">M</span><span class="p">[</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">M</span><span class="p">)),</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">M</span><span class="p">))]</span><span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1">#free first and last row; this leads to constant values at the boundaries</span>
+<span class="n">K</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">K</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span><span class="o">=</span><span class="mi">0</span>
+
+<span class="n">M</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">M</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span><span class="o">=</span><span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="calculating-the-temperature-field">
+<h3>Calculating the temperature field<a class="headerlink" href="#calculating-the-temperature-field" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#initialize the temperaturefield</span>
+<span class="n">vec_T_w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.001</span>
+<span class="n">vec_T_w</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">vec_T_w</span><span class="p">[</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="p">:</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="o">*</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">fc_w_phi</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span>
+
+<span class="c1">#Insert Boundary Konditions</span>
+<span class="n">vec_T_w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span> <span class="n">boundaries</span><span class="o">.</span><span class="n">temperature1</span>
+<span class="n">vec_T_w</span><span class="p">[</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span> <span class="n">boundaries</span><span class="o">.</span><span class="n">temperature2</span>
+<span class="c1">#Insert Boundary Konditions</span>
+<span class="n">vec_T_w</span><span class="p">[</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="p">]</span><span class="o">=</span> <span class="n">fc_w_phi</span><span class="p">(</span><span class="n">boundaries</span><span class="o">.</span><span class="n">humidity1</span><span class="p">)</span>
+<span class="n">vec_T_w</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span> <span class="n">fc_w_phi</span><span class="p">(</span><span class="n">boundaries</span><span class="o">.</span><span class="n">humidity2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="variant-1-heat-conductivity">
+<h2>Variant 1 - Heat conductivity<a class="headerlink" href="#variant-1-heat-conductivity" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T</span> <span class="o">=</span> <span class="n">vec_T_w</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">thermConduct</span> <span class="o">=</span> <span class="n">fc_lambda_w</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">T</span><span class="p">))</span> <span class="o">*</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">dT_dt</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">T</span><span class="p">):</span>
+    <span class="n">delta_T</span> <span class="o">=</span>  <span class="n">thermConduct</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">K</span><span class="p">,</span><span class="n">T</span><span class="p">)</span> <span class="o">/</span><span class="p">(</span><span class="n">layers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">heatCap</span> <span class="o">*</span> <span class="n">layers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">density</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">delta_T</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">result_heat</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">integrate</span><span class="o">.</span><span class="n">solve_ivp</span><span class="p">(</span><span class="n">dT_dt</span><span class="p">,(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1800000</span><span class="p">),</span><span class="n">T</span><span class="p">,</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;Radau&quot;</span><span class="p">,</span><span class="n">atol</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">,</span><span class="n">rtol</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="variant-2-coupled-simulation">
+<h2>Variant 2 - Coupled Simulation<a class="headerlink" href="#variant-2-coupled-simulation" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">dt_w_dt</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">vec_T_w</span><span class="p">):</span>
+    <span class="c1">#Splitting up temp and water vector</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="n">vec_T_w</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="p">]</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">vec_T_w</span><span class="p">[</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="p">:</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="o">*</span><span class="mi">2</span><span class="p">]</span>
+    
+    <span class="n">c</span> <span class="o">=</span> <span class="mi">1000</span>
+    <span class="n">rho</span> <span class="o">=</span> <span class="mi">160</span>
+    <span class="n">Lv</span> <span class="o">=</span> <span class="mi">2503000</span>
+    
+    <span class="n">phi</span> <span class="o">=</span> <span class="n">fc_phi_w</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+    <span class="n">thermConduct</span> <span class="o">=</span> <span class="n">fc_lambda_w</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+    <span class="n">deltapv</span> <span class="o">=</span> <span class="n">fc_deltapv_T</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">T</span><span class="p">)</span>
+    
+    
+    
+    <span class="n">pvap</span> <span class="o">=</span> <span class="n">fc_psat_T</span><span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="o">*</span> <span class="n">phi</span> <span class="o">/</span><span class="mi">100</span>
+    
+    <span class="n">delta_T</span> <span class="o">=</span>  <span class="p">(</span><span class="n">thermConduct</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">K</span><span class="p">,</span><span class="n">T</span><span class="p">)</span> <span class="o">+</span>  <span class="n">deltapv</span> <span class="o">*</span> <span class="n">Lv</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">pvap</span><span class="p">)</span> <span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">c</span><span class="o">*</span><span class="n">rho</span><span class="p">)</span>
+    
+    <span class="n">delta_w</span> <span class="o">=</span>  <span class="n">deltapv</span> <span class="o">*</span>  <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">pvap</span><span class="p">)</span> 
+    
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">delta_T</span><span class="p">,</span><span class="n">delta_w</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#dt_w_dt(t,vec_T_w)</span>
+<span class="n">result_coupled</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">integrate</span><span class="o">.</span><span class="n">solve_ivp</span><span class="p">(</span><span class="n">dt_w_dt</span><span class="p">,(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1800000</span><span class="p">),</span><span class="n">vec_T_w</span><span class="p">,</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;Radau&quot;</span><span class="p">,</span><span class="n">atol</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">,</span><span class="n">rtol</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">27</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="c1">#dt_w_dt(t,vec_T_w)</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">result_coupled</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">integrate</span><span class="o">.</span><span class="n">solve_ivp</span><span class="p">(</span><span class="n">dt_w_dt</span><span class="p">,(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1800000</span><span class="p">),</span><span class="n">vec_T_w</span><span class="p">,</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;Radau&quot;</span><span class="p">,</span><span class="n">atol</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">,</span><span class="n">rtol</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">)</span>
+
+<span class="nn">File ~/.local/lib/python3.11/site-packages/scipy/integrate/_ivp/ivp.py:591,</span> in <span class="ni">solve_ivp</span><span class="nt">(fun, t_span, y0, method, t_eval, dense_output, events, vectorized, args, **options)</span>
+<span class="g g-Whitespace">    </span><span class="mi">589</span> <span class="n">status</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="g g-Whitespace">    </span><span class="mi">590</span> <span class="k">while</span> <span class="n">status</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">591</span>     <span class="n">message</span> <span class="o">=</span> <span class="n">solver</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">593</span>     <span class="k">if</span> <span class="n">solver</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="s1">&#39;finished&#39;</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">594</span>         <span class="n">status</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="nn">File ~/.local/lib/python3.11/site-packages/scipy/integrate/_ivp/base.py:181,</span> in <span class="ni">OdeSolver.step</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">179</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">180</span>     <span class="n">t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">t</span>
+<span class="ne">--&gt; </span><span class="mi">181</span>     <span class="n">success</span><span class="p">,</span> <span class="n">message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_step_impl</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">183</span>     <span class="k">if</span> <span class="ow">not</span> <span class="n">success</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">184</span>         <span class="bp">self</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;failed&#39;</span>
+
+<span class="nn">File ~/.local/lib/python3.11/site-packages/scipy/integrate/_ivp/radau.py:506,</span> in <span class="ni">Radau._step_impl</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">504</span> <span class="n">f_new</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fun</span><span class="p">(</span><span class="n">t_new</span><span class="p">,</span> <span class="n">y_new</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">505</span> <span class="k">if</span> <span class="n">recompute_jac</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">506</span>     <span class="n">J</span> <span class="o">=</span> <span class="n">jac</span><span class="p">(</span><span class="n">t_new</span><span class="p">,</span> <span class="n">y_new</span><span class="p">,</span> <span class="n">f_new</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">507</span>     <span class="n">current_jac</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="g g-Whitespace">    </span><span class="mi">508</span> <span class="k">elif</span> <span class="n">jac</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+
+<span class="nn">File ~/.local/lib/python3.11/site-packages/scipy/integrate/_ivp/radau.py:352,</span> in <span class="ni">Radau._validate_jac.&lt;locals&gt;.jac_wrapped</span><span class="nt">(t, y, f)</span>
+<span class="g g-Whitespace">    </span><span class="mi">350</span> <span class="k">def</span> <span class="nf">jac_wrapped</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">351</span>     <span class="bp">self</span><span class="o">.</span><span class="n">njev</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="ne">--&gt; </span><span class="mi">352</span>     <span class="n">J</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">jac_factor</span> <span class="o">=</span> <span class="n">num_jac</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fun_vectorized</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">353</span>                                  <span class="bp">self</span><span class="o">.</span><span class="n">atol</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">jac_factor</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">354</span>                                  <span class="n">sparsity</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">355</span>     <span class="k">return</span> <span class="n">J</span>
+
+<span class="nn">File ~/.local/lib/python3.11/site-packages/scipy/integrate/_ivp/common.py:318,</span> in <span class="ni">num_jac</span><span class="nt">(fun, t, y, f, threshold, factor, sparsity)</span>
+<span class="g g-Whitespace">    </span><span class="mi">315</span>         <span class="n">h</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">factor</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">y_scale</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">-</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">317</span> <span class="k">if</span> <span class="n">sparsity</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">318</span>     <span class="k">return</span> <span class="n">_dense_num_jac</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">factor</span><span class="p">,</span> <span class="n">y_scale</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">319</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">320</span>     <span class="n">structure</span><span class="p">,</span> <span class="n">groups</span> <span class="o">=</span> <span class="n">sparsity</span>
+
+<span class="nn">File ~/.local/lib/python3.11/site-packages/scipy/integrate/_ivp/common.py:328,</span> in <span class="ni">_dense_num_jac</span><span class="nt">(fun, t, y, f, h, factor, y_scale)</span>
+<span class="g g-Whitespace">    </span><span class="mi">326</span> <span class="n">n</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">327</span> <span class="n">h_vecs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">328</span> <span class="n">f_new</span> <span class="o">=</span> <span class="n">fun</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">+</span> <span class="n">h_vecs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">329</span> <span class="n">diff</span> <span class="o">=</span> <span class="n">f_new</span> <span class="o">-</span> <span class="n">f</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">330</span> <span class="n">max_ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">diff</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="nn">File ~/.local/lib/python3.11/site-packages/scipy/integrate/_ivp/base.py:133,</span> in <span class="ni">OdeSolver.__init__.&lt;locals&gt;.fun_vectorized</span><span class="nt">(t, y)</span>
+<span class="g g-Whitespace">    </span><span class="mi">131</span> <span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">132</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">yi</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">T</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">133</span>     <span class="n">f</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fun</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">yi</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">134</span> <span class="k">return</span> <span class="n">f</span>
+
+<span class="nn">File ~/.local/lib/python3.11/site-packages/scipy/integrate/_ivp/base.py:20,</span> in <span class="ni">check_arguments.&lt;locals&gt;.fun_wrapped</span><span class="nt">(t, y)</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span> <span class="k">def</span> <span class="nf">fun_wrapped</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">20</span>     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">fun</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+
+<span class="nn">Cell In[26], line 16,</span> in <span class="ni">dt_w_dt</span><span class="nt">(t, vec_T_w)</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="n">thermConduct</span> <span class="o">=</span> <span class="n">fc_lambda_w</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="n">deltapv</span> <span class="o">=</span> <span class="n">fc_deltapv_T</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">T</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">16</span> <span class="n">pvap</span> <span class="o">=</span> <span class="n">fc_psat_T</span><span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="o">*</span> <span class="n">phi</span> <span class="o">/</span><span class="mi">100</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span> <span class="n">delta_T</span> <span class="o">=</span>  <span class="p">(</span><span class="n">thermConduct</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">K</span><span class="p">,</span><span class="n">T</span><span class="p">)</span> <span class="o">+</span>  <span class="n">deltapv</span> <span class="o">*</span> <span class="n">Lv</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">pvap</span><span class="p">)</span> <span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">c</span><span class="o">*</span><span class="n">rho</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span> <span class="n">delta_w</span> <span class="o">=</span>  <span class="n">deltapv</span> <span class="o">*</span>  <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">pvap</span><span class="p">)</span> 
+
+<span class="nn">Cell In[9], line 1,</span> in <span class="ni">fc_psat_T</span><span class="nt">(T)</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="k">def</span> <span class="nf">fc_psat_T</span> <span class="p">(</span><span class="n">T</span><span class="p">):</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span>     <span class="c1">#    return 610.5 * np.exp( 17.269*T / (237.3+T)) # T&gt;0</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span>     <span class="c1">#    return 610.5 * np.exp( 21.875*T / (265.5+T)) # T&lt;0</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mf">7.625</span><span class="o">*</span><span class="n">T</span><span class="o">/</span><span class="p">(</span><span class="mi">241</span><span class="o">+</span><span class="n">T</span><span class="p">)</span><span class="o">+</span><span class="mf">2.7877</span><span class="p">)</span> <span class="c1"># Lehrbuch</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res_T_coup</span> <span class="o">=</span><span class="p">[]</span>
+<span class="n">res_T_heat</span><span class="o">=</span><span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">res_T_coup</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result_coupled</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">res_T_heat</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result_heat</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Temperature $T$ [°C]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;x [m]&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Temperature Field&quot;</span><span class="p">)</span>
+
+ 
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="p">),</span> <span class="n">res_T_heat</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;heat conduction&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="p">),</span> <span class="n">res_T_coup</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;coupled&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f907816a490&gt;
+</pre></div>
+</div>
+<img alt="../../_images/689994fb9619ad0074a7d6d362faa07a0908799478eadb1b6feb063b59f26f8b.png" src="../../_images/689994fb9619ad0074a7d6d362faa07a0908799478eadb1b6feb063b59f26f8b.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res_w_heat</span> <span class="o">=</span><span class="p">[]</span>
+<span class="n">res_w_coup</span><span class="o">=</span><span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="p">,</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="o">*</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">res_w_coup</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result_coupled</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">res_w_heat</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Moisture content [kg/kg]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;x [m]&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Moisture Field&quot;</span><span class="p">)</span>
+
+ 
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="p">),</span> <span class="n">res_w_heat</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;heat conduction&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="p">),</span> <span class="n">res_w_coup</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;coupled&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f9073c56690&gt;
+</pre></div>
+</div>
+<img alt="../../_images/b551fa0df81b5d88e6b035d50ec5c6104b5dc58c58ab2134dcff8ba3e024892f.png" src="../../_images/b551fa0df81b5d88e6b035d50ec5c6104b5dc58c58ab2134dcff8ba3e024892f.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Relative Humidity $\phi$ [\%]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;x [m]&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Relative Humidity&quot;</span><span class="p">)</span>
+
+<span class="n">width_sum</span> <span class="o">=</span> <span class="n">layers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">width_sum</span>
+
+ 
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">width_sum</span><span class="p">,</span><span class="n">width_sum</span><span class="o">/</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;heat conduction&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">width_sum</span><span class="p">,</span><span class="n">width_sum</span><span class="o">/</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="p">),</span> <span class="n">fc_phi_w</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">res_w_coup</span><span class="p">)),</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;coupled&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f9073e08e90&gt;
+</pre></div>
+</div>
+<img alt="../../_images/a0089e68f393d66fb5814a2fb1fd967269a859b45aefce0f938d14badcc81230.png" src="../../_images/a0089e68f393d66fb5814a2fb1fd967269a859b45aefce0f938d14badcc81230.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Vapor Pressure $p_</span><span class="si">{vap}</span><span class="s2">$ [Pa]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;x [m]&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Vapor Pressure&quot;</span><span class="p">)</span>
+
+<span class="n">res_pvap_coup</span> <span class="o">=</span> <span class="n">fc_psat_T</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">res_T_coup</span><span class="p">))</span> <span class="o">*</span> <span class="n">fc_phi_w</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">res_w_coup</span><span class="p">))</span> <span class="o">/</span><span class="mi">100</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">width_sum</span><span class="p">,</span><span class="n">width_sum</span><span class="o">/</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="p">),</span> <span class="n">res_pvap_coup</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;coupled&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">width_sum</span><span class="p">,</span><span class="n">width_sum</span><span class="o">/</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="p">),</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;heat conduction&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f9073e91890&gt;
+</pre></div>
+</div>
+<img alt="../../_images/98bfe0cee29652b5b75cd1560167a976f0cbe7310eb0c2416a506558fca5e4ef.png" src="../../_images/98bfe0cee29652b5b75cd1560167a976f0cbe7310eb0c2416a506558fca5e4ef.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./_oldbuild/jupyter_execute"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#balance-equations">Balance Equations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#space-discretisation">Space discretisation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-integration">Time Integration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#construction-of-the-layer-and-boundary-objects">Construction of the layer and boundary objects</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sorption-isotherm">Sorption Isotherm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#water-permability-saturated-vapor-pressure-and-heat-conductivity">Water permability, saturated vapor pressure and heat conductivity</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#construction-of-the-conductivity-matrix-k-and-m">Construction of the conductivity matrix <span class="math notranslate nohighlight">\(K\)</span> and <span class="math notranslate nohighlight">\(M\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-the-temperature-field">Calculating the temperature field</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variant-1-heat-conductivity">Variant 1 - Heat conductivity</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#variant-2-coupled-simulation">Variant 2 - Coupled Simulation</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Florian Schnabel
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

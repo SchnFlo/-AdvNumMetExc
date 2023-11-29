@@ -1,0 +1,2013 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Exercise 4 - Integration of liquid water transport &#8212; Advanced Numerical Methods in Building Science - Exercise</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Aufgabe4';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="References" href="References.html" />
+    <link rel="prev" title="Exercise 4 - Coupled Simulation of latent heat effects" href="Aufgabe3.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Aufgabe1.html">Exercise 1 - Heat Conduction with multiple layers and variable properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Aufgabe2.html">Exercise 2 - Conduction and Convection with RC-Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Aufgabe3.html">Exercise 4 - Coupled Simulation of latent heat effects</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Exercise 4 - Integration of liquid water transport</a></li>
+<li class="toctree-l1"><a class="reference internal" href="References.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FAufgabe4.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Aufgabe4.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Exercise 4 - Integration of liquid water transport</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#balance-equations">Balance Equations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#space-discretisation">Space discretisation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-integration">Time Integration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#object-definition">Object definition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#construction-of-the-layer-and-boundary-objects">Construction of the layer and boundary objects</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sorption-isotherm">Sorption Isotherm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#water-permability-saturated-vapor-pressure-and-heat-conductivity">Water permability, saturated vapor pressure and heat conductivity</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#liquid-water-transport">Liquid Water transport</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conductivity-matrices">Conductivity Matrices</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#construction-of-the-conductivity-matrix-k-and-m">Construction of the conductivity matrix <span class="math notranslate nohighlight">\(K\)</span> and <span class="math notranslate nohighlight">\(M\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#initialize-temperature-and-moisture-field">Initialize Temperature and Moisture Field</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solving">Solving</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="exercise-4-integration-of-liquid-water-transport">
+<h1>Exercise 4 - Integration of liquid water transport<a class="headerlink" href="#exercise-4-integration-of-liquid-water-transport" title="Permalink to this heading">#</a></h1>
+<p>This script is an extension of the script elaborated in Exercise 3 of <em>Advanced Numerical Methods 1</em>. The base script was capable of  calculating the temperature and moisture field across a multi-layered building component, while considering water transport induced by vapor diffusion. Such a multi-layered building component is shown in <a class="reference internal" href="#fig-multilaycompex2"><span class="std std-numref">Fig. 4</span></a>.</p>
+<figure class="align-default" id="fig-multilaycompex2">
+<a class="reference internal image-reference" href="_images/BuildingComponent.png"><img alt="_images/BuildingComponent.png" src="_images/BuildingComponent.png" style="width: 350px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Multi-layered building component and discretisation requirements [excersise Description]</span><a class="headerlink" href="#fig-multilaycompex2" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>To show the effect of liquid water transport the implementation will be tested by reproducing a suction expirement described in <span id="id1">[<a class="reference internal" href="References.html#id5">3</a>]</span>. To simplify the problem, the component is restricted to a constant grid size. Therefore for each cell P <span class="math notranslate nohighlight">\(\Delta x_P = \Delta x_W = \Delta x_E = \Delta x_p = \Delta x_w = \Delta x_e = \Delta x\)</span></p>
+<section id="balance-equations">
+<h2>Balance Equations<a class="headerlink" href="#balance-equations" title="Permalink to this heading">#</a></h2>
+<p>To consider the latent heat effect the time derivative of the Temperaturefield seen in <a class="reference internal" href="Aufgabe1.html#equation-heatflow">(1)</a> is expandend by the moisture induced pressure field.  The equation for heat conduction including latent heat is shown in <a class="reference internal" href="#equation-gl-heatmoist2">(19)</a>:</p>
+<div class="math notranslate nohighlight" id="equation-gl-heatmoist2">
+<span class="eqno">(19)<a class="headerlink" href="#equation-gl-heatmoist2" title="Permalink to this equation">#</a></span>\[\rho \cdot c \cdot \frac{dT}{dt} = \nabla (\lambda \nabla T + L_v \delta_v \nabla p_{vap}) \]</div>
+<p>The introduced moisture field extended by the transport induced by liquide vapor pressure. <a class="reference internal" href="#equation-gl-moist">(20)</a>:</p>
+<div class="math notranslate nohighlight" id="equation-gl-moist">
+<span class="eqno">(20)<a class="headerlink" href="#equation-gl-moist" title="Permalink to this equation">#</a></span>\[ \frac{dw}{dt} =  \nabla (\delta_v \nabla p_{vap}) - \nabla (K_w \nabla p_{vap}) \]</div>
+<p>With the total moisture conductivity <span class="math notranslate nohighlight">\(K_w\)</span> according to <span id="id2">[<a class="reference internal" href="References.html#id5">3</a>]</span> (specialized for <span class="math notranslate nohighlight">\(u_f = 300\)</span>):</p>
+<div class="math notranslate nohighlight" id="equation-gl-k-w">
+<span class="eqno">(21)<a class="headerlink" href="#equation-gl-k-w" title="Permalink to this equation">#</a></span>\[ K_w(P_{suc,n)} = - \frac{\partial w(P_{suc})}{\partial P_{suc}} \cdot  \frac{n+1}{2n} (\frac{A}{300})^n (\frac{w(P_{suc})}{300})^n(n+1-(\frac{w(P_{suc})}{300})^n )\]</div>
+<p>and the corresponding water retention curve:</p>
+<div class="math notranslate nohighlight" id="equation-gl-p-suc">
+<span class="eqno">(22)<a class="headerlink" href="#equation-gl-p-suc" title="Permalink to this equation">#</a></span>\[ w(P_{suc)} = - \frac{300}{1+P_{suc} \cdot 10^{-6}}\]</div>
+</section>
+<section id="space-discretisation">
+<h2>Space discretisation<a class="headerlink" href="#space-discretisation" title="Permalink to this heading">#</a></h2>
+<p>The discretisation of {eq}gl:heatmoist and {eq}gl:moist is done similar to section <a class="reference internal" href="Aufgabe1.html#sec-ex1"><span class="std std-ref">Exercise 1</span></a> using the finite volume method and a representation as RC-Networks.  Evaluating for a cell P surrounded by a cell to the east and west results in <a class="reference internal" href="#equation-gl-heatmoistdis">(25)</a> and <a class="reference internal" href="#equation-gl-moistdis">(26)</a>:</p>
+<div class="math notranslate nohighlight" id="equation-gl-heatmoistdis">
+<span class="eqno">(25)<a class="headerlink" href="#equation-gl-heatmoistdis" title="Permalink to this equation">#</a></span>\[\rho \cdot c \cdot \frac{T^{n+1}_P - T^n_P  }{\Delta t} = \frac{\lambda_w(T^n_E - T^n_P) - \lambda_w(T^n_P - T^n_W)}{\Delta x^2} + L_v \cdot \frac{\delta_{v,w}(p_{vap,E}^n - p_{vap,P}^n) - \delta_{v,e}(p_{vap,P}^n - p_{vap,W}^n)}{\Delta x^2}  \]</div>
+<div class="math notranslate nohighlight" id="equation-gl-moistdis">
+<span class="eqno">(26)<a class="headerlink" href="#equation-gl-moistdis" title="Permalink to this equation">#</a></span>\[\frac{w_{P}^{n+1} - w_{P}^n }{\Delta t} =\frac{\delta_{v,w}(p_{vap,E}^n - p_{vap,P}^n) - \delta_{v,e}(p_{vap,P}^n - p_{vap,W}^n)}{\Delta x^2} \textcolor{green}{- \frac{K_{w}(p_{suc,E}^n - p_{suc,P}^n) - K_{e}(p_{suc,P}^n - p_{suc,W}^n)}{\Delta x^2}} \]</div>
+<p>or written in matrix notation:</p>
+<div class="math notranslate nohighlight" id="equation-gl-heatmoistdis">
+<span class="eqno">(25)<a class="headerlink" href="#equation-gl-heatmoistdis" title="Permalink to this equation">#</a></span>\[\rho \cdot c \cdot \frac{T^{n+1} - T^n  }{\Delta t} = \lambda  \cdot K \cdot T + L_v \cdot \delta_v  \cdot M \cdot p_{vap} \]</div>
+<div class="math notranslate nohighlight" id="equation-gl-moistdis">
+<span class="eqno">(26)<a class="headerlink" href="#equation-gl-moistdis" title="Permalink to this equation">#</a></span>\[\frac{w^{n+1} - w^n  }{\Delta t} = \delta_v  \cdot M \cdot p_{vap} \textcolor{green}{ - K_w \cdot p_{suc}} \]</div>
+<p>The thermal and vapor diffusive conductivity matrices are calculated by harmonic averaging. The thermal conductivity between two cells (W,P) can be described as follows:</p>
+<div class="math notranslate nohighlight">
+\[ \lambda_{w} = \frac{\Delta x_w}{\frac{\Delta x_W}{2 \cdot \lambda_W} + \frac{\Delta x_P}{2 \cdot \lambda_P}} = \frac{1}{\frac{1}{2 \cdot \lambda_W} + \frac{1}{2 \cdot \lambda_P}}\]</div>
+<p>As eleborated in <span id="id3">[<a class="reference internal" href="References.html#id5">3</a>]</span> harmoic averaging is not a suitable averaging method for liquid water transport. Therefore, in this implementation linear averaging will be used. The total moisture conductivity between two cells (W,P) can be described as follows:</p>
+<div class="math notranslate nohighlight">
+\[ K_{w} = \frac{K_{W}\frac{\Delta x_W}{2} }{x_w} + \frac{K_{P}\frac{\Delta x_P}{2} }{x_w} = \frac{K_W+K_P}{2}\]</div>
+<p>To ensure surface drying is prevented the vapor diffusion coefficient on the surface is set <span class="math notranslate nohighlight">\(\delta_v = 0\ m/s\)</span>  <span id="id4">[<a class="reference internal" href="References.html#id5">3</a>]</span>.</p>
+</section>
+<section id="time-integration">
+<h2>Time Integration<a class="headerlink" href="#time-integration" title="Permalink to this heading">#</a></h2>
+<p>The integration will be achieved by the use of a solver from the <strong>scipy</strong> library. It is to be mentioned, that due to high gradients in the water retention curve implicit solvers are to be preferred.</p>
+</section>
+<section id="implementation">
+<h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Libraries</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">scipy</span> <span class="k">as</span> <span class="nn">scipy</span>
+<span class="kn">import</span> <span class="nn">copy</span> <span class="k">as</span> <span class="nn">copy</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">integrate</span>
+<span class="kn">import</span> <span class="nn">matplotlib.animation</span> <span class="k">as</span> <span class="nn">animation</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="object-definition">
+<h3>Object definition<a class="headerlink" href="#object-definition" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">layer</span><span class="p">:</span>
+    <span class="c1"># n summarizes the number of all cells</span>
+    <span class="c1"># start value for n = number of boundaries, makes place for boundary temp</span>
+    <span class="n">n</span><span class="o">=</span><span class="mi">2</span>
+    <span class="c1"># width sumarizes the thickness of all layers</span>
+    <span class="n">width_sum</span> <span class="o">=</span><span class="mi">0</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">material</span><span class="p">,</span> <span class="n">width</span><span class="p">,</span> <span class="n">n_cells</span><span class="p">,</span> <span class="n">thermConduct</span><span class="p">,</span> <span class="n">heatCap</span><span class="p">,</span> <span class="n">density</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">material</span> <span class="o">=</span> <span class="n">material</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">width</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_cells</span> <span class="o">=</span> <span class="n">n_cells</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">thermConduct</span> <span class="o">=</span> <span class="n">thermConduct</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">heatCap</span> <span class="o">=</span> <span class="n">heatCap</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">density</span> <span class="o">=</span> <span class="n">density</span>
+
+        <span class="c1"># Adding number of cells and width to class counters</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">n</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_cells</span>
+        <span class="n">layer</span><span class="o">.</span><span class="n">width_sum</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">boundary</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">temperature1</span><span class="p">,</span> <span class="n">temperature2</span><span class="p">,</span> <span class="n">resistance1</span><span class="p">,</span> <span class="n">resistance2</span><span class="p">,</span><span class="n">humidity1</span><span class="p">,</span> <span class="n">humidity2</span><span class="p">,</span>  <span class="n">humresistance1</span><span class="p">,</span> <span class="n">humresistance2</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">temperature1</span> <span class="o">=</span> <span class="n">temperature1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">temperature2</span> <span class="o">=</span> <span class="n">temperature2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resistance1</span> <span class="o">=</span> <span class="n">resistance1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">resistance2</span> <span class="o">=</span> <span class="n">resistance2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">humidity1</span> <span class="o">=</span> <span class="n">humidity1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">humidity2</span> <span class="o">=</span> <span class="n">humidity2</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">humresistance1</span> <span class="o">=</span> <span class="n">humresistance1</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">humresistance2</span> <span class="o">=</span> <span class="n">humresistance2</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="construction-of-the-layer-and-boundary-objects">
+<h3>Construction of the layer and boundary objects<a class="headerlink" href="#construction-of-the-layer-and-boundary-objects" title="Permalink to this heading">#</a></h3>
+<p>Input Values according to the excersise description with the following units:</p>
+<ul class="simple">
+<li><p>[<span class="math notranslate nohighlight">\(\lambda\)</span>]= <span class="math notranslate nohighlight">\(W\ m^{-2}\ K^{-1}\)</span></p></li>
+<li><p>[<span class="math notranslate nohighlight">\(R_s\)</span>]= <span class="math notranslate nohighlight">\(W^{-1}\ m^{2}\ K\)</span></p></li>
+<li><p>[<span class="math notranslate nohighlight">\(T\)</span>]= <span class="math notranslate nohighlight">\(^\circ C\)</span></p></li>
+<li><p>[<span class="math notranslate nohighlight">\(t\)</span>]= <span class="math notranslate nohighlight">\(m\)</span></p></li>
+<li><p>[<span class="math notranslate nohighlight">\(c\)</span>]= <span class="math notranslate nohighlight">\(J\ kg^{-1} K^{-1}\)</span></p></li>
+<li><p>[<span class="math notranslate nohighlight">\(\rho\)</span>]= <span class="math notranslate nohighlight">\(kg\ m^{-3}\)</span></p></li>
+<li><p>[<span class="math notranslate nohighlight">\(A\)</span>]= <span class="math notranslate nohighlight">\(kg\ m^{-2}s^{-1}\)</span></p></li>
+<li><p>[<span class="math notranslate nohighlight">\(K_w\)</span>]= <span class="math notranslate nohighlight">\(s\)</span></p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">boundaries</span> <span class="o">=</span> <span class="n">boundary</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="mf">0.13</span><span class="p">,</span><span class="mf">0.13</span><span class="p">,</span><span class="mf">99.9</span><span class="p">,</span><span class="mf">0.01</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mf">3e-8</span><span class="p">),</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mf">3e-8</span><span class="p">))</span>
+
+<span class="c1">#Beware, each layer must have at least 3 cells!</span>
+<span class="n">layers</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">layer</span><span class="p">(</span><span class="s2">&quot;Dämmung&quot;</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">160</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="sorption-isotherm">
+<h3>Sorption Isotherm<a class="headerlink" href="#sorption-isotherm" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fc_w_phi</span><span class="p">(</span><span class="n">phi</span><span class="p">):</span>
+    <span class="n">a</span><span class="o">=</span><span class="mi">300</span>
+    <span class="n">b</span><span class="o">=</span><span class="mi">250</span><span class="o">*</span><span class="mf">1e-3</span>
+    <span class="n">c</span><span class="o">=</span><span class="mi">1</span>
+    <span class="n">res</span><span class="o">=</span> <span class="n">a</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">phi</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span><span class="o">/</span><span class="n">b</span><span class="p">,</span><span class="mi">1</span><span class="o">/</span><span class="n">c</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">res</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fc_phi_w</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>
+    <span class="n">a</span><span class="o">=</span><span class="mi">300</span>
+    <span class="n">b</span><span class="o">=</span><span class="mf">250e-3</span>
+    <span class="n">c</span><span class="o">=</span><span class="mi">1</span>
+    <span class="n">phi</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">b</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="n">a</span><span class="o">/</span><span class="n">w</span><span class="p">)</span><span class="o">**</span><span class="n">c</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span> 
+    <span class="k">return</span> <span class="n">phi</span> 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">=</span><span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">):</span>
+    <span class="n">a</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fc_w_phi</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Relative Humidity $\phi$ [\%]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Moisture content w [kg/kg]&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">a</span><span class="p">,</span>  <span class="n">alpha</span><span class="o">=</span><span class="mf">0.65</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Sorption Isotherm - mineral wool&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Sorption Isotherm - mineral wool&#39;)
+</pre></div>
+</div>
+<img alt="_images/dc4cd0a3b89e6b2e951ad681df1158a8667f0ac7dc0fb5c32f62e3297db1d9b1.png" src="_images/dc4cd0a3b89e6b2e951ad681df1158a8667f0ac7dc0fb5c32f62e3297db1d9b1.png" />
+</div>
+</div>
+</section>
+<section id="water-permability-saturated-vapor-pressure-and-heat-conductivity">
+<h3>Water permability, saturated vapor pressure and heat conductivity<a class="headerlink" href="#water-permability-saturated-vapor-pressure-and-heat-conductivity" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fc_psat_T</span> <span class="p">(</span><span class="n">T</span><span class="p">):</span>
+    <span class="c1">#    return 610.5 * np.exp( 17.269*T / (237.3+T)) # T&gt;0</span>
+    <span class="c1">#    return 610.5 * np.exp( 21.875*T / (265.5+T)) # T&lt;0</span>
+    <span class="c1">#return np.power(10, 7.625*T/(241+T)+2.7877) # Lehrbuch</span>
+    <span class="k">return</span> <span class="mf">0.61094</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mf">17.625</span><span class="o">*</span> <span class="n">T</span> <span class="o">/</span> <span class="p">(</span><span class="n">T</span> <span class="o">+</span> <span class="mf">243.03</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fc_deltapv_T</span> <span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">T</span><span class="p">):</span>
+    <span class="n">a</span><span class="o">=</span> <span class="p">(</span><span class="mf">22.2</span> <span class="o">+</span> <span class="mf">0.14</span><span class="o">*</span><span class="n">T</span><span class="p">)</span> <span class="o">*</span> <span class="mi">10</span><span class="o">**-</span><span class="mi">6</span>
+    <span class="n">b</span><span class="o">=</span> <span class="o">-</span><span class="n">a</span> 
+    <span class="k">return</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">*</span><span class="n">w</span> <span class="o">/</span><span class="mi">1000</span><span class="p">)</span> <span class="o">*</span><span class="mf">1e-2</span> <span class="o">/</span><span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fc_lambda_w</span> <span class="p">(</span><span class="n">w</span><span class="p">):</span>
+    <span class="k">return</span> <span class="mf">0.04</span> <span class="o">+</span> <span class="mi">6</span><span class="o">*</span><span class="n">w</span> <span class="o">/</span><span class="mi">1000</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">update_Cm</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">phi</span><span class="p">,</span><span class="n">T</span><span class="p">):</span>
+	<span class="n">epsilon</span><span class="o">=</span><span class="mf">0.001</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+	<span class="n">wp</span><span class="o">=</span><span class="n">w</span><span class="o">+</span><span class="n">epsilon</span>
+	<span class="n">phip</span><span class="o">=</span><span class="n">fc_phi_w</span><span class="p">(</span><span class="n">wp</span><span class="p">)</span>
+	<span class="n">dw</span><span class="o">=</span><span class="nb">abs</span><span class="p">(</span><span class="n">wp</span><span class="o">-</span><span class="n">w</span><span class="p">)</span>
+	<span class="n">dphi</span><span class="o">=</span><span class="nb">abs</span><span class="p">(</span><span class="n">phip</span><span class="o">-</span><span class="n">phi</span><span class="p">)</span><span class="o">/</span><span class="mi">100</span>
+	<span class="n">pvs</span><span class="o">=</span><span class="n">fc_psat_T</span><span class="p">(</span><span class="n">T</span><span class="p">)</span>
+	<span class="n">Cm</span><span class="o">=</span><span class="n">dw</span><span class="o">/</span><span class="n">dphi</span><span class="o">/</span><span class="n">pvs</span>
+	<span class="k">return</span> <span class="n">Cm</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">Lv</span> <span class="o">=</span> <span class="mi">2503000</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">fc_deltapv_T</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">1</span><span class="p">)),</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">1</span><span class="p">))))</span> <span class="o">*</span> <span class="mi">20</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Vapor diffusion coefficient $\delta_v$ [$m^2/s$]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Moisture content [kg/kg]&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">b</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.65</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f5f055a5490&gt;]
+</pre></div>
+</div>
+<img alt="_images/1ba7d300918bec5e6b4ca41121697d3c78a184f37d5dd51d895496ff5ed9b616.png" src="_images/1ba7d300918bec5e6b4ca41121697d3c78a184f37d5dd51d895496ff5ed9b616.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">fc_lambda_w</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Heat Conductivity $\lambda$ [$W/m^2/K$]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Moisture content [kg/kg]&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">b</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.65</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f5f05740290&gt;]
+</pre></div>
+</div>
+<img alt="_images/b2f599ea74195294c79e21670e4e017caccd7a7feeb8fccc418b378e4e687cc4.png" src="_images/b2f599ea74195294c79e21670e4e017caccd7a7feeb8fccc418b378e4e687cc4.png" />
+</div>
+</div>
+</section>
+<section id="liquid-water-transport">
+<h3>Liquid Water transport<a class="headerlink" href="#liquid-water-transport" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#function which resembles the suction curve</span>
+<span class="k">def</span> <span class="nf">fc_wsuc_psuc</span><span class="p">(</span><span class="n">psuc</span><span class="p">):</span>
+    <span class="k">return</span>  <span class="mi">300</span><span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">psuc</span> <span class="o">*</span> <span class="mf">1e-6</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#inverse of the suction curve</span>
+<span class="k">def</span> <span class="nf">fc_psuc_w</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">(</span><span class="mi">300</span><span class="o">/</span><span class="n">w</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">)</span> <span class="o">*</span> <span class="mf">1e6</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#calculating the total moisture conductivity</span>
+<span class="k">def</span> <span class="nf">fc_Kw_psuc_wsuc_n</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">n</span><span class="p">):</span>
+    <span class="n">psuc</span> <span class="o">=</span> <span class="n">fc_psuc_w</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+    <span class="n">wsuc</span> <span class="o">=</span> <span class="n">w</span>
+    <span class="n">dwsuc</span> <span class="o">=</span> <span class="o">-</span> <span class="mf">3e8</span> <span class="o">/</span><span class="p">(</span><span class="n">psuc</span> <span class="o">+</span> <span class="mf">1e6</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+    <span class="k">return</span> <span class="o">-</span><span class="n">dwsuc</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">10</span><span class="o">/</span><span class="mi">60</span><span class="o">/</span><span class="mi">300</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">wsuc</span><span class="o">/</span><span class="mi">300</span><span class="p">)</span><span class="o">**</span><span class="n">n</span> <span class="o">*</span> <span class="p">(</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="o">-</span><span class="p">(</span><span class="n">wsuc</span><span class="o">/</span><span class="mi">300</span><span class="p">)</span><span class="o">**</span><span class="n">n</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Array to plot suction curve</span>
+<span class="n">a</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">299</span><span class="p">):</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">fc_psuc_w</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">i</span><span class="p">])))</span>
+    
+<span class="n">b</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+
+<span class="c1">#Loop to produce an expentionaly spaced water contant array</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">,</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">i</span><span class="o">*</span><span class="mf">0.2</span><span class="p">))</span>
+
+<span class="c1">#Test inverse of suction curve</span>
+<span class="n">c</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">b</span><span class="p">:</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">c</span><span class="p">,</span><span class="n">fc_wsuc_psuc</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+
+<span class="c1">#Array to Plot the total moisture conductivity Kw</span>
+<span class="n">h</span><span class="o">=</span><span class="n">fc_wsuc_psuc</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="n">d</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([])</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">h</span><span class="p">:</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="n">fc_Kw_psuc_wsuc_n</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">i</span><span class="p">]),</span><span class="mi">13</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># fig = plt.figure()</span>
+<span class="c1"># ax = fig.add_subplot(1,1,1)</span>
+<span class="c1"># line, = ax.plot(a,range(1,299,1),  alpha=0.65)</span>
+<span class="c1"># ax.set_xscale(&quot;log&quot;)</span>
+<span class="c1"># plt.title(&quot;Sorption Isotherm - mineral wool&quot;)</span>
+
+<span class="n">fig2</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">bx</span> <span class="o">=</span> <span class="n">fig2</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">lin2</span><span class="p">,</span> <span class="o">=</span> <span class="n">bx</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.65</span><span class="p">)</span>
+<span class="n">bx</span><span class="o">.</span><span class="n">set_xscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Suction Curve $P_</span><span class="si">{suc}</span><span class="s2">$&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$\log( P_</span><span class="si">{suc}</span><span class="s2">)$ in $\log(Pa)$&quot;</span><span class="p">)</span>
+
+<span class="n">fig3</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+
+<span class="n">cx</span> <span class="o">=</span> <span class="n">fig3</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">lin3</span><span class="p">,</span> <span class="o">=</span><span class="n">cx</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">b</span><span class="p">,</span><span class="n">d</span><span class="p">,</span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.65</span><span class="p">)</span>
+<span class="n">cx</span><span class="o">.</span><span class="n">set_xscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">cx</span><span class="o">.</span><span class="n">set_yscale</span><span class="p">(</span><span class="s2">&quot;log&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Total moisture conductivity $K_w$&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 1.0, &#39;Total moisture conductivity $K_w$&#39;)
+</pre></div>
+</div>
+<img alt="_images/ad7dd76b1439f9f4859d2cb51e4bd1bebf7c2353edd93a060dd7b5cfb9b4e66f.png" src="_images/ad7dd76b1439f9f4859d2cb51e4bd1bebf7c2353edd93a060dd7b5cfb9b4e66f.png" />
+<img alt="_images/7144880210e99c7a361a6f20c1fc93c282f33d9f7c9cf0d668a67526789f1565.png" src="_images/7144880210e99c7a361a6f20c1fc93c282f33d9f7c9cf0d668a67526789f1565.png" />
+</div>
+</div>
+</section>
+<section id="conductivity-matrices">
+<h3>Conductivity Matrices<a class="headerlink" href="#conductivity-matrices" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">new_Cmatrix_norm_avg</span><span class="p">(</span><span class="n">Kw</span><span class="p">,</span><span class="n">layers</span><span class="p">):</span>
+    <span class="c1"># reference number of cells to increase readability</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">layers</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">n</span>
+    
+    <span class="c1"># Initialising conductivity matrix K and M</span>
+    <span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">))</span>
+    
+    <span class="c1"># iterater to keep track of cell numbers</span>
+    <span class="n">counter</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">layers</span><span class="p">:</span>
+        <span class="c1">#step size for the current layer</span>
+        <span class="n">deltaX</span><span class="o">=</span><span class="n">layer</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="n">layer</span><span class="o">.</span><span class="n">n_cells</span>
+        
+        <span class="c1">#initialize empty conductivity matrix for the current layer</span>
+        <span class="n">W_current</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">))</span>
+        
+        <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">layer</span><span class="o">.</span><span class="n">n_cells</span><span class="p">):</span>
+        
+        
+            <span class="c1">#defining the &quot;east&quot; and &quot;west&quot; conductivity for interior cells</span>
+            <span class="n">W_current</span><span class="p">[</span><span class="n">counter</span><span class="p">,</span><span class="n">counter</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="o">/</span> <span class="n">deltaX</span> <span class="o">**</span><span class="mi">2</span> <span class="o">*</span><span class="p">(</span><span class="n">Kw</span><span class="p">[</span><span class="n">counter</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">Kw</span><span class="p">[</span><span class="n">counter</span><span class="p">])</span>
+            <span class="n">W_current</span><span class="p">[</span><span class="n">counter</span><span class="p">,</span><span class="n">counter</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="o">/</span> <span class="n">deltaX</span> <span class="o">**</span><span class="mi">2</span> <span class="o">*</span><span class="p">(</span><span class="n">Kw</span><span class="p">[</span><span class="n">counter</span><span class="p">]</span> <span class="o">+</span> <span class="n">Kw</span><span class="p">[</span><span class="n">counter</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+            
+            <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">W</span> <span class="o">+=</span> <span class="n">W_current</span>
+    
+    <span class="c1">#The diagonal of the conductivity matrix is defined as the negative sum of the </span>
+    <span class="c1">#&quot;east&quot; and &quot;west&quot; conductivity for the cell</span>
+    <span class="n">W</span><span class="p">[</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">W</span><span class="p">)),</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">W</span><span class="p">))]</span><span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">W</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="c1">#free first and last row; this leads to constant values at the boundaries</span>
+    <span class="n">W</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span><span class="o">=</span><span class="mi">0</span>
+    <span class="n">W</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span><span class="o">=</span><span class="mi">0</span>
+
+    <span class="n">W</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="o">=</span><span class="n">W</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span>
+    <span class="n">W</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>
+    <span class="n">W</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">W</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span>
+
+    <span class="k">return</span> <span class="n">W</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">new_Cmatrix_harm_avg</span><span class="p">(</span><span class="n">Kw</span><span class="p">,</span><span class="n">layers</span><span class="p">):</span>
+    <span class="c1"># reference number of cells to increase readability</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">layers</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">n</span>
+    
+    <span class="c1"># Initialising conductivity matrix K and M</span>
+    <span class="n">W</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">))</span>
+    
+    <span class="c1"># iterater to keep track of cell numbers</span>
+    <span class="n">counter</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="n">layers</span><span class="p">:</span>
+        <span class="c1">#step size for the current layer</span>
+        <span class="n">deltaX</span><span class="o">=</span><span class="n">layer</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="n">layer</span><span class="o">.</span><span class="n">n_cells</span>
+        
+        <span class="c1">#initialize empty conductivity matrix for the current layer</span>
+        <span class="n">W_current</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">))</span>
+        
+        <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">layer</span><span class="o">.</span><span class="n">n_cells</span><span class="p">):</span>
+        
+        
+            <span class="c1">#defining the &quot;east&quot; and &quot;west&quot; conductivity for interior cells</span>
+            <span class="n">W_current</span><span class="p">[</span><span class="n">counter</span><span class="p">,</span><span class="n">counter</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">deltaX</span> <span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">2</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">Kw</span><span class="p">[</span><span class="n">counter</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="o">/</span><span class="n">Kw</span><span class="p">[</span><span class="n">counter</span><span class="p">])</span>
+            <span class="n">W_current</span><span class="p">[</span><span class="n">counter</span><span class="p">,</span><span class="n">counter</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">deltaX</span> <span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">2</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">Kw</span><span class="p">[</span><span class="n">counter</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="o">/</span><span class="n">Kw</span><span class="p">[</span><span class="n">counter</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+                    
+            <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">W</span> <span class="o">+=</span> <span class="n">W_current</span>
+    
+    <span class="c1">#The diagonal of the conductivity matrix is defined as the negative sum of the </span>
+    <span class="c1">#&quot;east&quot; and &quot;west&quot; conductivity for the cell</span>
+    <span class="n">W</span><span class="p">[</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">W</span><span class="p">)),</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">W</span><span class="p">))]</span><span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">W</span><span class="p">,</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="c1">#free first and last row; this leads to constant values at the boundaries</span>
+    <span class="n">W</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span><span class="o">=</span><span class="mi">0</span>
+    <span class="n">W</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span><span class="o">=</span><span class="mi">0</span>
+
+    <span class="n">W</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span><span class="mi">0</span>
+    <span class="n">W</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span><span class="n">W</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="mi">2</span>
+
+    <span class="k">return</span> <span class="n">W</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="construction-of-the-conductivity-matrix-k-and-m">
+<h3>Construction of the conductivity matrix <span class="math notranslate nohighlight">\(K\)</span> and <span class="math notranslate nohighlight">\(M\)</span><a class="headerlink" href="#construction-of-the-conductivity-matrix-k-and-m" title="Permalink to this heading">#</a></h3>
+</section>
+<section id="initialize-temperature-and-moisture-field">
+<h3>Initialize Temperature and Moisture Field<a class="headerlink" href="#initialize-temperature-and-moisture-field" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#initialize the temperaturefield</span>
+<span class="n">vec_T_w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.001</span>
+<span class="n">vec_T_w</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">vec_T_w</span><span class="p">[</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="p">:</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="o">*</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">fc_w_phi</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>
+
+<span class="c1">#Insert Boundary Konditions</span>
+<span class="n">vec_T_w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">=</span> <span class="n">boundaries</span><span class="o">.</span><span class="n">temperature1</span>
+<span class="n">vec_T_w</span><span class="p">[</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span> <span class="n">boundaries</span><span class="o">.</span><span class="n">temperature2</span>
+<span class="c1">#Insert Boundary Konditions</span>
+<span class="n">vec_T_w</span><span class="p">[</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="p">]</span><span class="o">=</span> <span class="mi">300</span>
+<span class="n">vec_T_w</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span> <span class="mf">0.001</span>
+<span class="c1">#print(vec_T_w)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="solving">
+<h3>Solving<a class="headerlink" href="#solving" title="Permalink to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">dt_w_dt</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">vec_T_w</span><span class="p">):</span>
+    <span class="c1">#Splitting up temp and water vector</span>
+    
+    <span class="n">T</span> <span class="o">=</span> <span class="n">vec_T_w</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="p">]</span>
+    <span class="n">w</span> <span class="o">=</span> <span class="n">vec_T_w</span><span class="p">[</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="p">:</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="o">*</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+
+
+    
+    <span class="n">c</span> <span class="o">=</span> <span class="mi">1000</span>
+    <span class="n">rho</span> <span class="o">=</span> <span class="mi">160</span>
+    <span class="n">Lv</span> <span class="o">=</span> <span class="mi">2503000</span>
+    
+    
+    <span class="n">thermConduct</span> <span class="o">=</span> <span class="n">fc_lambda_w</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+    <span class="n">deltapv</span> <span class="o">=</span> <span class="n">fc_deltapv_T</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">T</span><span class="p">)</span>
+
+    <span class="c1">#vapor pressure</span>
+    <span class="n">phi</span> <span class="o">=</span> <span class="n">fc_phi_w</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+    <span class="n">pvap</span> <span class="o">=</span> <span class="n">fc_psat_T</span><span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="o">*</span> <span class="n">phi</span> <span class="o">/</span><span class="mi">100</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">new_Cmatrix_harm_avg</span><span class="p">(</span><span class="n">deltapv</span><span class="p">,</span><span class="n">layers</span><span class="p">)</span>
+  
+    
+    <span class="c1">#liquid water transport</span>
+    <span class="n">psuc</span> <span class="o">=</span> <span class="n">fc_psuc_w</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+    <span class="n">Kleit</span> <span class="o">=</span> <span class="n">fc_Kw_psuc_wsuc_n</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="mi">13</span><span class="p">)</span>
+    <span class="n">W</span> <span class="o">=</span> <span class="n">new_Cmatrix_norm_avg</span><span class="p">(</span><span class="n">Kleit</span><span class="p">,</span><span class="n">layers</span><span class="p">)</span>
+
+    <span class="n">K</span> <span class="o">=</span> <span class="n">new_Cmatrix_harm_avg</span><span class="p">(</span><span class="n">thermConduct</span><span class="p">,</span><span class="n">layers</span><span class="p">)</span>
+
+    
+    <span class="n">delta_T</span> <span class="o">=</span> <span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">K</span><span class="p">,</span><span class="n">T</span><span class="p">)</span> <span class="o">+</span>  <span class="n">deltapv</span> <span class="o">*</span> <span class="n">Lv</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">pvap</span><span class="p">)</span> <span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">c</span><span class="o">*</span><span class="n">rho</span><span class="p">)</span>
+
+    
+    <span class="n">liquittransport</span> <span class="o">=</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">W</span><span class="p">,</span><span class="n">psuc</span><span class="p">)</span>
+    <span class="n">vaportransport</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">pvap</span><span class="p">)</span>
+    <span class="n">delta_w</span> <span class="o">=</span>  <span class="n">liquittransport</span> <span class="o">+</span> <span class="n">vaportransport</span>
+
+    <span class="n">testarray</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vaportransport</span><span class="p">[</span><span class="mi">20</span><span class="p">])</span>
+    <span class="n">testarray2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">liquittransport</span><span class="p">[</span><span class="mi">20</span><span class="p">])</span>
+   
+    
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">delta_T</span><span class="p">,</span><span class="n">delta_w</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">testarray</span><span class="o">=</span><span class="p">[]</span>
+<span class="n">testarray2</span><span class="o">=</span><span class="p">[]</span>
+<span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="c1">#dt_w_dt(t,vec_T_w)</span>
+<span class="n">result_coupled_fluid</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">integrate</span><span class="o">.</span><span class="n">solve_ivp</span><span class="p">(</span><span class="n">dt_w_dt</span><span class="p">,(</span><span class="mi">0</span><span class="p">,</span><span class="mi">60</span><span class="o">*</span><span class="mi">60</span><span class="o">*</span><span class="mi">24</span><span class="o">*</span><span class="mi">3</span><span class="p">),</span><span class="n">vec_T_w</span><span class="p">,</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;Radau&quot;</span><span class="p">)</span><span class="c1">#,atol=1e-10,rtol=1e-8)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">25</span><span class="p">],</span> <span class="n">line</span> <span class="mi">6</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="c1">#dt_w_dt(t,vec_T_w)</span>
+<span class="ne">----&gt; </span><span class="mi">6</span> <span class="n">result_coupled_fluid</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">integrate</span><span class="o">.</span><span class="n">solve_ivp</span><span class="p">(</span><span class="n">dt_w_dt</span><span class="p">,(</span><span class="mi">0</span><span class="p">,</span><span class="mi">60</span><span class="o">*</span><span class="mi">60</span><span class="o">*</span><span class="mi">24</span><span class="o">*</span><span class="mi">3</span><span class="p">),</span><span class="n">vec_T_w</span><span class="p">,</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;Radau&quot;</span><span class="p">)</span><span class="c1">#,atol=1e-10,rtol=1e-8)</span>
+
+<span class="nn">File ~/.local/lib/python3.11/site-packages/scipy/integrate/_ivp/ivp.py:591,</span> in <span class="ni">solve_ivp</span><span class="nt">(fun, t_span, y0, method, t_eval, dense_output, events, vectorized, args, **options)</span>
+<span class="g g-Whitespace">    </span><span class="mi">589</span> <span class="n">status</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="g g-Whitespace">    </span><span class="mi">590</span> <span class="k">while</span> <span class="n">status</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">591</span>     <span class="n">message</span> <span class="o">=</span> <span class="n">solver</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">593</span>     <span class="k">if</span> <span class="n">solver</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="s1">&#39;finished&#39;</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">594</span>         <span class="n">status</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="nn">File ~/.local/lib/python3.11/site-packages/scipy/integrate/_ivp/base.py:181,</span> in <span class="ni">OdeSolver.step</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">179</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">180</span>     <span class="n">t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">t</span>
+<span class="ne">--&gt; </span><span class="mi">181</span>     <span class="n">success</span><span class="p">,</span> <span class="n">message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_step_impl</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">183</span>     <span class="k">if</span> <span class="ow">not</span> <span class="n">success</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">184</span>         <span class="bp">self</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;failed&#39;</span>
+
+<span class="nn">File ~/.local/lib/python3.11/site-packages/scipy/integrate/_ivp/radau.py:459,</span> in <span class="ni">Radau._step_impl</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">456</span> <span class="k">if</span> <span class="n">current_jac</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">457</span>     <span class="k">break</span>
+<span class="ne">--&gt; </span><span class="mi">459</span> <span class="n">J</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">jac</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">460</span> <span class="n">current_jac</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="g g-Whitespace">    </span><span class="mi">461</span> <span class="n">LU_real</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="nn">File ~/.local/lib/python3.11/site-packages/scipy/integrate/_ivp/radau.py:352,</span> in <span class="ni">Radau._validate_jac.&lt;locals&gt;.jac_wrapped</span><span class="nt">(t, y, f)</span>
+<span class="g g-Whitespace">    </span><span class="mi">350</span> <span class="k">def</span> <span class="nf">jac_wrapped</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">351</span>     <span class="bp">self</span><span class="o">.</span><span class="n">njev</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="ne">--&gt; </span><span class="mi">352</span>     <span class="n">J</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">jac_factor</span> <span class="o">=</span> <span class="n">num_jac</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fun_vectorized</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">353</span>                                  <span class="bp">self</span><span class="o">.</span><span class="n">atol</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">jac_factor</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">354</span>                                  <span class="n">sparsity</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">355</span>     <span class="k">return</span> <span class="n">J</span>
+
+<span class="nn">File ~/.local/lib/python3.11/site-packages/scipy/integrate/_ivp/common.py:318,</span> in <span class="ni">num_jac</span><span class="nt">(fun, t, y, f, threshold, factor, sparsity)</span>
+<span class="g g-Whitespace">    </span><span class="mi">315</span>         <span class="n">h</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">factor</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">y_scale</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">-</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">317</span> <span class="k">if</span> <span class="n">sparsity</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">318</span>     <span class="k">return</span> <span class="n">_dense_num_jac</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">factor</span><span class="p">,</span> <span class="n">y_scale</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">319</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">320</span>     <span class="n">structure</span><span class="p">,</span> <span class="n">groups</span> <span class="o">=</span> <span class="n">sparsity</span>
+
+<span class="nn">File ~/.local/lib/python3.11/site-packages/scipy/integrate/_ivp/common.py:328,</span> in <span class="ni">_dense_num_jac</span><span class="nt">(fun, t, y, f, h, factor, y_scale)</span>
+<span class="g g-Whitespace">    </span><span class="mi">326</span> <span class="n">n</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">327</span> <span class="n">h_vecs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">328</span> <span class="n">f_new</span> <span class="o">=</span> <span class="n">fun</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">+</span> <span class="n">h_vecs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">329</span> <span class="n">diff</span> <span class="o">=</span> <span class="n">f_new</span> <span class="o">-</span> <span class="n">f</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">330</span> <span class="n">max_ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">diff</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="nn">File ~/.local/lib/python3.11/site-packages/scipy/integrate/_ivp/base.py:133,</span> in <span class="ni">OdeSolver.__init__.&lt;locals&gt;.fun_vectorized</span><span class="nt">(t, y)</span>
+<span class="g g-Whitespace">    </span><span class="mi">131</span> <span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">132</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">yi</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">T</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">133</span>     <span class="n">f</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fun</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">yi</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">134</span> <span class="k">return</span> <span class="n">f</span>
+
+<span class="nn">File ~/.local/lib/python3.11/site-packages/scipy/integrate/_ivp/base.py:20,</span> in <span class="ni">check_arguments.&lt;locals&gt;.fun_wrapped</span><span class="nt">(t, y)</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span> <span class="k">def</span> <span class="nf">fun_wrapped</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">20</span>     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">fun</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+
+<span class="nn">Cell In[24], line 27,</span> in <span class="ni">dt_w_dt</span><span class="nt">(t, vec_T_w)</span>
+<span class="g g-Whitespace">     </span><span class="mi">25</span> <span class="n">psuc</span> <span class="o">=</span> <span class="n">fc_psuc_w</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">26</span> <span class="n">Kleit</span> <span class="o">=</span> <span class="n">fc_Kw_psuc_wsuc_n</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="mi">13</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">27</span> <span class="n">W</span> <span class="o">=</span> <span class="n">new_Cmatrix_norm_avg</span><span class="p">(</span><span class="n">Kleit</span><span class="p">,</span><span class="n">layers</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">29</span> <span class="n">K</span> <span class="o">=</span> <span class="n">new_Cmatrix_harm_avg</span><span class="p">(</span><span class="n">thermConduct</span><span class="p">,</span><span class="n">layers</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">32</span> <span class="n">delta_T</span> <span class="o">=</span> <span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">K</span><span class="p">,</span><span class="n">T</span><span class="p">)</span> <span class="o">+</span>  <span class="n">deltapv</span> <span class="o">*</span> <span class="n">Lv</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">pvap</span><span class="p">)</span> <span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">c</span><span class="o">*</span><span class="n">rho</span><span class="p">)</span>
+
+<span class="nn">Cell In[21], line 15,</span> in <span class="ni">new_Cmatrix_norm_avg</span><span class="nt">(Kw, layers)</span>
+<span class="g g-Whitespace">     </span><span class="mi">12</span> <span class="n">deltaX</span><span class="o">=</span><span class="n">layer</span><span class="o">.</span><span class="n">width</span> <span class="o">/</span> <span class="n">layer</span><span class="o">.</span><span class="n">n_cells</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span> <span class="c1">#initialize empty conductivity matrix for the current layer</span>
+<span class="ne">---&gt; </span><span class="mi">15</span> <span class="n">W_current</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">))</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">layer</span><span class="o">.</span><span class="n">n_cells</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span> 
+<span class="g g-Whitespace">     </span><span class="mi">19</span> 
+<span class="g g-Whitespace">     </span><span class="mi">20</span>     <span class="c1">#defining the &quot;east&quot; and &quot;west&quot; conductivity for interior cells</span>
+<span class="g g-Whitespace">     </span><span class="mi">21</span>     <span class="n">W_current</span><span class="p">[</span><span class="n">counter</span><span class="p">,</span><span class="n">counter</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="o">/</span> <span class="n">deltaX</span> <span class="o">**</span><span class="mi">2</span> <span class="o">*</span><span class="p">(</span><span class="n">Kw</span><span class="p">[</span><span class="n">counter</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">Kw</span><span class="p">[</span><span class="n">counter</span><span class="p">])</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">res_w_heat</span> <span class="o">=</span><span class="p">[]</span>
+<span class="n">res_w_coup</span><span class="o">=</span><span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="p">,</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="o">*</span><span class="mi">2</span><span class="p">):</span>
+    <span class="n">res_w_coup</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result_coupled_fluid</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+    <span class="n">res_w_heat</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Moisture content [$kg/m^3$]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;cell&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="mi">320</span><span class="p">])</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Moisture Field&quot;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span> <span class="o">/</span><span class="mi">2</span><span class="p">),</span> <span class="n">res_w_coup</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="nb">round</span><span class="p">(</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="o">/</span><span class="mi">2</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;vapor + liquid&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.legend.Legend at 0x7f2d56463cd0&gt;
+</pre></div>
+</div>
+<img alt="_images/69b2d91fde7d2be196b60f8bf395765be7218949dc3d3132618a390f39b2a9ba.png" src="_images/69b2d91fde7d2be196b60f8bf395765be7218949dc3d3132618a390f39b2a9ba.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#reduce the result to allow an animation</span>
+<span class="n">redresult</span><span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="n">i</span><span class="o">%</span><span class="k">1000</span> == 0:
+        <span class="n">redresult</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cells</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="p">,</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="p">)</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">redresult</span><span class="p">),</span><span class="nb">len</span><span class="p">(</span><span class="n">redresult</span><span class="p">))</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
+<span class="n">l</span><span class="p">,</span> <span class="o">=</span> <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">cells</span><span class="p">,</span><span class="n">redresult</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Moisture content [$kg/m^3$]&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;cells&quot;</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">animate</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+    <span class="n">l</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="n">cells</span><span class="p">,</span> <span class="n">redresult</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+<span class="n">ani</span> <span class="o">=</span> <span class="n">animation</span><span class="o">.</span><span class="n">FuncAnimation</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">animate</span><span class="p">,</span> <span class="n">frames</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">t</span><span class="p">))</span>
+
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">HTML</span>
+<span class="n">HTML</span><span class="p">(</span><span class="n">ani</span><span class="o">.</span><span class="n">to_html5_video</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><video width="640" height="480" controls autoplay loop>
+  <source type="video/mp4" src="data:video/mp4;base64,AAAAIGZ0eXBNNFYgAAACAE00ViBpc29taXNvMmF2YzEAAAAIZnJlZQAAqW1tZGF0AAACrgYF//+q
+3EXpvebZSLeWLNgg2SPu73gyNjQgLSBjb3JlIDE2NCByMzA5NSBiYWVlNDAwIC0gSC4yNjQvTVBF
+Ry00IEFWQyBjb2RlYyAtIENvcHlsZWZ0IDIwMDMtMjAyMiAtIGh0dHA6Ly93d3cudmlkZW9sYW4u
+b3JnL3gyNjQuaHRtbCAtIG9wdGlvbnM6IGNhYmFjPTEgcmVmPTMgZGVibG9jaz0xOjA6MCBhbmFs
+eXNlPTB4MzoweDExMyBtZT1oZXggc3VibWU9NyBwc3k9MSBwc3lfcmQ9MS4wMDowLjAwIG1peGVk
+X3JlZj0xIG1lX3JhbmdlPTE2IGNocm9tYV9tZT0xIHRyZWxsaXM9MSA4eDhkY3Q9MSBjcW09MCBk
+ZWFkem9uZT0yMSwxMSBmYXN0X3Bza2lwPTEgY2hyb21hX3FwX29mZnNldD0tMiB0aHJlYWRzPTEy
+IGxvb2thaGVhZF90aHJlYWRzPTIgc2xpY2VkX3RocmVhZHM9MCBucj0wIGRlY2ltYXRlPTEgaW50
+ZXJsYWNlZD0wIGJsdXJheV9jb21wYXQ9MCBjb25zdHJhaW5lZF9pbnRyYT0wIGJmcmFtZXM9MyBi
+X3B5cmFtaWQ9MiBiX2FkYXB0PTEgYl9iaWFzPTAgZGlyZWN0PTEgd2VpZ2h0Yj0xIG9wZW5fZ29w
+PTAgd2VpZ2h0cD0yIGtleWludD0yNTAga2V5aW50X21pbj01IHNjZW5lY3V0PTQwIGludHJhX3Jl
+ZnJlc2g9MCByY19sb29rYWhlYWQ9NDAgcmM9Y3JmIG1idHJlZT0xIGNyZj0yMy4wIHFjb21wPTAu
+NjAgcXBtaW49MCBxcG1heD02OSBxcHN0ZXA9NCBpcF9yYXRpbz0xLjQwIGFxPTE6MS4wMACAAAAW
+aWWIhAAS//73rd+BTcBA7Wu6Vzi0y6uUND1R9pSmeLZIAAADAAADAAAP8M2+n1EV15emAAADAH4A
+ErSX+DPf/FfLcyyYPKKopS2zzm/qAY2JEbOvUBrgXPy2iksu2xaYNk+aTlVHRze6Ckh/M/h4brzt
+QPCjOURLGtl/ba64KWdI0q5vVF4ehoFycDOgnE/QSa11FxGZT2lmuM78Aem3uO+mRGZm1StIwmOC
+pWSY8OxtX+P6awtiDeTX+sBAl1S1HR8N+iAhxL0NWtP4YfTZnNMySgAL/eVN2LUD2DukmrADg+7r
+MSUT6NVonKLXYDBCiBWCdDP++gXBZIIxZj8f6QQi/kxP55apcPPrRNdHtglG1tlWIeY/x1QzWWrT
+AIu1mUEkbF02nPpQia9UDDs7rzWDz6R3Y6gxViuPeMHSV/n7MEXIw7UyU2Cv4d9F85/pj1X5Xp3w
+6o2nAaWFH77pC/ea40R9ECo9yQAS8hZSKQHnI4Ulqh60declVTvjs3xJ+t4oPWMHOxbL9iU9e/IB
+OOyPcZ/wzD2j0lzZSfxvcnnKWwvR0WMSZRw7sF94aqrvK7MSUuzD7FtW8qFSUeGHNgYUBiEl+gAJ
+Dma8Fz+OMU/ogWVgyaf5tTC+eHvA1XnFXB9KME7Wx/uPjeWLtJFjfGCDY2IeUADIuahD0By59KdV
+x+8MRb/30boWzALsb6qJc2/DXBzrNK55Be/VskiVsUN1/p03oQXAbqZiwoAhupWuMOdIZ0JDUARB
+bhAcnTGefBlgrJxlb/wBpxxtKWjGDhI07/SoT+uLqaM+SEICLPjML04X3VZznBYnG70EIo96v4pY
+RwXO4cuSWJ5Hehy7K29BU3RtN2ryEEpiMRR6g3OCKyoQhPdCuIKunOrYXmvXFGJ2Ym6L109VjYy6
+Q2oO+qHPzVS8EHUO3vlCyMLBFRFatMqYjiTQeiy7cKWIuJV9dv3dnk328ntG7JiMLvpKQ1lBWkGi
+UPQEaJlVPvnHHUT6iQNtIsyOImENJLoRohdMr8bamaORe4u/+0Jo/d/dhSdfn5asMW3BUOW/Kytu
+SConXZj01ESsadO5IdaED76GzCLL+t+m0P3F2YzNSCP1sMS0MpshlcYtD0CukQ2fKBPQGo2Q1SPi
+ynw2/E93HAF696dJVk1Wijf2RLq0F4gatoRKw6TTx47f3VveJThHEo8eg6uTdGSqFn/IBwENITfU
+swxQuqAfo7aHLxPVo3y52tRTqeykT2OtecGu3lN+rXERBpwL6N+ZnVIwfMt1B9UxipKxS0QUy+E1
+f8e24DZKBSgR8/OKRYoxcXYd4oMEtRy7C6eZVKNGD5FR8vrUfIpbrTgMhN9f1IngeFBlqZdE0ibq
+jDuqLcXz8j4TKx9Dl2OMtTA6NjlxW/Yc6QUg+oRmYr4HgqF1O5gKYp1rP2A2kF2bqWu37dKDru6O
+o8EeI7ObUtreX6Fxkoi2WIJaGVZ5Yc6Vs008C+tQxjk6T9QteJom+3RScGyQoOTNjeyHcJzArABG
+z6Rr9Djwaz8dVjL8uI3wfAKhQw7UV9hqqTwY2JZL2bTiIgOOvx8B4seye1a2GU0BrhVKKFYR79Zt
+FiK2hfXbnQxb6A3ufyZ9t2GrSLGfh6rUZSG1BjqjGSjDQu2pNXVW8LQYFHwbF/mLPEEc/9djkyeS
+G0xMJj9A++1hOL6pYn7t5/H0A7j0E2jc/knCJyA7OmC/+UxFOMvkyqBZk2iwnsOwFD47vbtarPZp
+Xm4/QX98bTI2pcBJxeI4EMB4h1ig+iQmGKIh1vz+OjxLmd6U6NOpzm9dbzqvHR2kB6PKS6ytTYqK
+qkQ9KZowXex7VZSUpEXjnfctYOa5THU/H1IMDPSYJVYz+AgPPkOm+H7KTaOeqTJBM3sZH7pN7PqO
+WDy4OOtly2rYnEPwsoynINBINGfWwEjJ/xH8Czvx4cppPmdWMdrGDjI8boXzGNyjT1bjg0l8vMNy
+KzQG8uPkRunZcLwGn9amd7VI/6LDEhSjFKgh6HTqhy2LLFZlvaoPEjZs8gQ1zKXstswGNq+Q8iqH
+tzVVDtCad5/O6f3nhbXdzteN7R2Bv8xWhjTQhzpKXzwE8/eEzR+gF+3/9iK/PQvGQ1x6lwmxXthw
+q/OA97e8BdG8o6QHCTC2gEpdLL6BQL+D1aRURS/3MYfCPrzRH+GUVTvRJJue2rb/hzRQ6aINbAjY
+OemGH0QFJdk0ZbqDTcOuAQnB5aK2Z5/Eay4HTON+JA1dJ7YLFsZHO00ZdvtN3Gg6kqMVjORxiPiX
+yRMf+xEDvqfFIT6Or1XvB2E/O87zXOcAJHYtXMQeiPKJbjWPtKmR/+CFwUU6HblA6Cf+gbIg9aRc
+b7FJEqlaey7gKDPHBTlI6ZFBN5xa1JJvIahpWvbs8SUV60hIqprSsI9T7Wz2k7gpbOmBAiJ8RutB
+5YWtxxZOxncZaahKceK2VcBxGWZmnlPinX3I6UuWk3mtbS1TtqZQdcDLz+bu0GJRztqkZ1ycpQjO
+1FsnCZbzXSwI/eblOafj+97fKhftDx/PBq4WEVQo/JS5+fMX4tea+mreoZMVuXfvD9MGl7f2yRhP
+x1cLV2qDZ8Nir2ZbhWdpGofe7e4tfAzd9ER3406fwZoZX5reg8V/LP+xZMdLf1jGICY3utgnoRlk
+eLtev6ej/MvakDRFYEk1GRXM5HiurTtiCKADE5oiu8nmRUgh7af2Uay+iO5dQh/xedsF+pbHVSYz
+w0E4KWJ0dG8pjwvBGtdDWNS4tP13Mx441J8moCaq+EK+cW7b76hUuCY1TnfrjE/GQ9HcjPPUuwDd
+7R8XbW5zjqR8/GOT1/XxRPyxaMvYOH4bpeMSVuoIJ4E9zyKTOP4FElVFuBxEFZseP02KWXFSP8Ag
+TdI3vRHumjrF6BzgSM86132tnxeZjTi5IUZ/CavfCs5Zxfl+qtQQecxCC0lmh0V2bxhrQrRdtqKI
+78W/GEzevSYV9r6zqpaAzQ2X5Aibn4nWqACESQ3tNJET0ph95GiMRSSwqhM426KrNnaPhUZLxsIw
+EEDjP2yq/RU49FFn/1xy8k8Wog3eEnuPPLsGwXCQjT3pr0inQd/0VejDZyL3hXnZZRpzMgqGkBza
+fb43eW+3gRPuVboGhI8DL0pruR1JPiRvml8k5+IPQzX45+Z0M+fw0ZW9q+qcBqFjKjUZyKu/ZAEF
+w50Y123hy/SQM1xQ8YA0D8OMOHOUFduQaxTP+nU2V7W/URY++ObURXV+xtm1Q2qgGQ2mi7zlahON
+HhygRxcD9++uPDiNhIzgHmbBx/YtJ3XVR/BOIWlNJ974HPyzJfjTT32gwcmFA4tT/XvyAS9uaad4
+DzDepKJte+5qM0M/1htuVywrsKPMk2ryfGeuJM5FZhCX6v6yCkbKFVg9496eHyMgNGjBGXSVaE2s
+EE5KqiLp0SY5wFmxAwMM/ERTz0p6Eahqgsg5odaFJwtyLwMJFKexVmIdt1XsiXtBhOv+bPRVfcsN
+biIQg+M7GF25p7BgSygbgcT/4hy14pm2ZvYJJ3JyFPofnGnjYKYoNoIcoMZZ74+5bRYsD8QTdh16
+OMwp1MNapwB6RStKNS/mwVuayCjSD0QEqiB11ub0f95x+AySDcwmSs6k5LBxcL3JVsl7WVR1+HLW
+RvAH2mIIn2frqQqER5+bufU254b5BhwTp9be2PNtEGEgatiZH8JXOJGvWShb4dcdynmaY2wAuDkj
+h/tdmxnE8N58ZEpKz6yj68KYW54MeZ6GSuaiAaN05KW23IgmFXeGnjMKbfDdpxnf1T/Z+iLU+OK6
+mE/DLC4BniaPNZa69fId2r26RE44vLWNKbFpVadYa3P1u3v8c36iDOdd27KJIqhlTyeQv6Pg5sYn
+gXY3Rh7bDY62+uN3fc3PRl+ttzjTviWx8t9K2E6pkHGjkBPcsArjqj9E9yygytrTSbov72IeAQY1
+bMcOSN0r1QFfbhcp/aC/7WrGs214ySGsA3hsq6thXgMvhZDjt3iXm6E9P2zQ9Zg1R5HpDqeX28fD
+PG8VDBXDTD/wssXLNp41y7cS1pAcc5SPp7yW3S+UsOZg5MwAG7nCN1sIz0b7uC+FvRKMpqlz41Wq
+ooIqNXssceNQnMIkIttpwFdSs+Pfwa1THN7dAwNUL4awexOhXr+ojZGpPKeZk6jOy+dWhDmfio16
+w7+u8ckKzhpb4lgpq+i+RpVM7HlkyQHgcibU631qKgwyRMWs+LgxPznI7UnQLS6XQ8tjsNg2h+0s
+/7NUc+NlgiZzMv/4DDKN8BWs+xBUeZYYfWmSpt29gxoFIaE0qqu9iX61N/szbsfe7eLkJyyjPtak
++v+niKP0s1A1cHGTqVGRxAi15aynBMhGJIzCRw9APaQ9Zvxw6NR077/hlQ7Xf4qURIrqsB4lEepO
+LCY1Pm1PNDtX/YR6eh3fosJe+BlN3SlLcFUYFz4auHZkT46BhP4UFDRsgglXwGyN13WlvNvandb3
+b7gI4G+t4UDXtiMEAkTe1xTwLusVUT4m0Cxzt20o+E4+tHxC+3DDPxbgALf9bFa0eISed5gI2vAs
+4kQjpE0ICYaHfnMnHk6rEcU49lRVA2Zb18Hvk7IIqeMfJQThxqdYpE/HjQ/f16Cf5kNBYkrGoKYW
+ghj5tG6qfA12Fj3ccmQOYredJq36q0F6b3BgnE8NIer8r6dmDJ6zmTZi6qOhpE7/mH6fZwpI/Srn
+UayJ04tB6O763oCTz4LKvdfGGvhihfa+Cq3C0ruIKLS8DZELGrkj/OCQ4obsb+0sL/7jmwST/yEY
+isi/wvpN/LURyirH6RwtYr0NpfGeBeFdZd6KmKYlfMDndz9bqt0Emv6na2WWkgNe8tmP9pHBGIln
+nNHy5dLvI81W8ZdQsS17i0e/i88xrkLqBtk47hb7m2hbd4l5Bg47ckSjIjZ/Ba+Rcc14IB3CcNJb
+fCDYul3iYzswquMrJKG5aNX4UkhUagKkGuKv7uY/Hgjtp3sXuV23N+GolEgqYZ4SUOmUgQn88pbT
+GxvKrIL1rQlg7PXQF3y68p5zhnr1EHmZDfI1gMMUnwdm4JU4yjPC973q6CM93nzoi2mvGhSAhH/p
+pwoSm48BArgMn6FWQqjG1pZQfZMl+ImwDZAKYLgmgcbv4+SmxT+UAAB3XvVfJBUBmWTjJy3m1iSM
+hWiiHUCsYjZ2AYy+Oz7mKYiT/tMoCV1X5L6pMqqrfAvKLJlwEp8CuZ4PWCPd6S5ExTc8BXcCm3oP
+S9T1XiljgBin9PIFHKpkKhq+p1vdtnvdBGef6tCyY+kqIZHo+Dgxb4muFoO3G74sxHhiY/UyUIPc
+1BBwuUXpw+6ujiC1qOzJSQ2rEd+v9+VYJh5AU8/+prkUXvY4DfrAEtDz0dOrfN+5RNNH3e92peQ4
+GT6TB/ZtCXNS3Uryky4Mziui4pgw3RQV6sgskFHjoU1kITevv3Mn+vSIyXqdxjpRubjFSB3H86LU
+WS1aIGiG8APp8y+G51PvrCgvt2FKrBs1Pricz2wooWKb07DIR82gaYWerz/U8sEr0YKBurk1IEo8
+1/0ovRImFF6ZfrlVggtBV/TH1vIxxiAtSieB3eOMKyaWtu7VbIdq+FZaOmZsbYBANyxVPTezEbEe
+rf/+qC6W2VM1V7DBUTvz7WXgb7WjEIoYWFjD84CinazKQqMe8ksU9OELePT8Nn0WGBXr2QYWUcdJ
+fPd8EN1Donk38ObB/412MvHAqB1DxpsMbF6uK25V2/wDS+ojjj8UXZqiGASl4YBWPVFnuzEc/BDj
+wlzWtDuWFcQM361W6jXnnkvT1b+uyWL+yGrQCmH8MqfsIRGNAt15eFFBbvyFYCSqqbyqPFrcLL+f
+QPE3oJYY+DVYRbRvYCeWKc+JdnPv/xhmD7xVjFpENpncDiWh4xXGBZpruOSJlnWK2FzJjev9uS1c
+c0f0895MMcT/X4C7Q4ws0XBCk9fuTnRu+NqqaC2MNBVYVQNeOS1FMgKdy7wj7FwPTS5PCdC7uH6w
+OM5pgMH7ZpysHaPJBJ7XG5DABW5xIcS5H3fqe3pyMckb6t4cbJp/qBpzw+8x8Ie5t1ua3ou+y5Ga
+Rd6mrV8GkTL3jefv0SXrdPE9OkT3se0REy2q+jnwtocwDt9WOAgQiyjCRElEsDhtyEcEjYUEUEWn
+xZsuVsIbNX3u+nlig+504E45CY6PbqHJtJRnqRzMDIf9/AjfrlbP1JjHZtpXqO3yAzfIqDcfN9ri
+dpp7ja4oHTlkFn/4PVZOHCX0q5ifRqNBenvDJvUc+Y/1Mni9lNG7bybwMJ0oMzEDbawi7WSjsUjP
+QR89MiQamzWtLpq9JLR1x9X5VVCmEUTVtDHGdgG0of+/QSTnvhjQCxg20SYdq9skSyWHKEgdjpze
+0NwcBpCvPwlaLHXdVh6ucLeKceLfNPjtrPQTcTp6N8vBf2tqSQ1SVHQOgRZbmjjhdaqjq+71C3TE
+1RNbt+IPaNCOmgpky8ypZ4HDuVLSNz1UjIYZEu9Ok94ozQr8c58Ws42M1lUmdo3gTaxzq14cy7VP
+zEJTgov7zfublQntJvaJ5cK0CxmPcf3t8Oq7QeyJQG/3RZY+Jybo9YHyDS+n3Hyz0oGdecZ80vYE
+3//+ZLLba3BDt8o7E5002bN0hI6AkyzxYQx8TwwGRYCGGsZqCYbxcsSyXchXk8vIzPsHsHvtAigl
+SYzMzYK8Zrn4RObJoEj6O1ZmIYuvUs/bWZn/D6Oz29KyDYn9DL3ntfaZud+kK9BikQET4c29u0b6
+mNG1FP3PW7TkZBEkx3AZ0e8tMDNA0/+SHWaSnulCEIuMVKWuHFHlnOMzfwuESGQn+24GmUr3KQFL
+AYTCqEPrnYo888EMs/NNOumq0BOkwqSMXn+0vxmii8P2XXsUXT1PNFIkxcXcJOrqcWSptsC7pTV3
+IeHy/zo/11w/SAAne14BLPCv/wL8kK+oI28nlC2CQlgCaXTQX6Z6+KrWATswVEbi/ACnL9V7+rwt
+jtHOjLcQu9DTUA0KM5+6XHyiR03NbhBfB+9Gqyop5i1V6caDo81F/p7zL0VKrBJL/0Io8IMfx4Ks
+m8QbQ3Vpzsg1f1Tu1uurDH/qiPOblNGUTrYhPayh67sKSYP5pstQi8Pd6ahGe8RMsLjYoj+CntNv
+sW6ryLS8+amyGECefb/TZgvgslHynRmXti0jOTv3oB8iZaX7vG0aaKxSEfvZ/2tjDZx2EihAVH1n
+qRCVid6LA8md4J5ToP5tGuPoCjUUmJ3n1lZ1U7gyw0hJBn7XDpUftw9Eh3M4d5EFPtwjEk8+ALtX
+fbTfnJLIagOXcY/cr//csJb955TF7FPprioPGXSwpHIP3aFBwZFFDHBQHJn9EFf7XzD7o7cH+MDW
+A9T5zat7uGH/ed3zlXdAHy+QPuYqiaa+/Jpx+ipla9JNmwg+AKNJrB7MMW/mV6cCco+XNA7JiqAP
+Ce9gPqhnedFh8i0TcWtJaQ0m9ON7McVOWFjAAJjMoPdyg5wmx8N/1lPANq/OsUQupmHxDf8mR0k9
+v3HdWmstb5QYz/G5eQ7V77omAzVX1qjWDe/a1XNGt7hUxec1gSDPSwYqZKPzv/d4/AX5j6STdpgb
+KXMnJ6Sq0qB7W3NESiauWUYW8wbVvObwA0bGq25rJbv4YfAAv4EAAAIQQZoibEEv/rUqgAG8zBdA
+C/oisxTL/I3fzvsX+XT/hK7tePIf2OEUYUrDi6QX+IbiYIk1Za90VVO9y8hWvg+OyvJu3YK37EDx
+zovIE1MfzH4bs0ISPafPgdPRvw++EI8YZqmuyFIwqcrUFyZkoNuAMIH2q9ERsCeirCtWpftvjn0+
+faeBAe13wVr+GNLEnLdQOplkeR197sgva0i/5opVR9l2lwDtcYFv9Fp406oNn8wUA0aWnB3r3XFo
+qS9fJY5Y38T7LeEFzhKnVVb7D9E10nhek3vPNiAFiod2LeSgVIk7+xFaZm89l28BxGOYxFqzhUir
+INbCfWfR0mF8lWfXIIpLXhnyMrDw0T6F95D+hpU34eqtnQvg3mCQzZwvqNa6+I5ZMBjHxaVJdfQc
+oy8UXGhBGfVEIM6emhS1Pz0OTovBeIm1cheDEE39LgoTBIuZurkKkZVaiZkVWK765r2PhFg/taTW
+01SD2esz5bo6JINJeQ3km8kbtXQgnNXV7CnP/XJ1c9IupUL8DsYkG9HmFg6FsJznogbB/VQlPxLK
+ZJu9cVc9K0eUH7XVE2p8nIQBk7EShQe+nAjl8xcvXvUhLApG1zXz1hQcFEmpBvfYHt+aDEp0YCrK
+BS5DK9tzdRwOx5lQiRkZ+0Fkp+nx8X1G/NbWdezP+iKdWJm1B6Im2rv+seGVuj3jRu8SudHYWism
+AAAA+AGeQXkP/wAE1jMx8Mj2cYGk+bIRAhSKL+X7ueHwuRSjMqAEswYydeGR0vihiZouapbt5yaL
+9yePDzaLD9bwO1Efc3duO/s+j+xBpQc08mfWLtrHOzUCOfVT4w3MOajQJrjNBzycMmbitVNURjTM
+VH7yeWrJYiEJjXAzNWiOy7UvJGPU3c3k+YlSNr2WTVzS1+2jVO1OqI4sthWbVVqX8UH3H2PFjslS
+XooHZkDsFtXftWzWvX+hJYPB+rc/UD5K2GlUJxqiUM2xV4qUskP34EjfUEX+w8fdiGyCC2yE17rV
+66t7vnFOuevhUcpGCTdL3ovv+cOJFWKhAAABUkGaQzwhkymEEv/+tSqAAcm8t/wlehIPnPadcdEW
+Am+A3OC/nD9iqvj7TAklMMaswFhciDPEMpcnMw3mlneXOs8C+z6bjBYE3EgfSY1u8FiKW62cMMmL
+7iiFKFGiNv8G2St1zqxij0QdnA92B6gLAaBM0nSxzqqP8aoNvl5vDIBWLSn+t+Yg1s+KPievUO18
+33Puu5FTeTfiUh6V6deyPYuVI518YKskq4UQvTFcEccw3iKyBq4cYqa+UYP7uSNJhEvi9PNcMqfV
+wrQzxV4Zt2w77GvnRmVCaVrKzqY3LeXZmVNRjHy6rub8++n9kf+QRKqvm/Q+JAkEWs/jM29xrMDo
+krlIseE/Jw5eD4xtCdHsropZdgCeqVNWeYxpzNykPVcc4zDNKmiiVgWrycscC3ZTiM5BEsgPKnu7
+hHJnaohs0FdDGNcVuSw+s5NHJYw1tFMgAAABAEGaZEnhDyZTAgl//rUqgAG9jZOULkAKwhUDis6u
+DnrebHcA8PMeXgAQSBO5y/w0NJnvGBURx3/dBkBUdCb2Jqu+74n249lJgvq83yiPJzEpWP5fkD2d
+5GyXR0t6vF+zaJQzlL7n0iFOoBBgFhNS8yytYOVcB9mgKgbjheOGdHHkPeyY9Chii5/OQz1T9Q/L
+5XxK9KCiZdeGq711OjVSn2WcZ+UYhJwLRjn8zSQJyrKoK5bBc16ZLEZLjgVvpuORFbyhHmlR69QS
+85Dvj12n7SGU5wiuEJQes8Di6VcxTQF5YMDn9X6//5PaPiJDrI5evZon2WZyucPfQ1gZ92liZ8EA
+AAD3QZqFSeEPJlMCCX/+tSqAAbzKKkAEZa2RmutGd3MIFZCFGYKhBDiAxdcuLMLeNII413sai4kd
+DSp1c2iRmh5IPRSXWqhK6BxaVTb9giZ4f0scag/Xd442C6uMCPe2kRvkpUjT2UZvqMUa5t66qDUr
+WH/N1q7nuQNOSjuNg4/piMTYak8a16ouNlOXO5TuIFWPpxxZwgtYFTF8rusNAWO8jilzDikJK7wJ
+G4KEAtE5mWjwgeDnoqk5KV6i0q+WJ/Ohfpvyqdq+lKDpNeYASBjy/5zz1Cap/xnqrC10GRC93Nli
+1TEmL82F8V6VlxPffX3i1lc5bj7aQQAAATBBmqZJ4Q8mUwIJf/61KoABvI6m3dGoAIsp3TQ1vlnD
+M04ieCgI6kJwwszZNcyeUAt10/rLU3GF4uoURma7Q1s2tg7JutIzgByeIgj2sEcTAX8ryXk/oYvV
+ze0jyybxqNPk8kc3G0DaVCSfhKQeLzUWAVwAjCiW1eNH+MvInbzOzuloDDZWp8hRnSdZkfw4ksF7
+p6wfX5o1RbXO8rn9wrmJq/yclX/5g2+mf/eTtToRmkmpIIXHhhokO/GNfb4XeEYijR1fhHRQYBzU
+xgnfOzAbHCBz4cw4aBKBao2rWURYcxL/EQtZT3wFp9tCBkHAZElGw2pSTK2G8mRWRPaRmvQt4Cgi
+aSOpMDvRhs216aPh8GLzZO/NZiiTVk3xJwu1APAfiqVzEVSI9/EOjGMkETRDAAABtkGayEnhDyZT
+BRE8Ev/+tSqAAb2NWGZKgCZKPD845L6ajY/JVrOA+uOG+pjWJC4469j3Ov/1kJzomb+jLgn1wfbA
+HgO3xHEkpe/XnXJzkWEcZ0k1vqy9pWz7J6C3s+IaLgbE8i3WLg6H1t/3azlskbw5yKo7TGSY1CjC
+1ujW0axM5PaydNi10w7KEwIXX+pbHZr2yEX2tIh/snmIAP8YnGWBI8go7nbJCIGlgMa6zUGoiC9Q
+R6teQVdzpSEkc+tUBygSUUX1Jaf6xOzVWUiBDQ/oGclCae4ZF4UlByl7YqtisHUoPB6MVmS19LSJ
+Nn2+GVBFm8g1gjGuGBwwf2bqGfZ3Uc70iIotsU3GkXxoK4yUsOtw7G0UT6Xo86QXJcvsUpaeHBHi
+W5zckHQHBzm3XgCJj2b6/ElYTPF0gCc+UR9pZIpMmlPA/RJkai423EUC9q+fncUI/sk8KDDmOs8E
+hdmhllmU41FarNt4UkNo0DDPkxTqZeIOeTf3LRpIfHAIUP/vbOSRA8f7T54f8WPdmwJCI6EdI0XU
+Rj3oSNgWBXAS4jMda0/E4ii7W6EQ6PLOfxDMuw9EIQAAAJwBnudqQ/8ABMt3zlHWF4jDV6xIwvAa
+V1W3/e9ABdVtf0lj6BTWy7W5PUEk2kLfMAsIALicmE1OptA/2PUrlzHTdjFZ/Z0vZC9wXloDQ+Nd
+xJGW6zeOcw78jR6oV8MyEMZeEwhJZVbg9vDIFjdeUi6V3pmbTuBHDRUG42+9Yl4KAPMtLLBoi7E8
+Lxb5ez96zkBM/uTeV03K8YB3h4AAAAEFQZrpSeEPJlMCCX/+tSqAAbzGHQAgqFaPjKD06zL8J5Qn
+TrOynN2jvMSl50Z1y/Dkre8WNad3xnKj3q1m/92pLNymcne69+4H/60RRP2WEhT/2Dz7Th6mSQLb
+i3/zblBpLFqG6IXA9vO4BRy3QmMfFyucWuRwJs0SnW8YRcr82JKGhhhUNAyu0XaJeGrHL1PE1xQ2
+NdWySoux08MO51F466w4I7jBRiGKQerxQMoWtI3IfpBiX7Duc0Aq6h1V4ugB6m6WYGV3K9N13B7t
+mARib7jw/8NPSz4jkPpD53WQOXPieTqUY2dkPKxNoT2UwpijYhr+0wCcHymyvz4fY/CehpYNpL3g
+AAABJUGbCknhDyZTAgl//rUqgAG9qunoAmyer3CzA4jfho48ue/ndV1/ytZ5USZFpugBT5DHkSr0
+VkX76k9v9XUr4Dfe5kh/tPfZCOKqZTPoFXR7LGRaoRWntriOcuriWx/urXi5Y8oE4mU+ajW9Po6L
+vEf/In3t6LiGVEZ6soDGhlvvbXrQIRJY7ZBh7as4UA2i2dM9RZnG1aRpjRC9jGFREEEld0AtsU7K
+AhvWhNtbBxB9XczrUovTQ2/4JalsFxOtvlz0hmMuUBAQwN5WuIgzgDvfF3i4OI3sJS6wsdJ3+KTP
+KwLb+aOAJqCjetBIp3iNuWDg8VxdhbyLXKw5Q92WCQfIfZfqZXeCrx45Lvz0wADQVgtJAoZaKPNh
+R9pX112Lmsv0iXtzAAABN0GbK0nhDyZTAgl//rUqgAG8xh0AIKs1XyzyAtFVW3wsKmLi8kiz6sBn
+y2s9L13KL1iHM4IRJZBcBLDtKgsCXrLizt2h0g75bs12Wl2+h9AgJX+pFPzIyOQNwW1npnn/qj9H
+GH07xZQHXw5Saz7jXr5IInFe8K0LTkS406s9up/sTIrl+GpuSMKrWD4oy9PDOFzFG+gV+QHiN/ny
+qVo02YACdP5OB1FxcfSEUmjIbnJ4ZronHLlT+o4zBIWe2PylN+S8az7YU9+ZPKYScE0kgW715s+p
+UNnsU/0jSlfoYJAgkx9rAokCzQiE1bM3gVOcXI99ljJIudVcr1TImMFGC6RLL5fP79Tm0qrzYZxN
+R1ngE8ZeM85Lh8goFpR2oso4v5dh62059s+NrLaCbdHa9ZgmCP9aOOcoAAABKUGbTEnhDyZTAgl/
+/rUqgAG9qunoAmuBEFrw46cPI/GMlBVdDejcF9QV7buq7bVpId9O1Sch1CR/GImI/kVFkRiEP7wb
+4Js/eIRncQp8Tpgnr3czpsI8rrBNj0JgHMqPSrS7moraNHnIODXFKMpV/XdoDCngW9NSTPVDi3aI
+y6qCC7eTFXIAxRZk0YfuNNk+9B5qAe/WNywVHl5AL3Wd/0crYHrmTNc4Zm5n6LXi/Wj9WehQJ0sb
+QGYjWkTVKwanRtmrmStqSc4BlDtX/7dJN7ZvS7Sc//5b7H/B5zotKVfGe3LCXr1Ef8Qb5EWcPfff
+iGW/NKkJNweGqKvIbDGTNV/k0EYyazI5eWQ7A1APl8sulRUwcsuO9TZEV+4p7h2VuBVfgmY1yHDk
+cAAAAS9Bm21J4Q8mUwIJf/61KoABvMYdACzLIjp/n/94XK9yOPQYQxJemYCqkWfxP/DbNjlUDfBf
+eE1vkM0T8k/Gp3MhNzXANL++/cxcTzRwC1+dLn+raPydDf04RtHPlpTWY0bvjW/04kbZqlDMK3HJ
+Qv4HOysc6wTQMbesEd6nWozipjEhy/JWjlobDMKoZ/k+Jw4Ki2Sgwpr2DSe+oIwAgbDITrE1f3o+
+sWx1iIjW1mblZVg3OxRU9B5LHrxkuv4/eBbrrr9W5RjjCHt3CTT/MHVchLFnkDbq9GLNJ3afyW59
+nu//2A6F1LiMZmIh97d0dHkTRFv6heHHzbJWjqkUpMBmh2Pdje5rWos9xaP4IYxCzSnFe5a6Nk5a
+OceNI9yZo5bfprTiYOP2Tk2CYEhtgIEAAAE8QZuOSeEPJlMCCX/+tSqAAb2q4UgAan7zj5Nn8VNb
+2gyl1eD0aBnHDVp1UmLWdCF4u3nA0I3I9dO6qkkHG/BuTQULhRUzS1d/95FITHC/ieiC+NRujAmz
+NOhSd1tGFl9FHfpjIqqLPC7jlryw4pxKsOtoYgiy1F9EKac+GftsQtC/Ze6NU8D5+dRh71TxAeSa
+6jpa+dvjK/wlcwrVipFmcLHbvh5QneQIjSJLSAmcM9mq84K1CcX9cjP7mk2VmzT+Y0qsWn7w7wa+
+rNBxLK6qdzuMTsqgnz5LSUQb+koiaiB8wtYeyOytukCzah55nExBlh6YyXxY43QVI/jpy1hxquLx
+LQikEyluhLuRUZsDL7Ew0fN/MV02aIO3lcwEpsluwl0QEfKe9yaJShh6Xn5KcSDTZU7dWbtXHqkm
+2wAAAR9Bm69J4Q8mUwIJf/61KoABvMZlYBZoPPlb3TGlqJAHda5MAtml9sRH2UrxJEQhQCb69ZB4
+LV6jNDpk0/ZzFse8R6Do/CvZn2JXaHrlF6Xr9t8szKPm7k/hKqWFqf+fRDlVTSgilHH49WU31eHW
+O31gpu3hCsQBtWMg1kAJ6BBXIIFV23K/RH5vMrf1JjmT8Xs5/I5JWjCB31yECfqo2QWytF9naDIG
+tv19pZWlQ+htUiviFT9DWViT5hD4gSAEdwwbT6qere00MnGW7+mymUqF+k2toTo4ZpEDEay4Srj8
+NOOIRgVb93LMwS/KZnBMOEQbGyHnmCfBRfVp/rgQyQ4q5LF82xTtGuNEJAAW9csd52PN+en0tchq
+qZUoIvE7QQAAAapBm9BJ4Q8mUwIJf/61KoABvMYdAEFcOf37l7c3JkEmQosMSgR2MrGs9OmI3Fte
+0wb/XpDmTT8rp/s3+NngKR4KVRvmYfXDWaIGbql/vUnUXy+GQ2jyazaHF95cmdeTbjhkradiJATY
+clKmzGfiZYEhaTQN3QhkDf2YSUT2h7ejScluLipxQdqmvj9eLvlbengb/P48HdBfe6ROnn6/djNR
+pueZHcFx+ZT0nCU+Q2wYY++HabiG8Tr4NVkrBYJHctJeVp1ZuzqfY+9fryzZzWapqbyI6IcvNj2g
+U0fANe6omfiBeZv2qpn8ZBFXsKUkqqSFNGy+arxnR6axV/HbWD8Okx0o14kic1LSk/JUKJ44y9DZ
+Rznus2A+glcAO5k9eJKUHtAGVsEEIWJHNsiBVGVgXlz0UPYukZjsLZloOAaoQh00fHGIedAIZYeR
+5KRhpr7CwMwQvHInA9GegnnC1Z/LY8qgaQTEpB+iBxI8ARMha44jV4ILmwh6pzXl1OML60qOEJGj
+0o+ruqKYTFHZ1OGP0DlUVHTOqUEWsG6S8nP5hvxXO/4xa1LCYyoAAAFIQZvySeEPJlMFETwS//61
+KoABvaoO7QCdjIBURf9ExjlC/Z2ul3b/C5SO0ww3GZeY2t+crkN2YIaVRXSKLpDgCch4UfoQSAo6
+GkRLZMonL1AsbtM9MlB52mgMHoWNVSCHgOgCEl0bwELJ99v2Q3AVyjAOWOQ44Jl9hhtG0iOWYjiP
+badqZXBIR8Be10W1wZhzwCxTQsYU7FZyeVNi+JOt9lk/uEfDgLIFdY1zB00+35DaATk2UPc9WVF8
+2geUhHRG/kGN5jvyOOwUNi9j0kIQSuDzSEA6iO81VjfFlZANh3txSUqdsVU03hmZVZqmq5m5Ehgy
+WPYNSr7p8u9+LzbCSTqO83C6c15SWvpya3/S5OmYtl6ySTVE6zuUTJeDjREpCE4B3c6gAASy2Mqr
+YB3Df6XjxtqaxcnWX5G6g9tbg7wiC7sWEr334AAAAJoBnhFqQ/8ABLX+pF51PrkjGTDnLDWIXMXg
+BYi8rORJHHZyQMZgaZyd2tOx7hG1LVYrJtAsFiJPBKQ3cBHw0UJAx4Oq25D4Rpbkd9ZJlrrXm5/M
+KNb7Mu6d5dgClL0iZyokJ2to5R6eYKY65y1apsdZFSuq9mxq/8hEjINgw5JJx1RN6feAb+usyqRa
+umWCQSacPDVmxezL8ZuhAAAB80GaFEnhDyZTBTwS//61KoABvMYdAGUnq8o8GVFiYglJS9N3uw4n
+sysagU61wNXuIwVXrTDanIICsCtC/FImRvmkQrMj0/jvVglYzdchKdsNDy42Zuto4GSRMh/Ttsic
+XJh4N7nFlv6/l4qIdZIamymnkNFLYC3jjmKj2OzC3R7lghOREkhlUMnDv9txZGuXCgUnDTGquF23
+1IjzQRgIPt2Lm2BOZQZSwesxM5auvlenSJGdzdm8wX2JrX4BOguJP4Ng56uP5drfeVNBgszKc967
+0/nPgo6hsb9p3g4rSEprMf7s08cS5jlyI+srdFWipu339BbYq2nM0yK8cqTZnGr+59PY0rBA38pB
+ApXS9xwx/DMnPVqwFjZdI9ToyTeG1Shi4IdbV6TV8C5nZdbACsLSxs+29HlgwPXiUMoFvingSTu9
+RykGzpGajw5HQ7FdvLfWXl/bZ/A6Ap48PqO+wIHIDUvB09KPhDfIcoHCQGkFOMZdYpA9//9/4rWr
+0kV15ISE+evzRD1hgf/agS53Rnnwe29ChrrL2A5/Uq8FC56bKDasp+NoXxfQNusujJD+HM1soHlG
+vNl7bRYEyAQf0ozKjZ4Vlaw6d+S4f1TDR71bE3wWgD2URuLub2r2k++SUpJyONTLUCSChm3Ksc9Q
+ja2G4GwAAADzAZ4zakP/AAS2CFIE7SXgW71hTWf70AFzjCR5BT6sFeg/I0bZXExUBO1F/0tIelvY
+PSlUZ6k+MQH727Htv5vCoaqtndQcsSr4/7GbvuZ2KECDTpmMGtpoRLL0S5EFmQZ8tkIB61gkOlQi
+Kd3P/k8lEgai3VMo9VKYtxkS+x4Adbu4qzAS9SeZ7g0mHVs1wR0eWLOVc0KJDpiMZ9QJgdYw3kdB
+MOQqL/6OeHhLWRScXyTHGnSSdlDseGwrT8Au2brJAwLiQj4pv6/kli0lrwyp5sBkmQqiC+yJ3kAv
+igCEywr3+88dF7urezsjTj+5+3YYHXQkAAABnEGaNUnhDyZTAgl//rUqgAG9pZ9ADhU9rJoBNfTO
+24dpQxUabsjQvls2snIHxpnuWSISyuSP55mBxYcbw4+fTgUUPjKbzdxl9MXVt+cXDZrAH+L25htf
+IGSvaacVVHen4/r/My/OvI1ZUY0xjzkt+QjGhCiNsgk8b1v2l8HZH0/Zb+pW+lkg6i1Aul1k76Ga
+qbBH8xweCCKs4QlAcywDGkBkzCZ57aZz9uMuFiEIxKg6xFQ4Ts4kdeXl1tTqUbMdtf/U46H3XS21
+0iYQOsjY6pba0hSzQCLrI2bou+TvFoFwkgP5+ErSq/9GMeWFc8d9915nz5yZtgCvnuMoce4UOKae
+HUy81zHCvlGaJwK2IW+aWZx8j5yqwFGoYL2CkcL/KZ/rQRnXyjoogPsQA+kKSborS5SFvOe+0Y2C
+kjDpqVLZFaLv1Jht2ZsHKT/7Svhd9U1QTE3iJjIwWpDjOiPAonwyr2YGAmk2HrgA3eafNyRQOuGq
+jdzsoB18Sf5rVoyyMniHbMkilcnPsPDDiktFE1xkcQxBEqyk0oLxGYUAAAFeQZpWSeEPJlMCCX/+
+tSqAAb2lj5ADbM6Zquook0hG3viSqR2u/rcD610Rhb6DZJgB0K40wzO+hDJOdu0Q+QfYTlItzpmY
+i1rW3mBd9nMWfbiCCIK5trQpsHhJPlzp+MamZi97kcr8nfPdZ48ZSzqgPf1k8Oig+sCGa3pEemz1
+30VbzeCEx4GCywLD1fLNfB3F3HaPoDOqN5oisNCB52yv+pfiBNkse4MwqmJ1H1Pw8+x2J5qUt+jy
+HicFJxFA/++5Giax8Yg9Z2WKDQJReUIBgMyIblAJ86YhHhBQjwvhECVHw21Tt1988yoOCZkaiGjZ
+rS+4X2IdWWqikgkPr4xdVJlZ90qyb1JIo7NL9MKHmijwK4i8KHo2CLo7m0kEnP/hUwczA0Kzr5li
+Ox+f4MrszgiDo0SlrvISgL3BNVGyrm80BL34SzArBOK/A+dLcbUQUcG0Lw566EEEQmdcDSYAAAGk
+QZp4SeEPJlMFETwS//61KoABvarp6AwNt3YoRSU4uLK/OeAe8c8WZxtSYtYE0+FflFrpmVuwNLxM
+QFERj1f/gRfxwh25j0BbMoT2RpJkWQmlSrw1QoIyiRM1pwt7hMWnlypROCeFqAWBNw0YkxwcwQgE
+xiV1aRjMNiiXWXRGX/kiSwgsHexcjqd6+Ks04CLag5E4CLeMOACKs4Cb0WMo32Cr1b95Z4qdKFCl
+6X0+aYVOXFuo9w+BU0G4e3Zsinb9vi9SHxzv/TjtkiG3oW4jmHkeT7CUSFev13wNKx9BTMuq0aPL
+yQJ/n7b6kYJjlzKiG+BPVwMw0sXiJulx3nJpjhu68Lowxai4809M4zjyXO4zNKQ/vpqQi+vnJL8l
+L+8+wJRa4+ma5LaOMOGu5PSzImj3cw7PNK9VD3Qq6HXjIn1x2zmIeZphnNjS+WqX88YGdwmD5af9
+Sck3RPavbJygAChlPfFF2MGuAeumDNhJONjg1YQSwB786672i20EUb1YlLGgGyviXD5qYmkFCYLl
+vXnTIpNCoyKEJ4gVm4PIwgUhsJbxAAABMgGel2pD/wAE0JErdUjudYI7kxFupZ0AK8MPAkimb9uD
+jQJTupVBx5D5kCXR+fPCxRy5p49goNeHnXcoVA+CmkfaL5KYOAarK74bvgikonXx5kZFKPpfjHHT
+JqEfiv9OuvcyMG52dtuA4TOK5/Iivsw0+W8sM04iVgDCA0B2BALUmwJ+754ZAhcHIxit72ydPbnT
+P23Sn+sLSKeQ17sYaAhHPtVySKjgeiyHheR3Aqlvbg3/wQpWQFKDDC/6qYDhJkeetRF9Z0FFc7AZ
+XC7UoticE3bpt5AHJFxsRe/4zXm6gEbiDrlPsOMJaeHDSUM+hSGOIAxKgvST5DIdsyDDmjAPVXLx
+lcLB9GZBiAclCWC9w0aiKOKwvUJuwN1PmGfybpWhv4yMVd+7CJ8wME6J68XlgQAAAZ5BmplJ4Q8m
+UwIJf/61KoABvaXhcCi+2zmvj/1fXy8GateMlJ4rrEFIw77nLlXvWSvskmt2DUyKIe040ZxFeUme
+KjwVmgF78i7MZ9skYeBo/W/748FkW+js6Yk5k1irS1Ki0iwVdgeswnrfF6FkRDFzQlYdCCVbsIKF
+rF8jpMDyMEOAMf/SCQERTLYGJkr5j97GU5oy8qjr4IjaZrZK9tKzQSyMYW4UtffDKzvcPKePjmYr
+8ELBIWyr7SlFYG0/dc1h8hT2G1PlUEFcYpO9KFFQOSSs7NGdLPHUGA2XChBBwlCcxaA/pPoYfL8w
++GsxJ3s/E5xjiu0nlJABVkYMo6/wiWXkvP/dyeFp5JBsjYz4L+E2AIWdnNoXp6l/Wi2mE9xPMjtC
+oaPzQnKwkXf011G37rXOmnaKuC6oqbJMi3Z4L8D4wfZpOMsGvABGtqXxB3o+2989i4KV5/mxF1dD
+VYF/6VdkE92egDdbaJnmiHmbP0IMuvPG6CsesD/EbKDdf9Wr5ZU8BcYnqMpayg9ewLVnKl+TmVmj
+3MG3O2pmx/AAAAGfQZq6SeEPJlMCCX/+tSqAAb2liyAmpPehiSCYMw/Q8OrMIqNEj4GsHI1WHAI7
+L1/7roIX2j6NQDpoRpIxb0xr0v+q8/knLCqQ6WoSdDXZfOI4arUj7ZFYu5O5alZL7a81xkRbhaQ2
+s+PyU/uTeOWr2UkmH0DEEaiz1GIUKnl3jcfIltoyjHM1fzs7xzKbWSGUiDvVROp/ZfwTc4d8iWTQ
+VYoKpEgIL2mFjqPx9dxvBW+xGcEBe78lUrJvQCeTbt2BHM9R+oRxjHHpaFmarY9ZDbeeekeuuC47
+U6ArsGF+qw0cEDwVsTuscGdyu3iOBN9yNpTcrUkMYjIhKn/1gscVHlNRh0fs5hJm6GsEv3RCI5nj
+SK/TqzXGJDIB2OctNCk9ehMM07yya4B+Wfg5jVzgE1BaWTsnrl5H0wWUxq9gXXmH/3G2uqvXCCcp
+omQpBEwx5LE490LinRLMz8k3CDe0MXd4POqEkdDLqdT83iy3oSX5dqExlMB9b3kHRoSwyXTMc8MV
+SzUYWddumPhC2vxg2RmW9GBS2Z2Yekxy8Yl7uQAAAWxBmtxJ4Q8mUwURPBL//rUqgAG9quyIAvnU
+1djXqoPAbScTovieHTyd5vfV9xT88mOhBucnkXsoV1Rc+HhHXm8VodCGOtM3EGe5P+PyJ1DEkIOl
+JhXlw6OUTrSc9YUu4Ci/JjwZyXFjG5RFH2Og95DvTKsR3F7RAIev0XRWPHlTtZsiwlG6V9oilqHC
+rg1qPnzhM/ynCYv6D6ajJRb7km/QaMw74rJGrSFll1vcFTfiXbvr2n/BUIIIA/4LEXKG+U2EqF5K
+khgsvOm0WlkFKoVSk8RJeJGLMI3J4jU82KG015dbdKrrkeRinQ8whYoCkeNeqcqcia/7oEbRptWw
+DcuX2OoQs68l0hAeYWtDwFN/LXp7IRbYnHqwNyypO2gFbUW/z/6kUXBxM4Z9NHW6ffXwVx8/OP91
+nj1KrVjFSr0FF1RsAprUmFZa8epCC0XlB4MZzIml6vH6Q9MwLqQOcp3Z3OJfpR/azi43T7CIAAAA
+1AGe+2pD/wAEtY223FrkCIgyFibcynGzpEnmoDE6BXC3p0JwAqxbfvbMwmY3zT/slpFtpkSn7j99
+pF/nhRRZ3Dp2lT3xhgobBjO7kDTTg7XQC8GaZDP6kn+foT/uhE92MXtK/kZeNMH8SEwBOm/b2jUJ
+PyM0VvJPMO5//TGSEwonOAdARShmYyJic+nK0cRD9bYer27hstdvlWp49j1Ohemt9oStbkGAsld9
+GvD232r0j0QRPMTRqWMIgjxrHHJ67PsEaU8rSTeq/AMzW7j+xZ0ejV21AAAB0EGa/UnhDyZTAgl/
+/rUqgAG9paHqBVE1D7IlTU992VzDTjvwh+sXD69OmX8Y5fLn8gyikKTFKpMn1hAq4wHUmskUAFqG
+QfWOnH6iRuRO8pYcZUQQHnAjZIJYyX4BKIaCmPRia6HGmkAlmXXqbTk0SUPZCnSnu9esgZpV0qae
+u532S01+L5o/7Rh9mQgCaZ5u/humLjBUhhNcsaSRYvcBiD7zG+TKdHvqtta1Y1QX5uyMdq+ow7gF
+W6FBu4RmXbFACA4QU0bWeymjZVW8cGV0FJp2cdqpJ8IZ8Jn5gzY6zhaCin9sjnv+VERsHWeItrbq
+A4hTzZxFmahyjXVp4qALqdSVY/hYRLrpTVew+LQExH118OKuCuOHSI2a1rXlcCMVwTFL2YcAUjQs
+iW29uxUZXVn2zjHzgQZOHLamWPueRHSf76mDm26LwcGkHHODGXNmqXz/e6Ou+4jRg8KMLgQ2ftYy
+fd9FSjF8WjSoUS6G2cE/5pyKI2tfDIxjX6AsmHoz2wwc3kE87nDnbXRF12lYwBQwn0HCC1HD0A3i
+CZGqbgucpzzw1+LE6SKNDK7TmEg09B3jUaS4PJy3QbHq4UJeARq+aH0fzy5qY+6Ymd+V8RxxAAAB
+30GbH0nhDyZTBRE8Ev/+tSqAAb2lwGAwHJqF4kMxFrsQPD0buh/sNlCU7S/J65a9Y8aIqv/KZsD1
+i38luSov4uTPaycAzBGYSpjMkDWvRii8atXraf5ppLcWrzcs9POHsf45vc/smr/hoYkUN7tEpAlw
+ywjPV9ezTxF5S/d/it9W1c5FNfFHqQW4TNouqOtqqNyE+QXpOOySLxhm/dNlG+M1DoYks+GlzxIS
+If40PwO4V9MyhRtR4TULu7zwewJSaxsLTKV8BSBOw03oRGTPeMZayFK9lWUYFPsnVmNclvnLTndj
+z+rj9A46Chb9tjKU1JTHzQaxVzjT/tVyaWQIQD8LueCXEr+ZZtrAGMZ4lYgSd6Sh1DzZifgyzdkj
++r3vwBTbtRF0MQiTS1bA3pu/4BmHS16eKmjIeCWWF66mO/naw0kl25N9ApiF40dPJTDHxIq7ZHEf
+3ZTcfd5bWmjSnqPNCeNuRwrroJgAmEgJdVoJ2A6pihnV697LpLLsIKH2+dRFp7ihYreVvTmDvvI/
+sZK3DVH1q6fMZmk5V2CHhFubDLuf4v/8aF88f8OEn7tfzpimhpzBs2lVEnSIWyyIsVr+RdfvWS1y
+DTrGPHpRl2xRlkWQfj9r6B+xtH/y9nkwAAAA1AGfPmpD/wAEtfI+0MFii+Cmqp1FbbG5gxqamSs/
+X8xUI04nImBTINX4AW2rukmFg+dlcnMCMxTW0cHtx+EpdVKhEbjKoS2FH2FMrmkc5fqg9jZs4scT
+qyyzG/BSQiHxSReDpJuMoccuulPnnWgHHC4JuJBA4ztax8O7LuqnnDDFyr6rZDyQypZ5+y5zRbwt
+F0c9/HbMkZMffxHG793DTFoVkEsMjO/pfXduEg9sOiwcgnvJevQxMS1a5Ycg+GipIenQQkXdAImp
+Oo9QT8/TqjZnFfjgAAABfEGbIEnhDyZTAgl//rUqgAG9pZQ4AO56OMwsNtid2ug/CWZVqzH2BRQy
+eqBtdSvfunTiEynES71DZrUuMxpwkbbhwiomxRaqIZVWH1Y0TLHPpUGFEaxIRmBH+pBoF6OFxMoW
+63GOXLkr3R1aE3zvkeP7tlNw4OatGX7zjIS9tPxmSKYfXBuHnnZmvIOjfYSVUkhF2buSf4MiSjIc
+0qUXmw3pVEvNDzQ0mv2KBAGckzmcWNqxtzDwzpp4TRGgoTZcPoFpMA3i/vRKgs+JJldol2BCaakN
++VmDQL+kOEC9lEJl8zSEzDI1FpzVRdSQ0LpngXlg4NauyBxLvnecAs0YGG8rvAuwpwTu/z33Rufi
+AonOt8sGbxTKZU5PixmynR0e5sWBPvS8j/G0AUYe3YZcliSCTME7Tp2l3lbynUwhWU6hCvGw+ubA
+ccigKWDORmrPpgKOAYMrVolfTbi37JL+OVsdZTNbcPFkli19IfprHcyrI0SBuCsF2cRaF6khAAAB
+T0GbQUnhDyZTAgl//rUqgAG9pZ9ADaLvFGRLQjeBVbdMtWFL+tPDaWn6Z5ll/1Ho5j85CU3moGMK
+IjwuhTAA6PrqYrRNe13PAMfPok7UlVDJ6Mc9y2701jn4XlcuxCliy5vGhfEdqZ5U3g3gApyQ6kCj
+bxGhZ41MIVWKj6BDA3qObmEXpkz1ewoOysixFQcvcWKcT6v2IzImL3/UaoYQxaHFr/qY8rAdwHrB
+04XsuHDskWG4U3xPyXNKNmF+Gj2EQypMLDNEISv5ijQqY5apSiRncEdEgmBpiecmp5X8VT8SShJs
+brSx6yZI+NDH+eHwNR9B4/59rbZE4zb1azYu4F31sML7JIgpy+Ln6RV0cMDbrl0A5PHsqncLM2H8
+/WYMpuCYtyHx9jUZ73eW/gaCODmRlseTJ3T4LxLFyj74QG5Dynq5fXZgu/c0H589tRM8AAAB10Gb
+YknhDyZTAgl//rUqgAG+ird+EAWaDQj7tOOXUu97+2rkMwdZmN3I2slfpc0+pY9qK/xff9DRbGGm
++xbDYvkBN3M9Luc/+4vsa2JEFYcEnqAfHsZlSc7iVs4V8KG54Ss7zgwGq21bEuKP58QQtb6dU4Wf
+AY8pSDjn4WxTpi7yeg08YiBg2KuqJDbiTV9PpB6np7/WbqBYAbwISnHxNHpsi1I687FjEfhfaN8r
+AXfzVmHJtZQx2/cfhVtLhR4TQqhXq0nZFKAJRDNOsY3NHpSsZP22586xbZ4w+tmyvW6z95KJwRH8
+K3NbgnX31fS+AeGuoRzCS+8JrhkfDgk6rRDe7vEHU3ZKo55XG+yZj+cGIC0dFE2X1DZ3fj2/Hw3F
+ja2XJ2/EPWP+o1OAewJ3KX0ispbjDKejCvqcRbFupFvpfmD7aTxugyl20R2N0t+MvwDa9dHgMT20
+UBbTUP3Q6ibZoXg+nUSaI4LCAFvzwG7wk3h7InlIyNF5ofiHEjL5f4qg5TbLSoTlKRucN3f86ivM
+GZzxyOC/NmoDzS+yKY8Qp11wcid4SJDtghPMCgTEz00kJ1cYrCbiN29fvlTfAOk9YIJNRk/mNXtT
+dMXZFsWFNZduu3KNnQAAAX5Bm4RJ4Q8mUwURPBL//rUqgAG9qu+gA9qI4mMCbTx/raJ0YcObyesp
+qERE7UAt8aJv6CLohiFBJt2VFZ1EtzhxWFB3a9OSXGb3AQSnWAtf8D0WMIstrjzJCTR/92HpZKVm
+AGCzgDTswPNm3Hp96YXX4lfJ24HtI8/2C+pBYXaPY+JQl/ml+zKQgSr++FgQkOb7gxZqEyonTSnZ
+jllRlmbSRgZu2COG6V7linw95rRROBPP8GhO70JcU694sOQmMbw3S/p8rg0d2qT1RBwbA2Ui0+gP
+6LUKKjiLUBiBEzv4WB67vx3AFKGNLtxqD9ErYU7OnPV9LR7SWwpRANA/eKmWZvEm5dZbP16HZb7e
+tyYpH0cGwSfH2WfFOPL7VTJ4CV6arvB1pX2VVuGVF0UEJCGySECM83SKwdGFNoR0nlU8Lg70i26B
+p5sgxNsU+GHCsMYwpkwJFIPyoTPBgi10SpspqjfYm73yY81SczbU4q8w909xq4ibd3ueVAdNVzrA
+AAAA7AGfo2pD/wAElgTleilg8qODYOuGH5RJNNyWVYnwqjOaAoy6jwtYcpHFbDGJlscUE/fKaAFc
+9QX4w8JbBIqSd8wkzTtN5pD46cMBZZ5VPLnxpDqElUY16s5OiMWpQipd60Q6KSNRDRHnik/k6w0P
+PqP77Ta7jyL8u/aEwcx/BrVUHnDbSwXZI1cVDZfBzKU/DxwYbZgKmMsBwxg+4F0rve61KvMOdKAT
+k/O//wqAQeJqfmaa+6oFylxFrudCz4h1IM7dQoKiugbWVXUTPKdO4jbFKvJBXWT5ne34bfnfc83a
+zEUozBM9QqPO5rTBAAABZEGbpUnhDyZTAgl//rUqgAG82LNAPWjb87TnJb15VIYO4Wg/2hMujJ+J
+r3cILj4oPRb/xVJXABcOPjzBEaA++jkcIH5BSNHx21+Js0BDAdyN0vXqOJhkbhbDpBkXxjiUqxV4
++ym6pZNMRzCsR/ilc9wwryUp5ar4zpCIX1YNl+UN2ZozFyaOn5cX1wOe7IK2iRMOhjxiwYRXQR5c
+nF4vJ1vbcg0YEwHFzS/W7T2OWKaDwvWRlbnH/PZ36ZCv8qnEQGTThtLDrckyKVgOjMDPbe6W6MjK
+aZyxc6/AwtC1qm2q/mIBqNy9HBNv9MNQvqbcXnKzF9JFxPWShyrFgvweLJy2m9Dwec8cDF1hBzZs
+e9yi8p9lbnSpU51SV+4f3J9vtejYhVxOfpugEsr1aqDVYsFpuXJjHBEakBpKa2pqMxIFOr8Xswxx
+2S4oi/Jn6qRF4VL4hmTg1lvPtCf+xsxVZinEEo5TAAAB30Gbx0nhDyZTBRE8Ev/+tSqAAb2ln0AP
+joUOYDg2AKlmXbbPxy0zwcXvJ6y9ZjOgDlEKkLOrzXDEwms7wyKm5N1MtTmBTNh7zWK3pj0Mpusj
+GhitWMBbQgt3LmB9cgzIYa/pjeX9Ym/yf7NYBjGwbVnN+D3wx//gGYtnsxMVkDLy+3PbY9o3vpcX
+bJKtGA7bnm7umO7Ni1iMwvZDTLK9v9H4zLEYqqj1jyDlYJC9OkPhTK2xmfuihdB0lnJiKf6ophHn
+PwYAwzKSydzPQo157hXcqyD3xkV2sWYQ5JBQojZYxng92z+SMHTz3YbZ67us7L2BSHnh352WgEw4
+7yvpIO+FZRxDlJP49P7YFTKatGu4djB/5GlczEmDglAgiasRy/rEraFXCD607Sb24bQf0XnxbzMt
+AhE4RStyBQOkTWxzhhv1c7k++OBYRXF4//FXomtriDRL3hlVbyP9n7lMzx29Ao1MdZHjhwEb6Iyx
+eb3uOCfojLpO/ht8pZbAKxbSYaz6M0X9KcXqbK95P1Chud6w50Irf7WPeqW9fLF1BP5L4Kd6JbBx
+9ALgKW5cFAnA00b6HVn0qe1o6CVbWD62Gr6XTMos3qF8qjOLjJuMvias4OnqE4sA1s+QywtcOVYh
+AAABEwGf5mpD/wAEaht47xk4vTljjFa9Ea40Esr2uHYVLC9fiVqD6viNKYwSzLMkUBACrGO70sAz
+youdF+vh5uJZd3ptbrRYVT5HTmAZVigzjV9yM1qHcWf0AX5VLV9utdkQ3B0+vdrqNV03NZTl+kKP
+Qto48c0gLT0ZDwnA/ByLH15yFyyVWPwvrcNRXBxrwiuVdgldPVw/PLhg4gzrnHhe+BgpjLDEkpqV
+qkBo/TTMncAmd/qg8jT2iHld4MW648I9txzWt/p2YAA3/A1Jm4jINLm8rZt2U0jXZH3UneqE0prU
+CrjW+KYUDv7JwW/P+Y+5Jpm4dwXmRUNn4eHSdIcR0+LmYk0xszBYR6Aq1/P2igm95S0xAAABzUGb
+6UnhDyZTBTwS//61KoABvaWPkAPjIlP5zrIFfF9PwSLaWqQVXpwT8Vi1yU9hOJPU8pvsdpH7HWO/
+PfRl0rZJKczQwXsLBIoFgnGNAdX6O1JbCzwphglJ4oSn+YH4HULEoOVJAhexfN2nm/N9EQFzoOdP
+F5Q6yFo1V6cqt43ZnAXwuHKSJyANMCTd89XdKKSmcdFyFMSZMB+ShKgWIVooNLgCOfbr2eChW60W
+7aGctkmvJ7d+Syr/L13DKr6Q4jYnynR3qB0Cd5K4FP/bDfsIId5wy67s0olZhxGJ6vFAkwb0pID8
+x9p52gI6XjsDtdqpBUkiIUtqIs4JTCKQGTdzC7QpJ0hURTgi1SUlSGcrcNmRcCTVVY3/oQJeDamM
+CcupYNRzfjqeta75vNykj4fdUIqh+3Gle8CsEeci0cTEDatPH7I4OCqPTz83sGa2VlDPrxfaC03L
+HIKSUZp0YpzvjmeDDIsnw96GuJAg9BcmraBaT+1UYas1dAcLN5qOqK3p/wbTUGk/wSNss1wDojcC
+vaRI+9vLmWDOz6cWj3l4ArpfQ2stdJdiKbVMH7VUb/md6RDalSXHc+wdUnE+jUWVS2mHLS8JQmZ4
+ruuAAAABEwGeCGpD/wAE1aMnfhs++Y/BsueZi9iQ9rcf3w5A90tEB2jwfqFzFigAnOZO4VUZXCU6
+yFxWdANLb45gnj7PWUl5JNSjvKS3UcSfzntg+K9YwQsmrMmwvIG3Ukcjtj/0pgFFrPOUmIU441L1
+EomiQ2y/4c/LklwFbnWmTekqPp0sie2c81lkuYR21fatbEIACCfM7SxH4sg2pQJf/K7+hbKrbfi6
++HYibzZ8zTFydQN92Chfqy6b9WaFQmxtHpknId7oKmbxbyDJKXRDuhv7RxfnxmkNlJOW2hiPC9T7
+1gzZ/vR0sHyNauC7ys9TdszwcYmADEmItrSzf9jdt67WLd/bXx1sELd/60l+4PH2/JdS5fl4AAAB
+jkGaCknhDyZTAgl//rUqgAG9peFwGJoYkkSMwPtY1pskdJ9R4LSn9M1T3XoIIEP9SVsbiBB4iB2w
+9l7P5hOQeGylbp7vCNNcNmqEXP9uxJkLLycKUn35uQMIk6YBzIqE5BTZgJMNDlVEN0dZszQNoetc
+29kG+iikIDdVpfgn+QjFP1NM8XXYQWptjDunAxZVPT8fMrIPQNbO+OyzXwlZfF6JxNUOr5UMpxjP
+dsKZXmusv/Iy88WFkqKs7X7QjmQPMXMCdO5sMliroonFQBnJbPXUGu/HXD0PA46K6+k87hpKCCf1
+KcoSUKvXf2rn6IfNA2p7uEWo6HTbdmDPah+JMrHBDkoGdBcs2NzaLgzNis7ZK9I6DyxXyi9xfLOX
+eBf/cwSqkWbzF5pwQVKH/wimYEXYsWzU3LYyBe3s451umoGYuNeX/DgfFgW2+IPYp5GPFJClbYJQ
+pUhbsCs4yYc4YIh1OgKfO3QGZP5ji/yRCi5WqTND/XoXLVcjDMNjlhh0aIxcH86jmaH+Z3OcdqJB
+AAACA0GaLEnhDyZTBRE8Ev/+tSqAAb2lj5AD6bL5nsAsrkyILG5Wn2iUhSooeUMSHVJ4/3u+3j/B
+DKSIQDFyaSH7JYfEMusBaDF6FTHU3GVgua7rqRenG8OPaQT2pIAuuUXGu3chKNCnLGLhpzvhCdIY
+mdJaNrSm3kWi3sLOgRo0cWWc5I10apk3S2vXK3zs+Wy5ip35bMrO41HN3Iz0sU+YvIrg/EX5mTJ6
+e/3Zwx2610I4FbVE94TSHUYiVebD13VSzZGdoJwbfIR91yWxRp/K9nYcsjv1vh/6U1Y6PpMq4A3+
+/vbJOqyzbFnJTF8ho2DDY0q8+vn8xQuYSnP+RX+vkyGLnhf92Raset68ZsKI6eZfLEXm46pjo+yq
+hjROY37agIfY0M7EV6nTRYJ6jFHBXow9GJhmOCYUm+r+GTUgZZpf4T4SMK9bAE8u3676wYLN7OrM
+kFW7CWlJ66wZtK9Z0wB36QNFkmwubsV718DEYnHDCH+aiCstso9GdVDmrIo0FmC5sg9o5dhNvLcT
+iot51+CbcXopfx9ckJezfWnwZvVC82hJ4HYIRGlrsnca6slkYUQQDuiDAXeICxwcqOGnoMdly5PU
+CKgB08tNuccWu6JyoUjqyh4khZC1IYkXHfYBiksnfX/vY2RmWe1shPH+p/Co4v+XtkRIPJwzj/69
+LgUh0CSbAAAAuAGeS2pD/wAElYSTIkm+g3/9BEpkBi0SwO9qG5bWZllCTLBppCUs4bGQyYFEnYVx
++EABXM4GQBgLlxSyYHQjfEFY8N7AmhcQZVvtcenniZDVuvjCSXOSh/FgEmbQdwh0vfXINIiu6gQY
+LNCvihy1MXYND0oGEPcczzFJ+qnWcyYWQVV/02jKiwOUsWA5wVy5r9dDj1e+4HlAutC6ptjruTIM
+5D893qbJrgo3OipzCHS1TfTVTGT3vTQAAAJ8QZpOSeEPJlMFPBL//rUqgAG9pe1uAw0qVdGvgB76
+sBGJ5+7HNifARKBkecdeks+qDgvn43NdvsdJ9/q3TsTLMb2rYE39dwRgGEEiti4+ZbdvcFe5dmAy
+Zvj25hiyfrqLcKlnft9NpwBHIOAHT4aDJ8El4Tc3WNqsiFSlG130o30m400hnPx6tc5vVgEHNnaU
+D1n909hzUI94MpODK01LMkHsF6GU8RHcWaFWbX3x+EJaTNvuvU9jsEimiJ0ax/a5y4PUDQl18yAV
+f/V1iqATezcNH9uHgHVIKoTc42ew/Ft8Wp32oyTQrzm7eTuei9den6GlTDZ4kPyrHC1IVTuf4qeE
+worW6zckv+Ye+Yxig+AGgd5Fo594lhrho45ccML4JHSEkzAaQrdUQQu7WA2PSnXcpatSchsC7XCa
+3GOvkliye+bW56+C02yVGWQ6W0atU3ZEUbyUn4GuIkcTtLVLeRAjt37PRd1+xULm00MGZ8966LU1
+8nFY4KmlJNv9ChgPfV4mJ1bbHi6XOJCTb8G1yXle/FNW5WVBVu8+FfnWi186OytTLGPj8uuPMkD6
+TVkykLP9UPZxAySPYo+EpUtzUUpSmWyjL+AD9R+rlCxQtEouiAtuBffwAsuG9Rex3a8pWsLSXCl4
+piokX20jsnW8qDKVhylep2+c7L3Mwv6HTw+vM+VWHymZ1YTW0q2CPnHCIswQRAB3g02UJkytGkRF
+IcmlR5vDpIWyarwXO+EsBzSy7mLObZcoWSHL1OM83edX02nA41vXHexSaixHrkY7oAltzx3nhfFL
+wnnyyyqKzrgMPFAcp580YvuesgaTSUMcJZGijcBgZ9frKymZAAAAwwGebWpD/wAEdUNssFaMXc2Y
+FIo7EU2IKqoe/bXdlCADybNlf2s5Zq1+DxO/ki+9Q62bNpfst7mETeP8SACV3EApoAltpvIp2Uaj
+xT9/gLBMrm8RCu0LsQDuyOsXzvVXnsKnUSyoqCNRWs4EuJQdPhHR4JGS6Iu6TMHdT3JUmEz5jNab
+d6kpAYaKHjuzq/3j/FR+5z/oa6knFUWcBa04Ty+dmO1eYmgAThczaysRPSUtwzPKE1zyPqt3qjM7
+9kTaE3aIIQAAActBmnBJ4Q8mUwU8Ev/+tSqAAb2loeoDDBTxKMjk13BpJstE8hy+/oHFovMrEQI4
+rr0lvRudr1bXsEwgeQTtHO7HSehtFCCiL7mfMG38jEaveytpO08JcB7w8/I80H9gS9vVJMS274DQ
+6XyRF8zJznQq8r0rHdaqaqIQIiXqv0pvXVYBP80P+6Q6175nBwToZ84z8u+1DNlu5AyEltO+l7/7
+nbM9htyqNfR0vomhiQEV+Wg4CkvashBLWYVnWojh2tGuUXxn2NUWNxofDyiH4jabT4UMB3AyiDeG
+HOmGszrhxXXzVV9bsfzhKfPnE0L4zxYh/kZbbWJJPoZxJ+8oLKuJTcUDQDooW7MiKW5isNHQU3G/
+nKOSkihjDK69UjJgioUn5ax/M8AAQFi/8QIT/JTmvj7L7k8xpPpoMWr54Htm1Xv+kbdKQziqfnjS
+cTV9kQhoHJ2TB0/RtqkDL91Uc/kHbDUNuUDjippYXq84y2Q2ReKfw6BdmhAy22vurfbeZojFX+Xq
+pVHepDcwA6thLfbEB+3PhbfpzJrj5fDP/8Hj7uLd50UD8ZOhQdxj5R8xw9jqQv3mqx8J67U+0Hvm
+mb6y2yy1T7FKcW7i3zsAAACxAZ6PakP/AAR2CE38AGxXptIusY0vtgdYBOZwQ+LHbY6fUUebJehv
+IgN/4V/Ojmm3ZACVWxbfGsDiODS3Mys/7zF0X0mtHm/7ZFVbJnDp9k8+iZ4ahQ38qJva3QDJTH5N
+TaAR9sB982KvEXV1NN99bHkf+WLJ3S1goOtvzxPAhr7LPeeoYvrCjQTUYbqjJW/nAM2Z5aCjs+uj
+3EnCFQPiYeiJYcrrUx0ayo3wYmq+QTsCAAABbUGakUnhDyZTAgl//rUqgAG82LNAPWQTlXQJ1A4M
+SejaR0HN65kfFdONBzh9MCo6Mln5GjfRHu/PK97BZylCifIAuY5lxRRUGI8vyesMnRBwTt/QU5k3
+S+CNWFn75syyQ2bSUGhbh5yvnhczOSW7m/KiDU4f/7x0k55MWav7KFTVmq6/IajT3fMNCfTn+53i
+OkzBL5qcNr75c3a/NUr+XDfGVQ9uSiZ0qFU/VfEt5kqRKfngpfn1EVXfX9j4mTkZxUxiO5IHsBtd
+yq5YcIi3wAF+iSK8Xaa8MsZHQQreoT5lqMob+Ik4HmAaHCUrw3nfzu/tNzeIg4wGbKmgpyPg2gQ1
+XRr5bAPqwdOuaZUPvbhZ/r8OIdRUtC44BGm/5XaP6TRLge0oE+im61XVz/N4E0ou9drcyWrIhUZZ
+85lbqQ6GdFEyPbmp1Q10c+l/LFdulxmfVPfQFYuR8zznX0FbbpVxNdgfQwU6Hrc5jZzwAAABv0Ga
+sknhDyZTAgl//rUqgAG9pW5poKYVgDU6R4IXNA8uF9MLOERetVfz6JyXKS0GSUlrLOPXa/Dcb4yN
+aW5Qr9l2pqVNfufsW8NAtEWdM8LCar+JRbGTgEeWkoZQWC7z5RKZqTTtwgaeDj+2BTQ3seb2onBV
+gFtPYJpqRyK4j7/cRDRgWii4prl3RR5xsoeOrAhMYal/Y1DRtee7UYVrTqt56A+uxoT4Y9fUuC5/
+t79v2KNXz9YCWUPp/q3P94/JW8LM9hDndI1Xv1cHmCubmI654sJ5cjNRFPv103erKXawY7dLHpEZ
+mNfvozgwDJoAoAHykezHbAbDnQvM9X1oKk9q5Pid620ztzOi9Hgx0URI/DXoglhWMUdjY7vE54PE
+xStqHCZa8kk4G7lyAON/qeOe83H0m+SAzZeUETU7+a8CZ+2QAbS9vzsYMRgYkaN+YkkAak+wP36F
+NB9atJded69570qP3jzFIywLgidDl8sJq1p1i3NoMYQ57NIJWv+SQoOJ2pkDfb3FLBWrKRKa1k67
+fCQYx3FkiacWPgGtmg1LNDCf/9+91NZmAgBj5oICfsb2ZUxhrH67yxJ06ELWoQAAAWpBmtNJ4Q8m
+UwIJf/61KoABvNjBgA5jsDZhoBC3deo6XyYxe67CVJk4z10KXGe7sohrQdHxgXZkKwgZLeb00acw
+wazKJr36Tesx8hBtkFomP7OKmMRtebEZapWvGpJLX96MaVdKMfX3ZAfuZU1NoRHvBGULkulJh42q
+zx761QP0KESKRTavAOtN+IbhjJBlR4oELSjN/pmb78WciO8ILhbrEvtaKHZGPOmuGhlqP5ZudvxZ
+A3oF7HUDnEFdXStD5tbgcWmXFU7e9yGSJZh7KycGBrpypN8NrL5AhJ5omPbQxwa6GxJdZFw7uo6x
+cBo/3ui0khkGUmOm4/fdXG3d5BR0maErai6934NiJqU146PmWj2hHTKi41v2u3uFf66Y3yP1C0Iw
+ho1JBzaosndTARz7wXgUSL8HzDE1HZgTtQMDzRXi504PWuDvn1cmau67XktQZfg/u/SPPZvbEdcZ
+UaL7y3lAV6J+mNYYgAAAAddBmvRJ4Q8mUwIJf/61KoABvaWTVAOElQmLuuS2vPoUBUGkH/t8KpNu
+XTco6uHOOdQV6YlH1S3eeVIHvwiJ6nPkgh5EQ8h5j69rsG6tmvM59srRzwdc+LdTpW9obhacTcsT
+/xaNWumtggBkBaoxmU/wPbKtn1trx24hGj5kMPkGkmwKC90XpxHgWOWQa+fumFeIZ1ZmealHSFDH
+PaxESgrNVZ4f+K/poTKvYDmFrLfyj4bwoE2a2xm4SHjsy5AUBkCfP8JH8OdyOJ1pnDZMSNgWTwIi
+iLx3UgBnHHJ0xUesKcNcHfYPLi9YikhDc0jbZvHdQMQIn8cFP/fJOc30MmkL53DauGlQ31K/uGZH
+Fl/Hu3FGbUqIacI1SERt2V/XnvrF9AFoypf9ZGLEpuYMPge5+5IIBUZjbsIcRWkVEtGxs2kR9RVr
+HupQrBdHhoMw3HDgIohTFlWKofgkRv5Ae2x4DYY4nohPzpHZNZCRtwBpAtFTLgCisgISrlBQ6XEq
+00Jy2v59v+Rk+Ob1NwfPvnHlRX38u8M9PD2s7tu8FL/OIgVrVuiFKUj4SLYoiOYMwsUT/KS09vcA
+PuML6L122ppmCqXsgqGUNBmqGl5nZPqutP0200+TppgAAAGLQZsVSeEPJlMCCX/+tSqAAbLFy6AN
+vrd1r9LwNccaVsvk7UyXMqcm6h2bYNF4kGzVj3E0Tf3RBgz8lXBv5mgC7lXlwD6Ok7D1XyalxMRa
+mA4KduftLMPGhU3pgPtQfK+lR+XHPoMlb/CGNAY6rritTX5BCUOW4EJ60FICO9SQvRvoCUvDW2xl
+W13K1ChQ6j8yH7tFiYTgwecNfSLhUv0yQHytyPSuhBkuwhUpdZH6R8R0GB3dw7Z2FkQXObkrAqlF
+CHbkHRGdIvfjnN+mVhatpf3n82/+kOfLx9HJX93YrxHDW/uPGi5c+UgQL5Uc6tk8lSvU0mlYg2Sw
+wjJeSGOFzlqFz9UmgJA6tEiAGZGsUoU5AvwD6QzC5DsTjNbBB/YMrBtW+lHfIM1XEwuT4Gbfi+N5
+LrogCPAg8G/77sOfpaYSKCENO9gj+OkfbtG2w8+QPaawZ21c2xVP2z8/cFqzevuEQFYL3kn5XJWy
+5AjXrLr6gYs6NrKmUdTbOskyk6u7DMzET2abdTAoMREAAAIGQZs2SeEPJlMCCX/+tSqAAb2lcIRP
+2gtaiM4fR8RqIP7H1WaRw3osqGSklLqY4FyxfN/BCscWIQOIVs5vOy2Jb5Y+o0LtZ0A0SqX56CS0
+aByJedD9zNbbjZqkvPRHpeHVpZapSlKrQpyA4r588hw5SQOTpDun13usf/yF5jHZJ66s16JAFJN9
+0cZ57EwRzOryfswiWmu+Lup4Qiv9l+y3K3CsL0mRMduoK88RwAfvs6gKybYHJxugWAd2Hb5JrBtj
+x5PVMtr6x3YWvh3U2ahOz+gAxECkyBLgpR6qHIo6dBnJ9PwSFfGsBLIhKC1eTuJbrmENq35OjTRt
+4JTnqj4dW0S7xSmRKxpHQ5wMBfOdJOF8Dnlh72jNSNPhcfYgRpsbERQNIgERZ/2IrYTts3/pQfnX
+mQaQaKzvQbrPsq6xH9SrvNmnwBHJJYoyBdn2TY+Ju69M28FRaS5pqHodYCoFV9VqRhMgS6RNaaCz
+N3S4yHd7xpUqu6VH2J3eFtUChMHHLPMrz3f1fUKPpyVfok/02vLQE4VeqBj5t0Ouw2tBjpS3wd/M
+0wYKo7KBV51ykmVGiZy87PVFg2HWzSgabzfbJOJY7PQNtyB8jMZW7XjXd8IMGOvHK8JzfTBXhxdg
+dFljrEVqpaKWrOtI6lFNF7UFGLY1xXuCosmniK3zq9KYr07tzkUQrrgAAAHZQZtXSeEPJlMCCX/+
+tSqAAbzYs0A85hHD/doVAlGtons2Uocbb5djf759O7g+CZRe9x/0Do5iLuVnLNfmucUUKoBeYtAc
+kgEeHRDjGuliFdLYSvrdCXuXKDhGCNRRZHEqyHtDZHAM3kE8/CoFLcoZ8fPXAc1HYjg4o+yXXu4i
+93Ag/TPudrEjYNqjC/bjIAzrgKS7i8xZ+0Z+dZQBLNFnAp4g4HZxK0XxqvlhcxNNVMZimPetmfTb
+vtYtP9kErvu2xE0WCvoXmybh0Ma0s2jZZZ+m/8pHNffVqcLrw7bNTk79YBvuUrGaxoyBUYe/ktUd
+2AKwCLTC9+qPo6t6+tNIut3F5suwoSk76rdFIr9A9wVVU+CJo2m8qRTSvNxwoqzhfEvWc6ZYuLMS
+GqIXDnlP0v92LGyIiJrzGq7BlqG1mlD0VaRps1rAT/mwKW4TXj12BZOcmmF0cdzPKqvtwCZZ6mdG
+9T64QIF3Ojvazk8O0A1nOmT510fK7cs4EFOMPyuOhWPzBASy4Ecyo8IwVI5+ovzj0zivcaERhIV6
+MuEU+jZSyHVFDhdI5dcKz+dvdl3bONv2yUPAO3+ZU9crTvLn4/kYDNmhZy1DRINv9eQAwN//vV9G
+kaBjfccAAAFuQZt4SeEPJlMCCX/+tSqAAb2l4XAYU4BtrGn1pJQOf4iAuQXj2gK2RmewiRbzpflL
+3N1tVpUFUwTtOmvTIZ80gC6OnLmmsgHSZMZKcGqGFk621Nsy6VCMrhPRqS89bpeb5A44BFeRKV6l
+5IGMnjpGpWMHxNb6nxa7Kg3AKZbrGLYuVWgdFnxJACv6WPhMC1ZjNe3TKDowOW8qQHkkhbln7vEY
+Xmki9DuHWqycMQgC1u+bhW3HtKfm4/Q5IEckNFvc3ZhneVKLk72pGe3+79xfNYa9MCsJR09uNPPv
+UK/JAl/hNzasTRGaX+4T15Zv3k2kATAceM2i8BlHwJG/wantKpPBOtt7wCyaODn4fgRSBUaTzkI1
+ePE8drcV/KZnU3elPey+h4eAsgsJhE8f0PXDChgd5oDfz+aZlb5jNTpRMFtXJwdpqi3qdw/biS2n
+nct8gSQdEFH2IBYkDLS80a0EWPF8D6hNrjfTjbEReLmBAAABpkGbmUnhDyZTAgl//rUqgAG81xEA
+1FsrcaFIIpzitLoEmtIn25oTa1Y/DqbWsUdBMkbFKBjV7wXDJs7RJGZNNpwo5crRRTwg1Lof+7O/
+gORGGCr0ZwShwWbs06aTn+Q2c3Q2DAAWjoHNgiQPFE1SErTzUNMJVW1SBHT5gUcWdVZPn8qz0S4J
+w7gRL4GciqKi0H6IqePVUpFGDx+ZZsJMYA8O+aRSbmY25Amjt4xLRXfRlSNnVmJ1mzEnYE7Mn8Vc
+kPoRPz8+4VeFPNagpvvBhksbeWb0SDq9L15yrnAYOwIy2rsr5Ae+19TNM6wpNkZsR88Qaa1PD3O/
+txNzZPViZRyReUEAg+kD5G0n+8JvWPiziL/bRDyvWd78DtY5BEyTTvBW3Bbe4Dzyx7cOAZ/3BxuL
+OY0P1vV7vGFPVvd+LQF3uF30KQxUM+aYjiUi2WuTxrSA911euMZrkJznrVyIf+nzfeAwFjBku58u
+0GDohtp9Uco2nZiQF1Hnp3tm0SMI8vygvaLPjv2fkUynU46g8ZGTsEfzo8N7wGB9tMJTxpuCQEoH
+IoJKAAACI0GbuknhDyZTAgl//rUqgAG9pW6pocACf6wFo7t6XT67iybmvIdA60cJ8lYh5PKdWvfr
+YzA4Z4gi3FSrkqz6xhCyR7TC1IHnLMGP4YUsqfrB2vNW8aYx9mtMnYGiRT32OJj58/gXEBCJShea
+/SUX4aJYE0AR0GqnHWRwXpigaGNOA28eg6/1JmOYMNonR/b2OcmLeZsqIMxdHmWotSZ2AshTTCFW
+zsAzMRvQEmQj6OBWveGL9or9Gam0KVnVy4DK26awfCpjubqi+STpEx/PwEAkn4te1Z2lMUrslwh7
+FqoHhW2vfI4KQGkVaQnrIe2Ji+T87/zt1xRUwL04lPwc5KN23/TgPBu+pJ/l7yXTzhK3O0ksyZl9
+nZ1nJ+cVk20RQk5MOY8KQ06HED5rWBjv9UG/q4dm6W2gRdg5rINbCgTh5Y69NutgxHgf7a7ERpj+
+7s0hTQXyuEFE5bM9IMJ78wTLsePniTvS3UZctg0TwWeWtAbe58z1EGF+cJPOCFe1RquZzmWHMmz1
+smg/NtyD9sZajXP6Mi4fGyPgEEArl3ZLxVW1ryOaT9PJUeQeERcLhScV0OWL9PDpsesI4NWTH826
+LgBANyg9+4To27IjpwRtIvBApl/k7dW+nindTwqPTP3yPNUnE2BrWx9VdnBebM63vZ//xnvwiJbD
+LNQV6z4fkFYd2+mWIEbtHi2quQbvzBO1lBz+qhE4zR55JJPh1Uig1YEAAAGiQZvbSeEPJlMCCX/+
+tSqAAbzYs0A6X/mNFGF5mLjjs1RBdcyvGmd3AFg7rf4i+ZmiWMNaUhTuIH64jBQAEHLmCm1WJPrv
+Kd0k219XZAE07e5tWGTN/bBi9lfE5cu7BEBPFE0DoYB2EPcNcL4KTugd5WVI/vYZHZDZ9i4aToRn
+qXgxBD1QbdIgANMjXYqs6aiTFVulNbqfPM7ntCoP5T+x1Hfi7GIixQNGVO1u8WV5DxmDu6y0K0Pm
+vn9Zkhzeigxcv3bJrYGbCO7MVoU6/UOBMQLNVJioNVuBuxYid9/pskPOMBt1PuRwhdPGOsCHCLTo
+31D+I3+/5Br927XcPqp8CYWb3Nk86fttAudA+spgxuUbDhu/K7w10ik8cSJx5UmBiLsaipRKqKjr
+ypCIWZe0YNgpgr2ImiPhgFk3TvvdLB+NBFI9nzEzrRoK+J6tKgseRav99n8UmaxO3CrobZ/qWTkN
+7ZofRm9wC5iPHvuERV4QHjiVUBCea5GRlMikojCqwmmJ0108S42zB7o/k3BzIoLpO6XICsABBpAh
+GI0Mwy0gWgAAAchBm/1J4Q8mUwURPBL//rUqgAG9pXEIGaQAKDb9NRk6T2qQbyD/LMJcrwrkmLIG
+RW0CI8nOLAiJ9lVBC+Y1xor8rkRUUkZ604H/V/ObeUlhfWFB29X0sipj/kVmR1akwNNZz3/Z7FBZ
+hK9HvdtwE2xn0Id8BeqkqM4OfRsj137d13UVzTfkCK08eyCmKldfBff9oLLdAwRZsFU9O2ttyG4D
+SQ2uKobdnlX0EJ22g0laVFTnpWRms1gJVEHRrk35gfKec1dEXhecoUgRfLHTINjiMyc9xGUPsbF5
++Zs39Km3hGS5Kd84dUC0kF5gfO+Hf/O+Itqt/ObMu5BsS2ehoMIRZ0Wz1zYCz3aHWiETGpG+ssYm
+Ag6SuUsruJXZ9WBwFhr7PkxavwQGFuPN0L2sr7X4Zjt9zrH9mutBncSTTJj1+Otd5qf9IlQKcUc7
+hC11K0tJ0K9eIp5+42+9WBscIoZ2IuhNVuZ/bSG2QoV/Sf1u6eNusXNPfLyOcyw68gXgxys+r2Uf
+TUuGoXm+fw5XfelowAoSbt5mwy9tFlk6j8a9AryxEuSpWtS1lhZ1YyrUvhIyZE2xFUhilVgZrD6E
+5SiyiC90YKIy6LEAAADlAZ4cakP/AARWDNRKkXk8vhc03tokEhte+xDIuU7b/0/1w9qSss6cLdQI
+w9T2W07NXr+EuhD9+EWYD/JwAuoIwc+bQ+Cyk+5jlCZT/c+D3aW2K9DQXz5p6PwQ3wfgkpMgErtQ
+3KWkJqOStWI0JHh8GBiJ2to7SAP1sjTPqtLwYO/YNiRPjhNWd/TKEo94TVX+R9wMlWsbSM4hJk7A
+5UEhA+BD28k+m5n0qIfygoLR5SGw+PYUguPKCKbA92P6X3v42W88KhBCybhzogxMCJNvz97BhY08
+Zpc2W3/0zEkP3qaocn4eGQAAAhBBmh5J4Q8mUwIJf/61KoABvaWfQAjUwGI05W44lgJH6Afz33Fu
+HaO+9gUINIIGzsQZlfL6yTxb7xYaRJGBBhHSp9noW2gZBbcv9RtUT+bLta3rq/DBGKGcFf/g5ayy
+l75DOuNEPb2tLaKoTiJ2WPailzbIhHvGjFm4rUq9NapDZN9abgXDFiwuMFwbGekl3YfbSzn67ef6
+1myzh4qdoKp5ZU8pa+/e/e+VQU2/o3xPtHS7MPsVU2njhG0+9jVHDVyKH4q+Jxn4z0Y6IwXFIOeo
+XgF9qx2nUSq4WnYAysvibrDGHvy97u48pUuzFOXKKGcpO0mhdHtf72A3mWVw24z6hAvXsorsaG2a
+3DdXmnCxYQOiEfZClbAOLWIq/ohTp/A5CVC9fDR9YjOvVpe6JwcqNrrtPECFPaahqL6iaaryI1jA
+y9WwL+QxNTjFsgSJjxM/suSLhECxb66TSWf6qW1/foepQhWkSBa9So7prih963GJb5v6KnAOfu0t
+koQkomBBXLCcu+wyYM1l+JIyKgXBTFAfJU94vmf8U3cUN/ILL5uB86tTHtgDQ0KsUI7HYxlMowM6
+iPPxLrNXKDQYniu3FdBv///c/X/n2CDOVFyF9AktB6f6usDSThcCM8jaFfJDj05ifV2Gu2iJqi8W
+t1lD1iDbMhZwvFKg0fhNWAgAgeLUn2iSMq5sg+y3fBUJTqQAAAHFQZogSeEPJlMFETwS//61KoAB
+vaVv4zdcACa17g1alU0rgPV227IsEpO7IGoL7A43ZDu+8w/WZHzWnxHjqBT2+qRK6pWePXOwJ0tG
+WHCmTR2pXw9Yc61ZUN7nI3BV4zup4iFNVHA4BMFl0P744j7T7tA0Uwum33cKu2MOUQZxyRFMENKz
+vsrlT53vqP9dSCXRGhohzJD0SJjhJmO6y/49xgdB25R/3qTgZrKbqja85tHGZUAqdLxdDXrh8U0g
+oLXO+fr/jTCGtrpauLEatxKtN5gQEhQN/n6iWixpEioQRAw6DA++JHomrCV80hLC50BL3/KKPulT
+1q2XvqlMJ5RH0Qakk2LNyal2/kTM3NtA/sfTWNTCThaoLTE5AMXUyY4Qv3brinXsPTKpU8IoYzH0
+NsV5iHNEiRBZdgGBdYDyfQ1zZ8K3IhbCuPQAHwyTzyH6wCDtB7giJhm1LQebv6wOOne8YucoY3Dq
+lO+fMopl3UGkfkHUieHm6vCIXHgT8QipEyw+xa6NAVoXU39nwFFejPQYSUfJ4JuWfBhCRFGBK1nL
+CvdxBTpbWE7W0zMJNu/9VDx/3g1vJDSzqb6KmTUVIAxtnK9wAAAAqgGeX2pD/wABpc1Sxd3yal3T
+n8/iRqXlu7PcMWXg0emAyTSNt7ZEwkonzTKNcLqEObfPJimv9NG2y489e2lTmBAuiUZwdKACu5iZ
+lT5y8q5vG48HPb5+UisKJeQS440Ur0+jlk99jK4f8IblPXzwR4n0lf5M9ivK/5cn92m7hebB7d4W
+7T2dQBCA+vyd5yMqyPYmh+v+5w7UMoEtcwQG9O7fsKjkK97Pf1+fAAABzUGaQUnhDyZTAgl//rUq
+gAG0h/K1AIIeE0ZHmgAwGRI+zMyeQdfMwKZlowcseNsqBN4GyVPSp50zd2KtUbIfgr+uFv3Id6r4
+K+lugDTukdzjKVP3E2u7A3Ri0jt+ahCBWyXTHnnvVIlQRFeeFjgKdOCORk6xkdXO5BR/t+wkBGp7
+efI8xQDirXM4DkfgxcPhDQ3w8WQCdyJkMQj8qzR/K6IYXQxAhaBF23iBshPWSXkscBKtLswmYgDE
+el/gOtuan6I5gYuKdkPpPZAzgOXXODUiqtHWuDmqqr5Z/zIpozsdcA1LOxmhU+wxmP5IjzVVd3T4
+C2D5lQ5lrwsaLPUnfZ0+j0sqr8sTZ9/vGguWQFmQkuCS4QmVIFDr7Sijwj2inGChUi33IEko46Ru
+Lyt0gyMND0oEyyUFFlKBM+gGT0RNV6kWWLwy35nCHQlV8UBiuukjIpOd0Qh57oKYysDSK8dtCoYG
+fXfQyX7RtOXKdH/ZRqOdEKuCKtds5nq2YLqEB8nzJcmPCibJU6IlM6syrB+nPQAL8k2N52U5k4IH
+SUU2ebZTX1OBZwO90AMT0bxAcKe2468zlVkMiVfEvYG+hxX4dVtVlskKf7Uf4ySSAAABrUGaYknh
+DyZTAgl//rUqgAG9pZ9ACWOEGRtLymc1VMjW/3TJ5h3PeuFG+vcvKb4qf96G2c6MocBwyCCF2IcT
+Ku46AL8Gj0qOxv4Ra+Ja/JSb4/VXct4OpC1Eh+tOzczfLedPqBDBc/jlGzhMkgAbXfeKeikwOZ7D
+mu1S964dGdyCqt3UyNnm9OIHwnqHEjVvPafge/uJbs6q+EnUx3+Mmpw6n0gVxeT9+4qGqvtAb//A
+tsaZ7nACIqQuTEja9WezN0Z86FNsGq5ljV+ZAKqwVYZ1JWe9gBl/Yww85PNjWmjw7kknrBzCAEUK
+8MjxmcuRf7kVaNZAZxfUDdoE3DJ71Y3BsQwDuawVrgwOR4ULGq3lWfpCER1EtOCQRyUIKATPf3Z5
+npVGDrH+jdoJz+Id+muEBEwPDslwRYYU79l1ReUpPis3Zd4kWpecEN0IAhjOoxfF12B4B+fJRsNQ
+HeN5TK0yj0nVcSSHCpe+HrGlhm6P2lJ/EA3uN3fHBKJXdRRXHIul5OXQHwo0zonvEohaVbRI4tTK
+H29Wx6rp/7J5N+N0GtMcGkfI7vRZIoRG4QAAAcpBmoNJ4Q8mUwIJf/61KoABqNSsIIRgE2T2W6wu
+2ZUv8/JKTiADEiYnDB/IzMhxWxPOXrirr/c/fa+9G6vaVUF1UH1QxIua8m9LpYDRxGWKrm16UClR
+K7yaYn7qrZkC+aaDNAWvEKXN4tJ5PmRZulc4T9d9Y639qb6ddc24i5UB5BFyqB2aKxhY2x2juOBn
++AKXimq65Ig+K6B+KcvouGJ6Kk7mKuI7eZRt4WTz3ZiwCpK1eoMcjXVF8FQklrBSHt0tW3r5Ylf0
+lrVkVRmaOM1YqKvNJR2RHHtFIMcu67Pz/wizh+jVe3lOZ+t49fqFD5nNrdl/W18vlv/2+ZKp8o0V
+w22MtHINSmFgl/6sv/mRqD9hcIXon6iDZoLgqnBomgbVyp5tFNQ0yOsAyixXXhg9+8GXMoRkvAJH
+NSz2jYbcJGKDKX588kpgsZ9P8zL8ovQmz6i1aPAUNGz1X4WlOwkgiHf2XwPQa11LiRyZmtxyygkz
+ENPC2XXyYVEn3N1nSGohUF07r36h5EdCLL0UN28VvdJKHWMGcJ/aU4IPSxYUpOctj0mOohbhkfGX
+J1sZ4a3PMqRYmB6sp4k5RgJ7paynICMrcj6JChsyyAAAAbhBmqVJ4Q8mUwURPBL//rUqgAG9quSc
+AErK5FYIWehofi57CdJJEgFlco616ZvHFBoDYslpolNT70ZBfJZ6kQG2bbwdkWdmNR+exuX8+aYp
+6Cr0P2cgo3vpY9eu4KIiPayz8Q7DjF9WC0pVMzhOHmC+VHKthg1GmQzvt+AnuLbUhXFtgjkKd9s6
+DHMMzsAMe3h7LpLG5u5eUWy3JCEdco6//wYvPAtk5g1zp1TCBTyRQpL1S951yOrtWpqyzCjX7dwb
+1dmquaz3d4hwTObhopd0ymEA075EZxY32k4TmNeZlx4xLC39XshfBNV9qCi2uZmLpLfKwCQK9o16
+/ndU6xbFKI2BXWgGUUbmbB55Mgti9/mTgQEFwuYVOYxcqVMrlXozrP5TBt6z6FMpECPnVDAOPbU4
+DUGoCqwQACcxZ5pcZm+AmI7q7fbefv2gCFNCiQw0E/9rCz4qC7fBKWsuPMr0Fq4X2wlKYrS7p8tD
+fqm5EFMcNdSFWlnicZ3+JcJazZNa3USLNGwjvkVlQRQ9qHbDST6GXMDjrQ0Ay4GQNxytXfWiOJ71
+DOMhXLvg0JmFi1/tGF5ynsShIwAAAPcBnsRqQ/8AAYfA+pXW6xRI7NcmYmDlC3qxaHl9eP5QChqy
+NzZLDPWr3/Ng52DCSv/5+FHN9YwAlV2/RyN5cmXr657Hu/K40KbbOOKUjZr5unqVym05SVM5hlGN
+hV3Tazb42FvypM9TnwKRZlhmWaE4y7sfJXt7j5R+dkCYDe7DxjPIJt5BvmPq0UTzk1YTyawkWROg
+wHN6kmJffwqnHV9HTKXfcD+knH6n/e20sJhaS4DjDj7/+l5ZpMNXLMG/PIYqMhN6GDP3cZlm5phC
+BowgO4486uNGZmlVg+TiEQBrThKTO8Ub7tAGuozsmlq8T0zkLld/0U/BAAAB/kGaxknhDyZTAgl/
+/rUqgAGyxm5AAcRsy5VNYoS6+Mg430zu9CmkFrI5fMKR9RS/8xe+QhJj/00MfY1Oz5eAkoxa14rE
+XdRmkzGyE9ystm1sQQJO0S2FPh9opHMW9PxsRfSGWS0YslzBDW6f5Tkycf2OgrlCjvs3PczU0GqL
+4lNTT9r261D75AjT6qftZ3CbxryAgybvgapa9lPIFjcjAzTEYF5t12mNE6rh4y759lOAZfLTk1uY
+RcMvEW69wr/vjTaXqxq3NElzq8m2FZUHbNKulGecHWgR9Th/griVFnvUCkuiH7Z7lLXW8gxQSmc7
+9IC0WqDizzxAatWDqxZfawxN5/oCPMCMuoDC5OQ2H4PodNEXTzZ+yezrca3NQWPTgBhxVMTCZqzx
+3EqUpRBOYD/K/UfO9ME0QLYGTz8nOfjAC9mbL7CiWDzMcKnZ6RyAvCjprcFLddOtadbUrsutYULp
+kUQEjjHohEPPVofVjwcAeCdPBM0WtJlnZmXetmPOMU1K7fiFlSOa6bnqBHNrcdtWE9u2f7DzUZ/k
+DB5Dshqwghv+KKKQWOzgJVKVaV46fIJG8gLfHY/zI25Pa1Tf9n1WcoryXPhj6qUQI1YQTQVBTFDY
+RQnPrhutg/vCGPhM/3dkOeG9Wv64zQTkxI2ozt4V2ejal2k17IsVaoVyxQAAAdNBmudJ4Q8mUwIJ
+f/61KoABvaVwhBaAGWM+kBq6gpNbcMyDgjc9YnioMwPrgCG9kU8waY91NLWgXRujWSjMmva4V4Ku
+MQvy2oM8gMfzztOjLO356TUCswYXjXWv0oQasKeXYWClcYwrfn6o2Wm2uCCOFb8O9QIvy4Qr+byq
+L5TMln/XmNrg1P+2XeCrcPKnkbQxi71foFLk9vSsCdDa6OMnojJ4+Tk9dFi3i7QIaPO2j8ska/0J
+CV16alBEyr7sDoGylBR78Oq/WHQ6G9v8OAG0Ts8y+Bj5OUL1uCzZD3iElyzT9BWPcMTNltqTBVIt
+B50GXy9gB3U3yOutjEYvAu1X5XyUNIJ3cTUvBrS+9TdGG3zrz3jlg9BADnXzEBe+CmT0ROVG7u97
+ICFpt5ydghB1hqYyUTCtCsmadRvuAlWpyOJWxtd4eXf2Juz9S6l9FVOvPoGF2hNCGhjqH5y5rOD6
+85MfrEzoZVXZ1GcNb6/vHZYifZBvfOdt79BkQCgbSTUU7omGgw1JOr0V7u5ZDNp6CNJ/KYYBuqcp
+WVZzkisHIJKMifAXPdbBupaonutoFwL2xUBhbWHof+S1M3ytDh0R6yMRY8NEjdfgubfvAfYxDUn8
+IQAAAflBmwhJ4Q8mUwIJf/61KoABssUtAAbXX1QtDngUYwGI0VWxHzIbrk79EX2RYVWKBRDfrwkH
+73P5t9bZjvrL0ghhj9LRrrrKWmG92o0EyVzCEZVwKVL+tY/wxvwJYB8MJm83VCYPkwyWGHzjEMGT
+ycqUkbNFzpGcedtxpnn32hsy9C1Z+j84FumGY6V4r8CV4xQc4O3Co1GFyZb+ikENvgM/M+p8OVgZ
+XztXZ1ckOBOYlJxgKSJRNf1LJFDdbYu4JanndPmyqMBun7rYR7h/09xgZ7yTqNGX5/fwzhBEx1Vr
+VLrLti7TV15lP1EmjcreWdDh688X6Jex+IyCLX/c2SARKk0t5NKiH3/Fd1Bld2PWzx89yy5BzofS
+PY4zcWORLHWGN6MqOjE/6BpTarLJBkzxL290DVcB7SWOYs4+t1Cb03+7dcucHyPc1+WgCSncCT9u
+ifZDyGhLw67WcIiuNpD224yEpIX1e/ufIdjmgb9AgsCWGdjxk6xw6i9MbeaHv8iLt8JKboKNIjFQ
+0ENSREBwwSawy61NdtbYeNEwzM645O7R2/c3WyTXBAByfxV7GwUJRtvHVrR/m/rGIHJmVql8/+z3
+sf04skFwurayusX6PPpXdX5yn6kShjMBR9kWEdbY6vLdr4zSWjyMFmsaEUzi847E6RU8h1qAAAAB
+k0GbKUnhDyZTAgl//rUqgAGzpVyoAstV1rsO9BzZCcOijg5jOwVAWuo+sYtYQ6MWd8TDDWrlWsEp
+uL1xVsfLnyE2JfbNvyS7aS3rwWmJjOUIUN8cNZ6rCny8MAyxSyfGoLUSxTBBXXGwvu5eN+crGmdK
+3AImUI6II0dOl0m/QLpdempQPedMdbdRKAZfSHp+vk9rreLWu3NV+SQsfyLfw59XP9JVtrzal+5U
+A2o9l5lXGjuOHnj2G05ChZAe6Fzthy4XmreT/WdC127Onl+kOJ7idranWl9TKrqznkhbmHFesz/M
+4qYxHAVj7dDZPI9NbaYOftBUsYlGjE1zJy7sBOTrOmN1eJJ3e77OW6Evsa7PMvK5YCyQxCJELssm
+ZPelxEJF1ENlTjXo4ZHECyGYLtcp7yf8+rNRzn857VDFZt4Vrivlas6aB7o9cCw3jwZbHsnJ/5hE
+hBfhIGboKyVwJ4qPkf4nAhkkOSieAASUgUQ05/umFqyLR2Q1JuWqN3WzE9daJFUhPtAk65/+mJp0
+kDMKJPAAAAIaQZtKSeEPJlMCCX/+tSqAAb2lbs7ZA309AASktredH5h2Iq1QU03z6rI1yx94mrxX
+mDh0kFrm23jDSz+MfblETkVKepo/lgLdUf+dEQ01kJrAnmLBQ8pRqED5vptnkBfc1/yIwXLE2+dc
+QO+zJoEBQxT6fTDVQMM1iaqRNPydOgmAE/0Ye7JznjMTrJTYZ/SaVKiNwf3hSwgI3i722iViFRmJ
+2Q5gUiYAv4eD070Yjq9R/J/BAl9fDT9bO////MTTmz60SurBbA74MfrJHcxhiFUlJaFKNlqY08Pv
+X6VlEyjYkXZxwNZnT1B3g75Z9lI37vDNEaslOinHP5/ydGX97hTWc+Od9tNc6T3P8W4aznfYR6Yp
+8tFalV2X3fiB5eJ8JdcvpFNxYEF33/WUigFqA/6IpmEjNREb61YkuKe4f9a9iF/Y4xnW9XdbqThS
+RcbKzHkSddjqDhX4uX5s4++sO58up4/xUlbZowYORgdtZxufwC5+W4iNkSjCvr3P2jAcsbXkJR7b
+YsAo6485D3Cega8YuU30cy/uvhXLMRiWZrEOyHi+rFla1yc/5Mpqf2IFml27LwEX9q/MdvJHKPLd
+tebhZZeWkpT9lqDxsPkgCZA4uUustHZ9ygVJAgHXSobiguPK2NXTPDaTYw7BhPK6odgOe6LMAdyE
+62kQQ5dudiqSS4paouQMbLOEFd6T8Rmh06YK1OHcKB66SQAAAWBBm2tJ4Q8mUwIJf/61KoABs9tQ
+AicE7PYeUPIBIlx9feOCYOw0MW97fIijvKSqG4UKbk5xjf26oXqmZC2cdYmXDyCnGpC6/xighg+e
+zC6a5AlrgryoBjvyY3Ix3C8dniM0IH2iwE/m5lGdAa2xyFtV0gMynztwf+Bkh7NazuEVVXMUY1xr
+NVtcE9CV879CdQk4CcfiCc0PPuA4CxpgRRctygBfYuOs/JM0FYXHVpqmEBrI3cWA88w/X7n1rTgi
+XMcX2Wp8tp/ueZ7dc/9mjKWQRm3nDrwobjO2hQZy4x1Tbk29sKKQ15vURgAlEaTOGzBKa+sQsxK4
+yFYQB5qkDfRvbg7Q60yxVUCCvJ/afcO94yEJxFUxHOB2IOTDD0OghJRTlOLIwZik7G9ulvtG3TwZ
+gp+AxxEnnDSjGIkELQAtGC1btZ7s+bavcVM2JG/t2Rc3QzVR2r46b/gD2EquYNlCAAACBUGbjEnh
+DyZTAgl//rUqgAG9pYsgCiW3I37zXBab1mIofZQ3VoS6/Eo3khirL+L9z2zqvaufyqC3G0Z8FgJC
+S+aJF5FF+nlqMcxiTLTXu6cAI5QMnojHNOaYBNx36oh52s/A5VvA8ZSo662BHT+tFLOIs6267HSA
+SYtb3iNwLUDdCzJqjEtEsiXEtETO+4iA/DZxqrdplt/muXM+JJ7Myce/TKFbLVFecTWRSOO5QZsH
+sQKhBHJJGo4RlUSKwFDJ/p9H3QHujiicQF/BP0wvBEhN2H1e0l1ydgw2sZnJwEEsFAlVrz6ch1tH
+/amqwyB4SceQM3IM6SjfmrWBUgiamVRkGgRTNh7mTZTj+nVlkqZajt28qKGCLM2rphQb3tOK6gBh
+OHLh3AHYyL1VD2PZWVTuBMeLM/o8jzuiGTkA8JfBLzokpR49B4wb07j2H4PvhK6X6bYfiTifv2GJ
+K92mqqbBwI7lM1mXaLMGakAbihzBtT1UilKrNB38vAETa0SHUQ2EGBraLvwscAG0t4IUvE0kM6lL
+7+lKdL/H1xFBbxWLxNZwv1ZuQ8LKad1oFTlogruw39kbSby4GuCnzbRzHug40Plkm6tw3tJ5CzSv
+suIKXvFt04I+Fmv2DuZ7TyHBnLwUN25z2u9IZR2sjyMBdtAItWZZJCL+dCWMDDc2z+eoQZiyonwA
+AAHdQZutSeEPJlMCCX/+tSqAAajUmcAIlcPMmLpEZXKIFX/7+6Hr3e0gROz/Njly8IAuusFrnQw6
+jvL4aNt38BrtBRRQMM4QaGuJ40NXMRbSD+k9ztKZ71jSw2VQR67QEFI/GzGte0yxaln1ntccQ38z
+ZMgY1tUmgTTG4whv80BQnTnOvidr74b0deIiyUoAGOYWF2V/BrFk5UrNWACfAcQDPXSGJq9UtrBI
+v784H2M2spHwMX3cgRyD6ttBSSIPSz+LBhXX0JOYxvBC7GixmShVJAys38xObne8VuDI2CkywYFZ
+2Lt8Hly971fvPV8WblEJdQTwlxiU8ECYJfmbRPIowdmqfScC9unXwSDfqtvA9fZrkzEHJ6Ihsr5S
+ZjIvpZUbloMy/Xx91dLmYtHihUBS4Cs7tvPOOeeIvNiMd0rbJFNvrCfBSjDBgcKlcMS8Osr7OqH9
+9TSfnc0G91ZnQ0Anjfzv6OvO7KElbxOxM8jxJ1dllE5y0ZEG67nkOnQTKD+vO70ulvVVKVl+Jm0m
+SvyB0bqox/88zxYyDOhI+BBiTY0/BulciVIo9xhSZdjw4pUumByFp2E0xbIGQenxVaNDb+PqXNPA
+RDHASNXp3gW/2KcoQPOT/8HOuqHaCI0NAAACBEGbzknhDyZTAgl//rUqgAG9paHqAVZs5sxmycms
+dYyHkI+bno4BLg6xcwxGeHeV0hS4O5GY0+L8TSSElGQ2SZMMAn4x33kDGpH8JNFbWA0Q8PybvFd/
++NhRiJ3WT1PDZBDDwZWvVzl33i+z62T8qyq/wCxcphSQ+PtkI7uni5GT10o3G9QH+Pgyv4nw2XAx
+E1b6IqLM+W2BJL8bv+KT4SqxEyuxvtyI/XSfkAGCylFSvI1zEu9UvD7wdyb/bYlskqnKQXlWtgCC
+OtJmi/R0sDHsQzwx0MNNu7FgPQNOdgo+v2v+ZgTB/5v7t6KC71+u624snYWVs+nZ9nx7i5xOtqUM
+QGUJCOhq+jNtw7I1ZOFV6OdVri5gFlKn4Wt+CCxTkDY0pmrpFZf6lerdD1sFWNTjz6mKsqeilR7n
+z/xwLw9WXTftxYCUYlhEM+yQDiHh67cs9fTsqfmYuDzSB5Lf+4YWWfcS33Wp/tIIrAP2NTL+l1Mw
+13at4MlAQCvsbBcW7Qcjk7cPDp17EO5ss1lnzgG34ZhCAZZAyRn0/n4aYa1V6WtZ2gy1pY0Ge16e
+kEwfCQSFLmVrLxPhSzQwGAqhjILDRdHkNiSN+oW4VeWrPLTSihu6Qp2Z7DS3nfGnMQnInqwaU82x
+7OiTnY2izqqdopbWTj6hkxk/H9/fzyizI0xKkYroNwAAAdtBm+9J4Q8mUwIJf/61KoABssVZmcex
+aABzL9hudaVBe5q1qQV/WAqo+Xitc/v+V8FP9wEE7vgUGnlEQ8gB12HCEi9gLQjrbYWCzGnGvro2
+cq6HIPMuUvTgVsMjjhFVnJqJyrU59aoBoRIuejQcujl4YLePjn1DdyLPqJt91Z+xAYsy11L8AQjd
+Xk+JUn0LdfXXqRRWahEJs3c7CrV0xHgPYFvGMvOSeTzEIHd2T/cIHECgZzJQPUHK1Gdpo0IcGwCa
+ZvmIfs11Qs7x5VTk4C4JITBc2KNMtJ+Oc000QT0Xu2aCqt+v5kWA7k87OyrDr53LXXsD6Vgnwlms
+bNuSx8z78sa4KIJ7wqdY/cj2YbtNofLj0YS+efFAkAdKTbUd2PFv9Eepc9v5cTAKGRNzRZrHRF8G
+6pIV9mpve+vym67Cg9p5UklZljkJSv9UOKaZeE6pocSbp/7sIEUxkUqh6eR+GFQ6Xq1MPeL4QABP
+lKmci632vQJ4GxESuwOiZg0i6Tz5bDG+ZaIVvNr+t823Qm6vmuHrBlIVAMY0EJQXQhkzeK9VeOVJ
+q+XmVzR3j4KKrGuBJz5B8pX/lnwCiVYQ3u5lKpdPwFnvAJO4pL/SYkRIdaL3NErorA2tYH2BAAAB
+aEGaEEnhDyZTAgl//rUqgAGzK+rL2M7aAHEhLX3bacMn9vUFP3nIJnyfveyhOY6grHKjo3LuIxLf
+OYnk8Dc/yOtUhPEIolWadq9/xYa1mgo5NAauLwiCH3d31+EYu9SZbmqXhayr0E6M2Ck9enni3mRq
+LFFyozdeKQ0QEXL7AfdDSKnzbcXZF0U/KC4Rh9KU5TNhoOGFYEkBcxJ2u4zLOS4I2YU3ZZYqPt4s
+6hqDlaXJBu1SNZKahCUcmFq45mbgjYvuw7WcgtkgxXh5gG+nqs9ru11HNcthqpXfCa3q4wepaWS7
+0Lxzl+C1bR241znPvu1jOCVxhXdZDJZE8y02v/Y4yExX9yZCe3PH+YdbxFyrFVoHmML/cmyefZEL
+BISQuf7tt1fOg/S7zS6VzBjw4m2KF+f6ENn9/1Ug9fbtvJfOlOKZanI326i67RvOJH7VzhZ1piV0
+hggN+WoDzfXVcHLvGo1Rpt48vQAAAgtBmjFJ4Q8mUwIJf/61KoABssVZmLgAHMNn9wtMmcW3iP0/
+Zij41SrBKOj1sNmFcyvtdT0JrVpWtxSHgI+bborH7NoaaiSnVu4mYij1QASgFKEEu4dRfiMvz+Vp
+otIJqSTkWloMLMAyPEzy1+s37Skrd/JpvYAWicjj+16FfB6u/kXoqhRJpezYeX+ARtf7z9uz1QW/
+6FRm2nYT7l/0YxTQKANgoSQWJPhPztpYu1/57rYp4IpOuaCjlAJAMAA6MUcjSGchG/q14rYHZnsx
+oSsf9E+pgk68DH1Z/28n2z6rNwUmoV+C/22tQcdhjBS2gRWBr8Cjf8u73FjC5nOeSFgKuWWSmx/8
+krYUgVLXfhmQPAfuAWEVoaNoVc/QkUhMU+nIN/80H9JVXSykFb5OCsBkuvXhAXorRPEjSm3zPKqz
+OJIfHhKDpAQMHxQYjsiVfeY3mFxYjvFsIxXI+fzWaj6ZSyV1F/56Mhlx5TE8Xd0JbXETXRePFfWe
+fzkVLyXM8haz8svELxRjoY/zoalSKeZyqnIu9g7mAF0LVu14XFGiBKxT+t4XYOcoBjOnsBiiAUwF
+dpUOafuOup61jHMHGopOqrMcIQn7Ha7vsg5ll2lvHI+fNDl4YOlu3KnJX8n7jM35sZxc/5oOMznQ
+uuda1HV+3f12HC21cfDCAlLdBcVVjq14djGq8TQODingAAABzkGaUknhDyZTAgl//rUqgAG9pW8o
+ZiAKiyyExfAty6l0c0VXfgNCsqraz/x3YndCx+WdiCiqhttjPgQfAfU409x5uErbZPlhk8mlAU7v
+rc5PfeBAUCWkoZnbobZ9D/0pxQD6sTKkOgjDYMQ72aEAEtZN4QXaORrK871EuJz24HRiNhIhh+rX
+c99T0+W98Ak8hIPI3BjLxyxWRWseeRM2ZkXg0drYwYpy3l47KJ4gj3dLldXZW1S481ko1exR8+Sg
+TzsJa1WscbC+Zhp6G+h69278Mjx0AD89rAA6lfy/3zejYKTPgpRT8XGlLdF1wmjdlcjbzFS21d2R
+Stt71ThZG2Ec20oyTlM1SgqEPlUc8xisGhqEr2UjjHmyAC8hkwsaQslrhB/LzLjKX1DWUeB/HbfX
+UBwHmXSYKsEIPOI+2WpY+652TU3D+x9xfdXmQRoV31UPG81YnUdR/yWu+u1nwsUAPZzV6esi1g0T
+90BJYE7P/HnPkmgfUQcfZfj+UtWuZrRc4GzoCx8DKFg1Ws3L2bBUMwu5aV3PTg/AB0JaGVGgogup
+3wBmG3HOJc69lxklhqbHJKDjbXXzzf95dT6tYNyTb6qi8jO41dqK93qmgQAAAeZBmnNJ4Q8mUwIJ
+f/61KoABqn/LfDHRlXlP+/5I+/ym/tYOBQB/5s67DqtltBq/aUAEVHr+f1SDMSm6Mzyrb3oOlDHU
+XvbRkspgEHG1JourdMs7lxOmrJn9qQNLm2YKHCf6iopJq2rEiseV8CpVIB4ckFRHzsuBASXw6pXr
+H76VZ608ryiUGl5vdu39KZBkCZ7KIQBtwyn8FQLWbapx+U/CfUPmCOi4OFPbRaEtyhdbTU9kNk/r
+tvA+/GHLoOThxlLoCUIde6Gjme9TxESn5v8Bz8CaBL285RT0k4tdbX0Uu0SpbObbI3hUGSd5Xq+n
+Etb8LqkNycgcp1TPMPnx/sSJKOfNvVM2zpRXpw9W2sW+xAXpV9ik7iejjRFDEn8KIEMj7fy6d7UV
+LaJnrHTcvG+9P69ymYEA8FOdn0dTDgK0EKPyCEHWXk+cdiGXtBpjNNcgPMaz1n3EG8+LKRppj+wy
+LvFYn56E07xwtHmcYd7VkRzUf4wErS1d6CBpBpu3i5p9AFLsnL1A0ZcUTVDS7zhyldyt3aIRjy8s
+tn7zVFbQ7uFA2mflalGa/8jccfvl5YtaEnRQp8NNyU8prRTRGYeh7uvK2iFc7oATOuL81QRP9+VI
+ljkWPhWhSG0TkbMwsWrBZU99F80AAAFPQZqUSeEPJlMCCX/+tSqAAbzYwYAFCVwy2t6zs14vJF6B
+w2XHod6M9y4Q+L6g0+DsXQ5QzgdfqY5WBwyyFFNac9TeYHt+LTbbjb93NGGnrx9lXEOtNot/R4S1
+08VPQqk4WcrpQdj3YeQdJy1BnJ3FznilLbWTY39i0aDkSxi7sfZdbPDwaH+XAeBz3vs/QmvLnShZ
+Rh0iQAUIqRLV6U85fIr8BwUs0LHHj69F/UDLeVqM4rKVRALWDGGuikLlPQwB0vKXDZGt+D0b8LCO
+sIGphtuT2pm7xN2VduCgVrRyR4jsvP1WPsi4EnSW3oo2U6MNtbUGA7K1h8pmdWLVDH+6NE4GufHH
+AttT5XphoS7kWotdy5r/G3b1dH/Gr1NbaRi6vMXtQLUc9Vl/l9DaTWI72Qts/fCdo+tkuM8WQ8F7
+ENKPysrM3N/MKZLVcNk4wFwAAAFxQZq1SeEPJlMCCX/+tSqAAbLFW5Mp6WzUAjNT5qnmTgQbgAKt
+z1GUwJBROh9ToWE3H4TVCGrTlcNWpPTLWs6rOe7sLvKf0KwZpSFVuko962360f5wji4HZs9q9QIH
+WeULLos8KS72/FDSeKZwgLCJ0pnxiV3WfQUqZoRMEQw4K2p5tGK1T9WEpUvZMZMlO+lMahQwmg9C
+v8Geh0+wt0UesmFFbKi1zKsxRRCYfITZgjZOtfnabSEA29Ys0y1TAKZ1q85Pt+ADTjoNXFMBCA01
+lStRchLUDrnoqludZ7FMb/RKU4eczxLgI4w21ugTSTGNGaobJQusqpWCxzW+seuPKfA95VW5Zksm
+Ykv6n+0AeVpWWVClsJ46izzchAJqKPg7ozCt8nRnPYI05rKGIXCYPvw49up1HwbivpNT4xzZOXCh
+vSRUmCktdaKEJ8cxOMuCd55MhB0KdcnWjO+IOD9w9SWUoG3dKMa3IOvrt+ecKkQJAAACIUGa10nh
+DyZTBRE8Ev/+tSqAAb2q3HUiEPFZhqHurpki4YJNYnFUROTn0bWIKp4+3gQIX7+VB8WCOXsOW/af
+hC6UvqihwgvxeieQ4LuNhZJ23dXrmKNdHYYkZHP+x1gKI8ISEcBQCQhjeWt5h09974qERsqmfRjq
+ep83jiNnzP8YM9XL+Zm9oPIbr0ixtYjiGTUXbWXd5NfdkIWc8lfQpaGV2Ht9say1lrFUpeFaG47O
+DZ7NN7FAq/AcSbKWTSbabOpMRXcE3365k0zk0eGlNMDYJdZW9ux4iuWmucpjrO+x6pvTgCQVr6Fq
+xPZevUqFg9LT5PCCpFMR2SFkUOC+K5PqKrvDzYah6FHn9v3Ev2Jxd3tUi9EV2MLroRCHTJg3VBEh
+ML9qfpulVLtMYdQ/gPD+Et3S01XcwtSv+4gj2kc9+EzcZR2JAG4GGA9zjATN2mFeaUg7b91btfV/
+mGMXpTxGQT6I0QwxiNeqqMbZvjVg/8RfmdLoQv/UOdmK7EQ+XcjFzlbyRjoE7b5I1/nw8A2EcCBV
+4DoHHYrl6OaLGXZw3SaI7zfDkPKTyF/r06uybCddHKlEP/ZTYdoH/qg3EYxAerk+Kw/DV+zHbNV+
+yKvQqaqdznwygML1ioCxtcm/QF0WaZs3WMIEmHN3RYdD12eY6lg2pHyBCnvuz6wkHEDl+19DHnYz
+o/MHeBWyBd1L5NcCdrttvb+k6XNWLl07oj6hAAAAvQGe9mpD/wAENYkNBuEcif+/mPUbJ4Jqrrqs
+VBuvTxMz6S55PkXKSrjqtJaMofjnwo0G7Fss7j1yFfZc+Mi6+/vzZ+QoAW26LR3bwO4aKa3PtVSY
+3NF0F4S0+c5Ko/tqYihHdHke2cn3wxxjHpu9zfcpdifszJEVX42+Tg/Tf+ji0FXgME28rgYhwPN7
+m9PSrFsZ8qfymeCWJDb3LvRaCKDdEJxZV+f6Rixn2f3zXH/ezg/4iXUOwP3Pc2vHTQAAAWxBmvhJ
+4Q8mUwIJf/61KoABs6oI/Qn3yCYI9kSXgj2933uq8uLW+gGov5JlNPaG1nptdXWpCIx/6DV721H6
+lppAGixivHaUDD2SbeGEnoNIlfmb5i95FKbzFgUkZhUtbteJadkTZ6uLe6yAeVnKBH2qTtA8spvn
+n//BlvFf+lunW748c4alimP7RZQ1sd8GlgUFOePDq2l3nQpFc+2D4z8CgFg2sHMI5re1hndUsApx
+vM/ujsyiAmeU6ho42hLDjrR69W0lNIC1egj1s/ZmjL4ndugQxdIDk1uWmH9+Iu5fL3BSlwRbktwv
+DHydc995Elqp+V8lU7KOj9Ix+ZvhIS2WT7+IXGWoVAfQzBh/Uog9bRATua4Ud52RAjHefFaR9PGG
+NERgGscmPDpiUItxLciQVz58nfGTACWAGvfStISYxfrGe5hwdckU+sfAYBGDrTOOoBaLq6GQukj8
+a0l+El6549qjGx/qbS8yDtKBAAAB20GbGUnhDyZTAgl//rUqgAGpoEKfjwkQW0y33/ILL92sGRGS
+9AABFy5HdCf2dGD1LOnVjBM5Jv92efwyvNpcCFUYTVHxXuhkI7OdeuVQzao9N6zENA+tckE6ZD3j
++y73DWd6jNEHidg9rGRRr7ouF74eer1MM9+bf4l7nuf2AXz6mewzo+aVaBwbntE5ohpr9wN3TFOf
+C6/qLnRj0GFTMsuNaY46LiJjtRIuco+DeUBk/9aG6hVQGXh4Jb3ZrWTdLdIs/W1nTDqY0zD2Mjkb
+b5LYO4nzUmqLopNkCPyXiNti5iIhyf7gee9Ipo9HNRQqtiNuaWeLG/6x/PpeTaei9MNrK/FjVOqt
+5iNLB2o9qJ6VHJSqLyst68JnT0OhnjHNSUbyjAF1UbFUaYxNqS4IV2ysVqkdX1YoMvUiIK4e1iBD
+Cd3BZBGN6O4cHQoJleVB+xxNjz6ZalOIljQbnjHF5U6eyhB1/mZHr+/NN1EbEURVTpCzBy9UE1yg
+A3f6Hor0eu1ZYGz4soMN0ygtm4/w8D2N3/6V+8U4Kqp1ZcMdxEaFaLOhiKNmkKdhQFP+L9TP7hLy
+3ENLdmj2YcOfKmWfEiBl3sp6Fq41BZyRfj7ECYOd9/uXnS3t/4BCckkAAAFaQZs7SeEPJlMFETwS
+//61KoABstJWumYHbil0vFeHDLUWmmszKOhHoQlwzKMUt3PPCAYxHiK5OFqoeA7VNbFCYKRAY9W/
+EIKuk3LvbsI41Bscidcz5vHvu4AXABCSmDVJeiux/PyaUkp8R5iVZ9iqJa3tW+QWOZMbgFUf75Zc
+vAdLHYAKOUYn69MwNJbJLyazqzhWnfBr30M0xl0UugXSY011TNZgAkDCmePoxZTv0lY5xZw0amEt
+85GuWH+gy/ieeZA3xebfJOxm7U64a3bpeIdkSGVRNbTcduMsE80i/1ETCmw2I5ZGeiktQDGXspwF
+hy/Uok5pdevxgKRSp4JX4ppev13zKzp+eW8QdlrGhNtK5HXfuNp/mnMO27+VL/cHp7yZKd20m9J6
+NqMO0MGZz936jeGk4yCCh1Zxw4H24XZKjEN2A4PMkZkzg3ECLQpRQ1LOTnF7PsVKyQAAANsBn1pq
+Q/8ABBYDhnO9jKoThWe/SsH7FavOu5unTUmNLfUO+EGeaQRdg1HFSg60MijbGlDEndnJzkza3I19
+pgBdX48tUQSfrifoIUUMgp1i/9NC3B2RiqoSBfwTPyNeTuGbBqUjvr2qcp8Iqpkqg3mQIIHuJ6tW
+ZGIpUVxyk829QroWEjHBPMjbZbWdWie4sFNsaIf4sgbt9IJAsmiiEQkagasv7eCuo+8VM2zshjdy
+Za3wLT2c6ik6FWKgEerbuosR60bgnqHaQpKhd7+3oSFeD0CTtWnKAQPk94AAAAENQZtcSeEPJlMC
+CX/+tSqAAZ7UqUXItMNQIIAcmqHhNkl/uoY68khpUbyKWGmqk7jIKOMPXH/1llGr/wSUEJ0v58ET
+dy/1ghVx1BY5ZOrBWirlHtJiSXwYOhGn36ukXDZfIKzgW7ZS4xSrvx+g/7b7WwYZDUdoEpg0L/tE
+8mslBxerGMbR3qFiT8higgv7K++IxQ2K72CJdotGM93N8QmQRpbYCbE07DgZmWHn9sfV6pycEGPT
+nZ4yRxy+H8/W+rb3HIkKj9dEa30et0CNpnNf2bC+Ti+5taZpDxltUqcHRgjJiNfhqoRqwr0QePCs
+TJIStEr7xut0vDuXIIzCtoopKlncwy2sOb+UV6B3ksEAAAGxQZt9SeEPJlMCCX/+tSqAAajSVnVS
+7hUoMOY3lxB8Mt4dgAbjwABwVKrWTV6MbOROAQTSCzspsfXXI2VKCu9O9761WPUmyoCEOS90joMD
+ewYveZo3Hy3PvPhGkGVrNl4jz8J0vrDUdQ9bH5Fk76/tGFT/V68a/QM7sKYnlHUu74gwatf4GVws
+3lcbjSTWfEcGiq+Amygh6QgC7PiliCBQ1sBvmRKre4tpjZsq65u5ExDoFoXDqg9luoC128DhKNYy
+2g0UMQFxuPTDCRolwpGemu9SCyIxs5AHYkgNkWgLTpIgafNH/Cq/FvJDg7hJ6d89TyRPKnELgiAR
+b6+inOcCpvNzYb8wc0sf95KzmyP/ALi1Q6nl/dh/muzap+d+thGO+G53OJQSpl1KrRbOsBZLe6eu
+CKX5C4723DJge6xvXRJs9HQ46tf3w+RqhVhfbPzWYUUdmOhaXYy1s7rvUIXZcNogjVNyWp5Jbzw+
+Ao4UwGP/ZgP1jYFP8yNjYXa4DwoOOhZVGd3ClLcOrSZMUkINlcPfrsbPostjL0Q8hhOv3eo84TbT
+oqEAAHtAiHVJnhkx4QAAAYNBm55J4Q8mUwIJf/61KoABtLL24Tj/9PeIELFJi1sBCOIiNmxPKEfI
+J+Q1fp5oxeMLZb1LPOifgo7sFtUfTG5p+cluanxh264jep6442ZlXTtSbEPTm35glOikSoxqihkh
+3LrY1ibB2rhTpYKot/wa1Z5dF/kaWDNefPGQijmYEhHod43qGJTd46klXprRX5T3WBfDd+pFKmSC
+Y+zgRI0uHyFF5JrAsXeBbxtKkHimKuTPIGJ7RVTvaaRrN00owy8UFK9YJlZSPrltF58BIMEJdtKl
+Y4XAJjbThw4boPmY+vxAc06/OF4VbQy51DYU0+YZltYT6UNPOGTPaKUKHaUPJbgcBpM1mmZ+lLUe
+y0oLTDmz16IynvMnCaCryiEqkQEM2Dtuha45OxhgN/V2hWKF1P1agA/PbvlHA41qbhrUt3j6v/Jn
+tgVaEG1lrByxXkCra6r7l0yv7O7HrbJLtXKEmFoxp1Uvn8QsKd2CY3RLeR0me2//jbnXzc4eHFA7
+hw3F+iAAAAFhQZugSeEPJlMFETwQ//6qVQADZXrnCL8lCZ824FA9orqCmDvqMtqFC/tN1AL3i97E
+H9E/ineieccBiPws1q33r2ACBRwuMhOm7jWEoCIr7dUWPQtm2n0cPs7qzvdv1ZgV2Nx2B3lFazMA
+KzBFOcaCNWbCgPn/82Dc9mRYm0xRlDNfz+jsfow89sW74FJxx/jPh+R0wz+GcOk56fOJBs0dQ/08
+SDvTmCWyrKsJZOChUgz8IWmM86yxjrT+E7w9ydBOVXDR4xUrXuHYmtmT2XtJRL8+xqyvLVWiqzht
+eaJRIyIJMt/WGNduHo6NEsNXD2FAF7vFDrZyvRwbConYF3vPqTskEoJtY3AcW35LmkDS35QA7u0d
+GIz51M5KUh0I19FQtcLxJ+7mpOLZkQbpcfhjjdoeMOJLKi0kliPDYFNZUScq2iu6NW5c6qZnS0KD
+pJt4ydCF2VJ7bO3b3mx4+jiPo0AAAAESAZ/fakP/AAG16HXVDKo6VC216mB6gW5kzkSubMYYJ5Ez
+1Ld6/Gk1OLCm+65Qqi6ItgglroeB9MIs7hNirNFDarM37C9IpczEpBTE5DJfKc49JMVQAscsZc9I
+UAcZIcNGpSCj/pCvmDdOQm9xgtkjY0WuK9B7VaV6f3xzLt0774N6IiP6Szer8OGmcF2tfUKkmnpu
+UR+44V9G0dlJy1Z6bU+8oEZyBfv2G9nDqRH1xgiL7rnzgO9qmM9ae+wcqHQlcFL++aOg8AMea5Mv
+houoe9tYgufwrZSJXrYdHEouC1p2JuL1i/jJQlxPo7aoXkrfiFF3bUcxraspxDf5L7O9FJxhxGPX
+hzm1/ko+42LiRB4GiQAAAPdBm8FJ4Q8mUwIf//6plgANRaihM+47vQN/D3Jw+dyjywOulrKlB2am
+J17If5EdJYYMgG2QVmw/DP54Qa1USFo5fnCD2qz++YmPbPMQFHxCS75uVbRt7RYcN+VrvF31IK7M
+sSqjxbACvJ/sIOaZrZbsZOWhSW8bTW+lmJMiejYZOJZPQv2zhfSx5NwT/PT675tnAxzaczF3an5R
+xhveqoZWHUsqE6BPsuZzbnqiQCI0OHVPzUX5CTx73g97U0OtQtbdwHYDIDv8pkKlROw1wT/2R0rI
+aUvqAhriuFI2LahofuaFlhur+yZAIuMtvE5FXgZeQfevOAhAAAAGaW1vb3YAAABsbXZoZAAAAAAA
+AAAAAAAAAAAAA+gAAEyQAAEAAAEAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAA
+AAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAWUdHJhawAAAFx0a2hkAAAA
+AwAAAAAAAAAAAAAAAQAAAAAAAEyQAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAA
+AAAAAAAAAAAAAAAAQAAAAAKAAAAB4AAAAAAAJGVkdHMAAAAcZWxzdAAAAAAAAAABAABMkAAAEAAA
+AQAAAAAFDG1kaWEAAAAgbWRoZAAAAAAAAAAAAAAAAAAAKAAAAxAAVcQAAAAAAC1oZGxyAAAAAAAA
+AAB2aWRlAAAAAAAAAAAAAAAAVmlkZW9IYW5kbGVyAAAABLdtaW5mAAAAFHZtaGQAAAABAAAAAAAA
+AAAAAAAkZGluZgAAABxkcmVmAAAAAAAAAAEAAAAMdXJsIAAAAAEAAAR3c3RibAAAALdzdHNkAAAA
+AAAAAAEAAACnYXZjMQAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAKAAeAASAAAAEgAAAAAAAAAAQAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABj//wAAADVhdmNDAWQAFv/hABhnZAAWrNlA
+oD2hAAADAAEAAAMACg8WLZYBAAZo6+PLIsD9+PgAAAAAHHV1aWRraEDyXyRPxbo5pRvPAyPzAAAA
+AAAAABhzdHRzAAAAAAAAAAEAAABiAAAIAAAAABRzdHNzAAAAAAAAAAEAAAABAAABwGN0dHMAAAAA
+AAAANgAAAAEAABAAAAAAAQAAGAAAAAABAAAIAAAAAAQAABAAAAAAAQAAGAAAAAABAAAIAAAAAAgA
+ABAAAAAAAQAAGAAAAAABAAAIAAAAAAEAABgAAAAAAQAACAAAAAACAAAQAAAAAAEAABgAAAAAAQAA
+CAAAAAACAAAQAAAAAAEAABgAAAAAAQAACAAAAAABAAAQAAAAAAEAABgAAAAAAQAACAAAAAADAAAQ
+AAAAAAEAABgAAAAAAQAACAAAAAABAAAQAAAAAAEAABgAAAAAAQAACAAAAAABAAAYAAAAAAEAAAgA
+AAAAAQAAEAAAAAABAAAYAAAAAAEAAAgAAAAAAQAAGAAAAAABAAAIAAAAAAEAABgAAAAAAQAACAAA
+AAALAAAQAAAAAAEAABgAAAAAAQAACAAAAAABAAAQAAAAAAEAABgAAAAAAQAACAAAAAADAAAQAAAA
+AAEAABgAAAAAAQAACAAAAAAQAAAQAAAAAAEAABgAAAAAAQAACAAAAAACAAAQAAAAAAEAABgAAAAA
+AQAACAAAAAADAAAQAAAAAAEAABgAAAAAAQAACAAAAAABAAAQAAAAABxzdHNjAAAAAAAAAAEAAAAB
+AAAAYgAAAAEAAAGcc3RzegAAAAAAAAAAAAAAYgAAGR8AAAIUAAAA/AAAAVYAAAEEAAAA+wAAATQA
+AAG6AAAAoAAAAQkAAAEpAAABOwAAAS0AAAEzAAABQAAAASMAAAGuAAABTAAAAJ4AAAH3AAAA9wAA
+AaAAAAFiAAABqAAAATYAAAGiAAABowAAAXAAAADYAAAB1AAAAeMAAADYAAABgAAAAVMAAAHbAAAB
+ggAAAPAAAAFoAAAB4wAAARcAAAHRAAABFwAAAZIAAAIHAAAAvAAAAoAAAADHAAABzwAAALUAAAFx
+AAABwwAAAW4AAAHbAAABjwAAAgoAAAHdAAABcgAAAaoAAAInAAABpgAAAcwAAADpAAACFAAAAckA
+AACuAAAB0QAAAbEAAAHOAAABvAAAAPsAAAICAAAB1wAAAf0AAAGXAAACHgAAAWQAAAIJAAAB4QAA
+AggAAAHfAAABbAAAAg8AAAHSAAAB6gAAAVMAAAF1AAACJQAAAMEAAAFwAAAB3wAAAV4AAADfAAAB
+EQAAAbUAAAGHAAABZQAAARYAAAD7AAAAFHN0Y28AAAAAAAAAAQAAADAAAABhdWR0YQAAAFltZXRh
+AAAAAAAAACFoZGxyAAAAAAAAAABtZGlyYXBwbAAAAAAAAAAAAAAAACxpbHN0AAAAJKl0b28AAAAc
+ZGF0YQAAAAEAAAAATGF2ZjYwLjMuMTAw
+">
+  Your browser does not support the video tag.
+</video></div><img alt="_images/1147cc2d533acec6530ab2b922584bca23168a60f3161c844c56c8b1ab8a459a.png" src="_images/1147cc2d533acec6530ab2b922584bca23168a60f3161c844c56c8b1ab8a459a.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Aufgabe3.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Exercise 4 - Coupled Simulation of latent heat effects</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="References.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">References</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#balance-equations">Balance Equations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#space-discretisation">Space discretisation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-integration">Time Integration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#object-definition">Object definition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#construction-of-the-layer-and-boundary-objects">Construction of the layer and boundary objects</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sorption-isotherm">Sorption Isotherm</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#water-permability-saturated-vapor-pressure-and-heat-conductivity">Water permability, saturated vapor pressure and heat conductivity</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#liquid-water-transport">Liquid Water transport</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conductivity-matrices">Conductivity Matrices</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#construction-of-the-conductivity-matrix-k-and-m">Construction of the conductivity matrix <span class="math notranslate nohighlight">\(K\)</span> and <span class="math notranslate nohighlight">\(M\)</span></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#initialize-temperature-and-moisture-field">Initialize Temperature and Moisture Field</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solving">Solving</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Florian Schnabel
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
