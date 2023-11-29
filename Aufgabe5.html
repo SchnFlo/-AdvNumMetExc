@@ -579,13 +579,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">42</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">v_ana</span> <span class="o">=</span> <span class="n">h</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">12</span> <span class="o">/</span> <span class="n">mu</span> <span class="o">*</span> <span class="p">(</span><span class="n">P_init</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">P_init</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">lx</span>
-<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="nb">print</span><span class="p">(</span><span class="n">v_ana</span><span class="p">,</span><span class="n">v_avg</span><span class="p">)</span>
-
-<span class="ne">NameError</span>: name &#39;P_init&#39; is not defined
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0009523809523809526 0.0009533342866676086
 </pre></div>
 </div>
 </div>
@@ -594,14 +588,17 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">subplot_kw</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;projection&quot;</span><span class="p">:</span> <span class="s2">&quot;3d&quot;</span><span class="p">})</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">plot_surface</span><span class="p">(</span><span class="n">a</span><span class="p">[:</span><span class="n">nx</span><span class="p">,:</span><span class="n">nx</span><span class="p">],</span><span class="n">b</span><span class="p">[:</span><span class="n">nx</span><span class="p">,:</span><span class="n">nx</span><span class="p">],</span><span class="n">P_matrix</span><span class="p">[:</span><span class="n">nx</span><span class="p">,:</span><span class="n">nx</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;length in x-direction $x$ [m]&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;length in y-direction $y$ [m]&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_zlabel</span><span class="p">(</span><span class="s2">&quot;Pressure $P$ [Pa]&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;mpl_toolkits.mplot3d.art3d.Poly3DCollection at 0x7fde97bb5490&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 0, &#39;Pressure $P$ [Pa]&#39;)
 </pre></div>
 </div>
-<img alt="_images/fc5c9ff7ccce8bb164922b1a7b0b002e965a09dce2d163cb521bca0534037c64.png" src="_images/fc5c9ff7ccce8bb164922b1a7b0b002e965a09dce2d163cb521bca0534037c64.png" />
+<img alt="_images/7f0e1b8e7b17820b0fb1154707d5cf11cdcb28d360c596e1d394adc21a2adac8.png" src="_images/7f0e1b8e7b17820b0fb1154707d5cf11cdcb28d360c596e1d394adc21a2adac8.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -628,11 +625,11 @@ document.write(`
         <span class="n">P_init</span><span class="o">=</span><span class="n">newPinit</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span><span class="n">ny</span><span class="p">,</span><span class="n">Pbcr</span><span class="p">,</span><span class="n">Pbcl</span><span class="p">)</span>
         <span class="n">P_matrix</span> <span class="o">=</span> <span class="n">solveP</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span><span class="n">ny</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">P_init</span><span class="p">)</span>
         <span class="n">v_avg</span> <span class="o">=</span> <span class="n">averageV</span><span class="p">(</span><span class="n">P_matrix</span><span class="p">,</span><span class="n">deltax</span><span class="p">,</span><span class="n">nx</span><span class="p">,</span><span class="n">ny</span><span class="p">,</span><span class="n">mu</span><span class="p">,</span><span class="n">k</span><span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">tupel</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">v_avg</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">tupel</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">v_avg</span><span class="p">,</span><span class="n">c</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
     <span class="n">v_ana</span> <span class="o">=</span> <span class="n">h</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">12</span> <span class="o">/</span> <span class="n">mu</span> <span class="o">*</span> <span class="p">(</span><span class="n">P_init</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">P_init</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">lx</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span><span class="n">gridsizes</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]],[</span><span class="n">v_ana</span><span class="p">,</span><span class="n">v_ana</span><span class="p">])</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Number of cells per direction $nx,ny$&quot;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Average velocity in the channel $v_avg$ [m/s]&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Average velocity in the channel $v_</span><span class="si">{avg}</span><span class="s2">$ [m/s]&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -665,11 +662,17 @@ document.write(`
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100 100
 200 200
-500 500
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_200562/1554237472.py:11: UserWarning: *c* argument looks like a single numeric RGB or RGBA sequence, which should be avoided as value-mapping will have precedence in case its length matches with *x* &amp; *y*.  Please use the *color* keyword-argument or provide a 2D array with a single row if you intend to specify the same RGB or RGBA value for all points.
+  plt.scatter(tupel[0],v_avg,c=[0,0,1])
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>500 500
 1000 1000
 </pre></div>
 </div>
-<img alt="_images/b9356101c00ca306dc9d723f652a47c1defdd8632109e9782d3623cb2ea1f970.png" src="_images/b9356101c00ca306dc9d723f652a47c1defdd8632109e9782d3623cb2ea1f970.png" />
+<img alt="_images/bf756c9ee66a401bd8f4c54378db0c3123ecd71a783334706bdfc326fda16745.png" src="_images/bf756c9ee66a401bd8f4c54378db0c3123ecd71a783334706bdfc326fda16745.png" />
 </div>
 </div>
 </section>
