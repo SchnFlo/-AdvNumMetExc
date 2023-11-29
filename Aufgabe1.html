@@ -161,7 +161,9 @@ const thebe_selector_output = ".output, .cell_output"
         <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Exercise 1 - Heat Conduction with multiple layers and variable properties</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Aufgabe2.html">Exercise 2 - Conduction and Convection with RC-Networks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Aufgabe3.html">Exercise 4 - Coupled Simulation of latent heat effects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Aufgabe3.html">Exercise 3 - Coupled Simulation of latent heat effects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Aufgabe4.html">Exercise 4 - Integration of liquid water transport</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Aufgabe5.html">Excersise 5  : Air flow through a rectangular-channel</a></li>
 <li class="toctree-l1"><a class="reference internal" href="References.html">References</a></li>
 </ul>
 
@@ -388,14 +390,14 @@ document.write(`
 <span id="sec-ex1"></span><h1>Exercise 1 - Heat Conduction with multiple layers and variable properties<a class="headerlink" href="#exercise-1-heat-conduction-with-multiple-layers-and-variable-properties" title="Permalink to this heading">#</a></h1>
 <p>This script aims to calculate the temperature field across a multi-layered building component. The building component can have any number of layers with varying properties. In addition to that,
 the thickness of the layer and the number of finite volumes used to discretise
-the domain can vary. Such a multi-layered building component is shown in <a class="reference internal" href="#fig-multilaycomp"><span class="std std-numref">Fig. 1</span></a>.</p>
+the domain can vary. Such a multi-layered building component is shown in <code class="xref std std-numref docutils literal notranslate"><span class="pre">fig:multilayComp</span></code>.</p>
 <figure class="align-default" id="fig-multilaycomp">
 <a class="reference internal image-reference" href="_images/BuildingComponent.png"><img alt="_images/BuildingComponent.png" src="_images/BuildingComponent.png" style="width: 350px;" /></a>
 <figcaption>
 <p><span class="caption-number">Fig. 1 </span><span class="caption-text">Multi-layered building component and discretisation requirements [excersise Description]</span><a class="headerlink" href="#fig-multilaycomp" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>To allow a numerical solution of the problem, the partial differential equation for heat conduction must be discretised. The equation for heat conduction is shown in <a class="reference internal" href="#equation-heatflow">(1)</a> <span id="id1">[<a class="reference internal" href="References.html#id2" title="E. Walther. Building Physics Applications in Python. DIY Spring, Paris, 2021.">4</a>]</span>:</p>
+<p>To allow a numerical solution of the problem, the partial differential equation for heat conduction must be discretised. The equation for heat conduction is shown in <a class="reference internal" href="_oldbuild/jupyter_execute/Aufgabe1.html#equation-heatflow">()</a> <span id="id1">[<a class="reference internal" href="_oldbuild/jupyter_execute/References.html#id2" title="E. Walther. Building Physics Applications in Python. DIY Spring, Paris, 2021.">4</a>]</span>:</p>
 <div class="math notranslate nohighlight" id="equation-heatflow">
 <span class="eqno">(1)<a class="headerlink" href="#equation-heatflow" title="Permalink to this equation">#</a></span>\[\rho \cdot c \cdot \frac{dT}{dt} = \nabla (\lambda \nabla T) \]</div>
 <p>reduced to one dimension:</p>
@@ -403,10 +405,10 @@ the domain can vary. Such a multi-layered building component is shown in <a clas
 \[ \rho \cdot c \cdot \frac{dT}{dt} =  \frac{d}{dx}(\lambda \frac{dT}{dx}) \]</div>
 <section id="space-discretisation">
 <h2>Space discretisation<a class="headerlink" href="#space-discretisation" title="Permalink to this heading">#</a></h2>
-<p>The discretisation is done using the finite volume method and a representation as RC-Networks. Each cell is represented by a resistance and the conductivity to the neighbouring cells. The conductivity between Interrior cells is calculated as follows (for simplicity, the surface resistance between layers is neglected. <span class="math notranslate nohighlight">\( R_{ci} =0 \)</span> ) <span id="id2">[<a class="reference internal" href="References.html#id3" title="Carl-Eric Hagentoft. Introduction to building physics. Studentlitteratur, Lund, 2001. URL: https://buildingphysicshagentoft.com/text-books/introduction-to-building-physics/.">2</a>]</span>:</p>
+<p>The discretisation is done using the finite volume method and a representation as RC-Networks. Each cell is represented by a resistance and the conductivity to the neighbouring cells. The conductivity between Interrior cells is calculated as follows (for simplicity, the surface resistance between layers is neglected. <span class="math notranslate nohighlight">\( R_{ci} =0 \)</span> ) <span id="id2">[<a class="reference internal" href="_oldbuild/jupyter_execute/References.html#id3" title="Carl-Eric Hagentoft. Introduction to building physics. Studentlitteratur, Lund, 2001. URL: https://buildingphysicshagentoft.com/text-books/introduction-to-building-physics/.">2</a>]</span>:</p>
 <div class="math notranslate nohighlight" id="equation-conductivityinterior">
 <span class="eqno">(2)<a class="headerlink" href="#equation-conductivityinterior" title="Permalink to this equation">#</a></span>\[K_{i-0.5} = \frac{1}{\frac{0.5 \Delta x_{i-1}}{\lambda_{i-1}} + R_{ci} + \frac{0.5 \Delta x_{i}}{\lambda_{i}}} \]</div>
-<p>For a cell inside a layer (<span class="math notranslate nohighlight">\(\lambda_{i-1} = \lambda_{i} = \lambda_{i+1}\)</span> and <span class="math notranslate nohighlight">\(\Delta x_{i-1} = \Delta x_{i} = \Delta x_{i+1}\)</span>) <a class="reference internal" href="#equation-conductivityinterior">(2)</a> collapses to <a class="reference internal" href="#equation-conductivityinteriorcoll">(3)</a>:</p>
+<p>For a cell inside a layer (<span class="math notranslate nohighlight">\(\lambda_{i-1} = \lambda_{i} = \lambda_{i+1}\)</span> and <span class="math notranslate nohighlight">\(\Delta x_{i-1} = \Delta x_{i} = \Delta x_{i+1}\)</span>) <a class="reference internal" href="_oldbuild/jupyter_execute/Aufgabe1.html#equation-conductivityinterior">()</a> collapses to <a class="reference internal" href="_oldbuild/jupyter_execute/Aufgabe1.html#equation-conductivityinteriorcoll">()</a>:</p>
 <div class="math notranslate nohighlight" id="equation-conductivityinteriorcoll">
 <span class="eqno">(3)<a class="headerlink" href="#equation-conductivityinteriorcoll" title="Permalink to this equation">#</a></span>\[ K_{i-0.5} = K_{i+0.5} = \frac{\lambda_{i}}{\Delta x_{i}} \]</div>
 <p>And for Cells at the boundary:</p>
@@ -424,7 +426,7 @@ the domain can vary. Such a multi-layered building component is shown in <a clas
     &amp;\text{for cells at the right boundary:}&amp; &amp;T_j^{n+1} = T_j^n+F_{o,j}^* \cdot (K_{j-1} \cdot   T_{j-1}^n  - (K_{j-1}+K_{BC,2}) \cdot   T_{j}^n + K_{BC,2} \cdot   T_{BC,2}^n)&amp; \\
 \end{aligned}
 \end{split}\]</div>
-<p>or generally written (based on <span id="id3">[<a class="reference internal" href="References.html#id2" title="E. Walther. Building Physics Applications in Python. DIY Spring, Paris, 2021.">4</a>]</span>):</p>
+<p>or generally written (based on <span id="id3">[<a class="reference internal" href="_oldbuild/jupyter_execute/References.html#id2" title="E. Walther. Building Physics Applications in Python. DIY Spring, Paris, 2021.">4</a>]</span>):</p>
 <div class="math notranslate nohighlight" id="equation-timeint">
 <span class="eqno">(4)<a class="headerlink" href="#equation-timeint" title="Permalink to this equation">#</a></span>\[ T^{n+1} = T^n + F_{o}^* \cdot K \cdot T^n \]</div>
 <p>With the conductivity matrix <span class="math notranslate nohighlight">\( K \)</span>:</p>
@@ -456,14 +458,14 @@ the domain can vary. Such a multi-layered building component is shown in <a clas
 <p>with the heat capacity <span class="math notranslate nohighlight">\(c_i\)</span> and the density <span class="math notranslate nohighlight">\(\rho_i\)</span>.</p>
 <section id="stability">
 <h3>Stability<a class="headerlink" href="#stability" title="Permalink to this heading">#</a></h3>
-<p><a class="reference internal" href="#equation-stability">(5)</a> shows a condition to ensure <span class="math notranslate nohighlight">\(F_o^* \cdot K\)</span> results in a diagonally dominant (invertible) matrix  as a function of the Fourier’s number <span id="id4">[<a class="reference internal" href="References.html#id2" title="E. Walther. Building Physics Applications in Python. DIY Spring, Paris, 2021.">4</a>]</span>.</p>
+<p><a class="reference internal" href="_oldbuild/jupyter_execute/Aufgabe1.html#equation-stability">()</a> shows a condition to ensure <span class="math notranslate nohighlight">\(F_o^* \cdot K\)</span> results in a diagonally dominant (invertible) matrix  as a function of the Fourier’s number <span id="id4">[<a class="reference internal" href="_oldbuild/jupyter_execute/References.html#id2" title="E. Walther. Building Physics Applications in Python. DIY Spring, Paris, 2021.">4</a>]</span>.</p>
 <div class="math notranslate nohighlight" id="equation-stability">
 <span class="eqno">(5)<a class="headerlink" href="#equation-stability" title="Permalink to this equation">#</a></span>\[ (1-2 F_o) \geq 0 \longrightarrow F_o = \frac{\lambda}{\rho \cdot c} \cdot \frac{\Delta t}{\Delta x^2} \le 0.5 \]</div>
 <p>To insure a stable simulation this condition is tested during the construction of the conductivity matrix <span class="math notranslate nohighlight">\(K\)</span>.</p>
 </section>
 <section id="steady-state-criteria">
 <h3>Steady state criteria<a class="headerlink" href="#steady-state-criteria" title="Permalink to this heading">#</a></h3>
-<p>The simulation stops once a steady state is achieved. The ISO 10211 <span id="id5">[<a class="reference internal" href="References.html#id4" title="ISO/TC 59/SC 13. Iso 10211:2017 thermal bridges in building construction — heat flows and surface temperatures — detailed calculations. International Organization for Standardization, 03 2016.">1</a>]</span> norm gives a steady state criterea for thermal bridges in building constructions. For iterative solvers the following limit is defined:</p>
+<p>The simulation stops once a steady state is achieved. The ISO 10211 <span id="id5">[<a class="reference internal" href="_oldbuild/jupyter_execute/References.html#id4" title="ISO/TC 59/SC 13. Iso 10211:2017 thermal bridges in building construction — heat flows and surface temperatures — detailed calculations. International Organization for Standardization, 03 2016.">1</a>]</span> norm gives a steady state criterea for thermal bridges in building constructions. For iterative solvers the following limit is defined:</p>
 <div class="math notranslate nohighlight">
 \[ \sum q_{in} - \frac{\sum q}{2} &lt; 0.0001 \]</div>
 <p>As derived in the exercise the heatflow through the surface of a finite volume can be approximated as follows:</p>
