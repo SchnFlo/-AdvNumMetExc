@@ -163,7 +163,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="Aufgabe2.html">Exercise 2 - Conduction and Convection with RC-Networks</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Exercise 3 - Coupled Simulation of latent heat effects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Aufgabe4.html">Exercise 4 - Integration of liquid water transport</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Aufgabe5.html">Excersise 5  : Air flow through a rectangular-channel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Aufgabe5.html">Excersise 5  - Air flow through a rectangular-channel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Aufgabe6.html">Excersise 6  - Heated Room</a></li>
 <li class="toctree-l1"><a class="reference internal" href="References.html">References</a></li>
 </ul>
 
@@ -206,53 +207,6 @@ const thebe_selector_output = ".output, .cell_output"
         <div class="header-article-item">
 
 <div class="article-header-buttons">
-
-
-
-
-
-<div class="dropdown dropdown-source-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
-    <i class="fab fa-github"></i>
-  </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
-   class="btn btn-sm btn-source-repository-button dropdown-item"
-   title="Source repository"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="btn__text-container">Repository</span>
-</a>
-</li>
-      
-      
-      
-      
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2FAufgabe3.html&body=Your%20issue%20content%20here." target="_blank"
-   class="btn btn-sm btn-source-issues-button dropdown-item"
-   title="Open an issue"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="btn__text-container">Open issue</span>
-</a>
-</li>
-      
-  </ul>
-</div>
-
 
 
 
@@ -390,7 +344,7 @@ document.write(`
 <figure class="align-default" id="fig-multilaycompex2">
 <a class="reference internal image-reference" href="_images/BuildingComponent.png"><img alt="_images/BuildingComponent.png" src="_images/BuildingComponent.png" style="width: 350px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 3 </span><span class="caption-text">Multi-layered building component and discretisation requirements [excersise Description]</span><a class="headerlink" href="#fig-multilaycompex2" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Multi-layered building component and discretisation requirements [excersise Description]</span><a class="headerlink" href="#fig-multilaycompex2" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>In difference to the version shown in <a class="reference internal" href="_oldbuild/jupyter_execute/Aufgabe1.html#sec-ex1"><span class="std std-ref">Exercise 1</span></a> the following restrictions are introduced to reduce the complexity of the coupled problem:</p>
@@ -652,7 +606,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f50ec75ea90&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7efcaade24d0&gt;]
 </pre></div>
 </div>
 <img alt="_images/024fbf1733c64a41e5eb3b41ee4cf136c9d5a30ad1f655fa1fc8d5f6680fb645.png" src="_images/024fbf1733c64a41e5eb3b41ee4cf136c9d5a30ad1f655fa1fc8d5f6680fb645.png" />
@@ -670,7 +624,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f50ea14c210&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7efcaaa6a310&gt;]
 </pre></div>
 </div>
 <img alt="_images/4e31e8af99cf30f87a34e4dec3932de23eabf9ad50a47dd958bbcf8228ea96e6.png" src="_images/4e31e8af99cf30f87a34e4dec3932de23eabf9ad50a47dd958bbcf8228ea96e6.png" />
@@ -881,12 +835,12 @@ document.write(`
 <span class="g g-Whitespace">    </span><span class="mi">183</span>     <span class="k">if</span> <span class="ow">not</span> <span class="n">success</span><span class="p">:</span>
 <span class="g g-Whitespace">    </span><span class="mi">184</span>         <span class="bp">self</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;failed&#39;</span>
 
-<span class="nn">File ~/.local/lib/python3.11/site-packages/scipy/integrate/_ivp/radau.py:506,</span> in <span class="ni">Radau._step_impl</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">504</span> <span class="n">f_new</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fun</span><span class="p">(</span><span class="n">t_new</span><span class="p">,</span> <span class="n">y_new</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">505</span> <span class="k">if</span> <span class="n">recompute_jac</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">506</span>     <span class="n">J</span> <span class="o">=</span> <span class="n">jac</span><span class="p">(</span><span class="n">t_new</span><span class="p">,</span> <span class="n">y_new</span><span class="p">,</span> <span class="n">f_new</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">507</span>     <span class="n">current_jac</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="g g-Whitespace">    </span><span class="mi">508</span> <span class="k">elif</span> <span class="n">jac</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="nn">File ~/.local/lib/python3.11/site-packages/scipy/integrate/_ivp/radau.py:459,</span> in <span class="ni">Radau._step_impl</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">456</span> <span class="k">if</span> <span class="n">current_jac</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">457</span>     <span class="k">break</span>
+<span class="ne">--&gt; </span><span class="mi">459</span> <span class="n">J</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">jac</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">460</span> <span class="n">current_jac</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="g g-Whitespace">    </span><span class="mi">461</span> <span class="n">LU_real</span> <span class="o">=</span> <span class="kc">None</span>
 
 <span class="nn">File ~/.local/lib/python3.11/site-packages/scipy/integrate/_ivp/radau.py:352,</span> in <span class="ni">Radau._validate_jac.&lt;locals&gt;.jac_wrapped</span><span class="nt">(t, y, f)</span>
 <span class="g g-Whitespace">    </span><span class="mi">350</span> <span class="k">def</span> <span class="nf">jac_wrapped</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
@@ -920,13 +874,11 @@ document.write(`
 <span class="g g-Whitespace">     </span><span class="mi">19</span> <span class="k">def</span> <span class="nf">fun_wrapped</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
 <span class="ne">---&gt; </span><span class="mi">20</span>     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">fun</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
 
-<span class="nn">Cell In[26], line 20,</span> in <span class="ni">dt_w_dt</span><span class="nt">(t, vec_T_w)</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="n">pvap</span> <span class="o">=</span> <span class="n">fc_psat_T</span><span class="p">(</span><span class="n">T</span><span class="p">)</span> <span class="o">*</span> <span class="n">phi</span> <span class="o">/</span><span class="mi">100</span>
-<span class="g g-Whitespace">     </span><span class="mi">18</span> <span class="n">delta_T</span> <span class="o">=</span>  <span class="p">(</span><span class="n">thermConduct</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">K</span><span class="p">,</span><span class="n">T</span><span class="p">)</span> <span class="o">+</span>  <span class="n">deltapv</span> <span class="o">*</span> <span class="n">Lv</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">pvap</span><span class="p">)</span> <span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">c</span><span class="o">*</span><span class="n">rho</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">20</span> <span class="n">delta_w</span> <span class="o">=</span>  <span class="n">deltapv</span> <span class="o">*</span>  <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">pvap</span><span class="p">)</span> 
-<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">delta_T</span><span class="p">,</span><span class="n">delta_w</span><span class="p">)</span>
-
-<span class="nn">File &lt;__array_function__ internals&gt;:177,</span> in <span class="ni">dot</span><span class="nt">(*args, **kwargs)</span>
+<span class="nn">Cell In[26], line 1,</span> in <span class="ni">dt_w_dt</span><span class="nt">(t, vec_T_w)</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="k">def</span> <span class="nf">dt_w_dt</span><span class="p">(</span><span class="n">t</span><span class="p">,</span><span class="n">vec_T_w</span><span class="p">):</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span>     <span class="c1">#Splitting up temp and water vector</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span>     <span class="n">T</span> <span class="o">=</span> <span class="n">vec_T_w</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="p">]</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>     <span class="n">w</span> <span class="o">=</span> <span class="n">vec_T_w</span><span class="p">[</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="p">:</span><span class="n">layer</span><span class="o">.</span><span class="n">n</span><span class="o">*</span><span class="mi">2</span><span class="p">]</span>
 
 <span class="ne">KeyboardInterrupt</span>: 
 </pre></div>
