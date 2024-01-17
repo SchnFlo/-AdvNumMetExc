@@ -1,0 +1,1024 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Excersise 6 - Heated Room &#8212; Advanced Numerical Methods in Building Science - Exercise</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Aufgabe6';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="&lt;no title&gt;" href="Test.html" />
+    <link rel="prev" title="Excersise 5 - Air flow through a rectangular-channel" href="Aufgabe5.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Introduction
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Aufgabe1.html">Exercise 1 - Heat Conduction with multiple layers and variable properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Aufgabe2.html">Exercise 2 - Conduction and Convection with RC-Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Aufgabe3.html">Exercise 3 - Coupled Simulation of latent heat effects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Aufgabe4.html">Exercise 4 - Integration of liquid water transport</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Aufgabe5.html">Excersise 5  - Air flow through a rectangular-channel</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Excersise 6  - Heated Room</a></li>
+<li class="toctree-l1"><a class="reference internal" href="References.html">References</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/Aufgabe6.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Excersise 6  - Heated Room</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-description">Problem Description</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geometrie">Geometrie</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#boundary-conditions">Boundary Conditions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#component-parameters">Component Parameters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis">Analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#software">Software</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mesh">Mesh</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solver">Solver</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#turbulance-model">Turbulance Model</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#radiation-model">Radiation Model</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Boundary Conditions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analytical-solution">Analytical Solution</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-the-temperature-field">Calculating the temperature field</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#numerical-solution">Numerical Solution</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#convergence">Convergence</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#temperature-field">Temperature field</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#percentage-of-people-dissatisfied-ppd">Percentage of People dissatisfied (PPD)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#percentage-of-people-dissatisfied-pmv">Percentage of People dissatisfied (PMV)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#things-to-try">Things to try</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <body>
+    <font size="2">Florian Schnabel, 11807470, WS 2024</font><br />
+</body><section class="tex2jax_ignore mathjax_ignore" id="excersise-6-heated-room">
+<h1>Excersise 6  - Heated Room<a class="headerlink" href="#excersise-6-heated-room" title="Permalink to this heading">#</a></h1>
+<p>This Report shall include a thermal analysis of room heated by a single Radiator. In the first part of the analysis the fluid mechanical problem of the Air inside the room will be solved through the use of the <em>openFOAM</em> {cite} <code class="docutils literal notranslate"><span class="pre">openfoam</span></code> library. In the second part the heat losss and the comfort criterias defined in the <em>EN-ISO-7730</em> Standard {cite} <code class="docutils literal notranslate"><span class="pre">ISO7730</span></code> will be analysed.</p>
+<section id="problem-description">
+<h2>Problem Description<a class="headerlink" href="#problem-description" title="Permalink to this heading">#</a></h2>
+<section id="geometrie">
+<h3>Geometrie<a class="headerlink" href="#geometrie" title="Permalink to this heading">#</a></h3>
+<p>The Problem consists of a <em>6 m by 5 m by 2.6 m</em> room, with two neighbouring exterior and two neighbouring interior walls. The <em>1 m by 1 m by 0.30 m</em> radiator is positioned at middle of the longer exterior Wall. The Situation is shown in <a class="reference internal" href="#fig-geometry"><span class="std std-numref">Fig. 4</span></a>.</p>
+<figure class="align-default" id="fig-geometry">
+<a class="reference internal image-reference" href="_images/Geometry.png"><img alt="_images/Geometry.png" src="_images/Geometry.png" style="width: 350px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Geometric properties of the problem</span><a class="headerlink" href="#fig-geometry" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="boundary-conditions">
+<h3>Boundary Conditions<a class="headerlink" href="#boundary-conditions" title="Permalink to this heading">#</a></h3>
+<p>The analysed room represents a room on the ground floor with neighbouring rooms on two sides and above. The Problem is defined by four Dirichlet Boundary Conditions:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+    &amp;\text{Outside Air Temperature:}&amp; &amp; T_a = -10°C&amp; \\
+    &amp;\text{Ground Temperature:}&amp; &amp; T_g = 5°C&amp; \\
+    &amp;\text{Neighbouring Room Air Temperature:}&amp; &amp; T_{i,n}=20°C&amp; \\
+    &amp;\text{Radiator Surface Temperature:}&amp; &amp; T_{r}=55°C&amp; \\
+\end{aligned}
+\end{split}\]</div>
+</section>
+<section id="component-parameters">
+<h3>Component Parameters<a class="headerlink" href="#component-parameters" title="Permalink to this heading">#</a></h3>
+<p>The thermal parameters of Floor, Ceilling, and Walls are shown in <a class="reference internal" href="#tab-material"><span class="std std-numref">Table 1</span></a>.</p>
+<table class="table table-center" id="tab-material">
+<caption><span class="caption-number">Table 1 </span><span class="caption-text">Component Parameters</span><a class="headerlink" href="#tab-material" title="Permalink to this table">#</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Component</p></th>
+<th class="head"><p>Material</p></th>
+<th class="head text-center"><p>thickness in <span class="math notranslate nohighlight">\(m\)</span></p></th>
+<th class="head text-center"><p>thermal conductivity in <span class="math notranslate nohighlight">\(Wm^{-2}K^{-1}\)</span></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Ceiling</p></td>
+<td><p>Concrete</p></td>
+<td class="text-center"><p>0.20</p></td>
+<td class="text-center"><p>1.00</p></td>
+</tr>
+<tr class="row-odd"><td><p>Floor</p></td>
+<td><p>Screed</p></td>
+<td class="text-center"><p>0.06</p></td>
+<td class="text-center"><p>1.20</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>Insulation</p></td>
+<td class="text-center"><p>0.10</p></td>
+<td class="text-center"><p>0.05</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>Concrete</p></td>
+<td class="text-center"><p>0.20</p></td>
+<td class="text-center"><p>1.00</p></td>
+</tr>
+<tr class="row-even"><td><p>Outside Wall</p></td>
+<td><p>Insulation</p></td>
+<td class="text-center"><p>0.10</p></td>
+<td class="text-center"><p>0.05</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>Concrete</p></td>
+<td class="text-center"><p>0.20</p></td>
+<td class="text-center"><p>1.00</p></td>
+</tr>
+<tr class="row-even"><td><p>Inside Wall</p></td>
+<td><p>Plasterboard</p></td>
+<td class="text-center"><p>0.02</p></td>
+<td class="text-center"><p>1.20</p></td>
+</tr>
+<tr class="row-odd"><td><p></p></td>
+<td><p>Insulation</p></td>
+<td class="text-center"><p>0.10</p></td>
+<td class="text-center"><p>0.05</p></td>
+</tr>
+<tr class="row-even"><td><p></p></td>
+<td><p>Plasterboard</p></td>
+<td class="text-center"><p>0.02</p></td>
+<td class="text-center"><p>1.20</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="analysis">
+<h2>Analysis<a class="headerlink" href="#analysis" title="Permalink to this heading">#</a></h2>
+<p>To simplify the excercise an example of the room is provided. This section describes how the provided example was altered to fit the described Problem.</p>
+<section id="software">
+<h3>Software<a class="headerlink" href="#software" title="Permalink to this heading">#</a></h3>
+<p>The Problem is analysed using the provided openFOAM Docker image: <a class="reference external" href="https://hub.docker.com/layers/opencfd/openfoam-run/2306/images/sha256-fa3d1a6a3c08b8282e2f473d2243a8a6d3097f48c647f8f442cbc41df3961a39?context=explore">opencfd/openfoam-run:2306</a>.</p>
+</section>
+<section id="mesh">
+<h3>Mesh<a class="headerlink" href="#mesh" title="Permalink to this heading">#</a></h3>
+<p>The Mesh is created in two steps. In the first step a mesh of Hexahedrons is created using <code class="docutils literal notranslate"><span class="pre">blockMesh</span></code>. To improve the quality of the solution in the corners a mesh refinment is implemented in the following divisions:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>(0.2 0.3 8) //Division 1
+(0.6 0.40 1) //Division 2
+(0.2 0.3 0.125) //Division 3
+</pre></div>
+</div>
+<p>The Grading is applied in each direction (x,y,z). To account for the complex geometry of the heater further mesh refinment is applied using <code class="docutils literal notranslate"><span class="pre">snappyHexMesh</span></code>. Around the radiator a refinment box with 2 x 0.5 2 m is applied. To smoothen the transition three distances of mesh refinment are defined:</p>
+<ul class="simple">
+<li><p>0-15 cm distance: 3 levels</p></li>
+<li><p>15-30 cm distance: 2 levels</p></li>
+<li><p>30-60 cm distance: 1 level</p></li>
+</ul>
+<p>To reduce processing time a minimum mesh size is ensured by setting <code class="docutils literal notranslate"><span class="pre">minRefinementCells</span> <span class="pre">400</span></code>. The Resulting Mesh is shown in <a class="reference internal" href="#fig-mesh"><span class="std std-numref">Fig. 5</span></a> as crosssection through the radiator.</p>
+<figure class="align-default" id="fig-mesh">
+<a class="reference internal image-reference" href="_images/Mesh.png"><img alt="_images/Mesh.png" src="_images/Mesh.png" style="width: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5 </span><span class="caption-text">Resulting Mesh in the crossection through the radiator</span><a class="headerlink" href="#fig-mesh" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+<section id="solver">
+<h3>Solver<a class="headerlink" href="#solver" title="Permalink to this heading">#</a></h3>
+<p>As a solver the <code class="docutils literal notranslate"><span class="pre">buoyantSimpleFoam</span></code> from the openFOAM <a class="reference external" href="https://www.openfoam.com/documentation/user-guide/a-reference/a.1-standard-solvers">standard solvers</a> is chosen, as in addition to solving buoyant, turbulent flow it takes radiative heat transfer into account. To improve to quality of the results the residuals are reduced as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="n">p_rgh</span>           <span class="mf">1e-2</span><span class="p">;</span>     <span class="o">--&gt;</span>     <span class="n">p_rgh</span>           <span class="mf">1e-4</span><span class="p">;</span>
+    <span class="n">U</span>               <span class="mf">1e-3</span><span class="p">;</span>     <span class="o">--&gt;</span>     <span class="n">U</span>               <span class="mf">1e-5</span><span class="p">;</span>
+    <span class="n">h</span>               <span class="mf">1e-3</span><span class="p">;</span>     <span class="o">--&gt;</span>     <span class="n">h</span>               <span class="mf">1e-5</span><span class="p">;</span>
+    <span class="n">G</span>               <span class="mf">1e-3</span><span class="p">;</span>     <span class="o">--&gt;</span>     <span class="n">G</span>               <span class="mf">1e-5</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>To increase the rate of convergence the releaxiation factors are increased as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="n">U</span>               <span class="mf">0.2</span><span class="p">;</span>     <span class="o">--&gt;</span>     <span class="n">U</span>               <span class="mf">0.7</span><span class="p">;</span>
+    <span class="n">h</span>               <span class="mf">0.2</span><span class="p">;</span>     <span class="o">--&gt;</span>     <span class="n">h</span>               <span class="mf">0.7</span><span class="p">;</span>
+    <span class="s2">&quot;(k|epsilon|R)&quot;</span> <span class="mf">0.5</span><span class="p">;</span>     <span class="o">--&gt;</span>     <span class="s2">&quot;(k|epsilon|R)&quot;</span> <span class="mf">0.5</span><span class="p">;</span>
+    <span class="n">G</span>               <span class="mf">0.7</span><span class="p">;</span>     <span class="o">--&gt;</span>     <span class="n">G</span>               <span class="mf">0.7</span><span class="p">;</span>
+</pre></div>
+</div>
+<section id="turbulance-model">
+<h4>Turbulance Model<a class="headerlink" href="#turbulance-model" title="Permalink to this heading">#</a></h4>
+<p>As the vortex field itself is of no particular interest in this exercise, the <a class="reference external" href="https://www.openfoam.com/documentation/guides/latest/doc/guide-turbulence-ras-k-epsilon.html"><code class="docutils literal notranslate"><span class="pre">RASModel</span> <span class="pre">kEpsilon</span></code></a> is chosen as the turbulence Model.</p>
+</section>
+<section id="radiation-model">
+<h4>Radiation Model<a class="headerlink" href="#radiation-model" title="Permalink to this heading">#</a></h4>
+<p>As a Radiation Model the <a class="reference external" href="https://www.openfoam.com/documentation/guides/latest/api/classFoam_1_1radiation_1_1viewFactor.html"><code class="docutils literal notranslate"><span class="pre">viewFactor*-Model</span></code></a> is chosen. In Contrast to the opaqueSolid Model the absorbtion of radiation by the air is neglected. In other words, only interaction between surfaces is considered. To further reduce processing time the impact of surfaces with a view angle lower than 10° are neglected.</p>
+</section>
+</section>
+<section id="id1">
+<h3>Boundary Conditions<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<p>For boundary faces consisting of layered constructions with known thickness and thermal conductivity the <a class="reference external" href="https://doc.openfoam.com/2306/tools/processing/boundary-conditions/rtm/derived/thermal/externalWallHeatFluxTemperature/"><code class="docutils literal notranslate"><span class="pre">externalWallHeatFluxTemperature</span></code></a> boundary condition can be specified for heat transfer coefficient mode. This boundary condition is applied to the floor, ceilling and walls as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    ceiling
+    {
+        type            externalWallHeatFluxTemperature;
+        mode            coefficient;
+        Ta              uniform 293.15;
+        h               uniform 10;
+        thicknessLayers (0.1);
+        kappaLayers     (0.6);
+        kappaMethod     fluidThermo;
+        value           $internalField;
+    }
+
+    floor
+    {
+        type            externalWallHeatFluxTemperature;
+        mode            coefficient;
+        Ta              uniform 293.15;
+        h               uniform 10;
+        thicknessLayers (0.1);
+        kappaLayers     (0.6);
+        kappaMethod     fluidThermo;
+        value           $internalField;
+    }
+
+    outsideWalls
+    {
+        type            externalWallHeatFluxTemperature;
+        mode            coefficient;
+        Ta              uniform 263.15;
+        h               uniform 25;
+        thicknessLayers (0.05 0.2);
+        kappaLayers     (0.05 0.12);
+        kappaMethod     fluidThermo;
+        value           $internalField;
+    }
+
+    insideWalls
+    {
+        type            externalWallHeatFluxTemperature;
+        mode            coefficient;
+        Ta              uniform 293.15;
+        h               uniform 10;
+        thicknessLayers (0.1);
+        kappaLayers     (0.6);
+        kappaMethod     fluidThermo;
+        value           $internalField;
+    }
+</pre></div>
+</div>
+<p>As for the radiator a constant surface Temparutere is applied using the <code class="docutils literal notranslate"><span class="pre">fixedValue</span></code> boundary condition.</p>
+</section>
+</section>
+<section id="results">
+<h2>Results<a class="headerlink" href="#results" title="Permalink to this heading">#</a></h2>
+<section id="analytical-solution">
+<h3>Analytical Solution<a class="headerlink" href="#analytical-solution" title="Permalink to this heading">#</a></h3>
+<p>Simplifying the airmass in the room as a node, the Problem can be solved using the RC-Network described in <a class="reference internal" href="Aufgabe2.html#sec-ex2"><span class="std std-ref">Exercise 2</span></a>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#Libraries</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">node</span><span class="p">:</span>
+    <span class="c1"># n summarizes the number of all nodes</span>
+    <span class="n">n</span><span class="o">=</span><span class="mi">0</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">number</span><span class="p">,</span><span class="n">location</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">number</span> <span class="o">=</span> <span class="n">number</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">location</span> <span class="o">=</span> <span class="n">location</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">n</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">conduction</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fromNode</span><span class="p">,</span> <span class="n">toNode</span><span class="p">,</span> <span class="n">conductance</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fromNode</span> <span class="o">=</span> <span class="n">fromNode</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">toNode</span> <span class="o">=</span> <span class="n">toNode</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">K</span> <span class="o">=</span> <span class="n">conductance</span>
+        
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">boundary</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">toNode</span><span class="p">,</span> <span class="n">temp</span><span class="p">,</span> <span class="n">conductance</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">toNode</span> <span class="o">=</span> <span class="n">toNode</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">temp</span> <span class="o">=</span> <span class="n">temp</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">K</span> <span class="o">=</span> <span class="n">conductance</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#u*-values = Rsi * fkonv * U</span>
+<span class="c1">#internal Walls </span>
+<span class="n">u_i</span><span class="o">=</span><span class="mf">0.13</span> <span class="o">*</span> <span class="mf">2.5</span><span class="o">/</span><span class="p">(</span><span class="mf">0.13</span> <span class="o">+</span> <span class="mf">0.02</span><span class="o">/</span><span class="mf">1.20</span> <span class="o">+</span> <span class="mf">0.10</span><span class="o">/</span><span class="mf">0.05</span> <span class="o">+</span> <span class="mf">0.02</span> <span class="o">/</span><span class="mf">1.20</span> <span class="o">+</span> <span class="mf">0.13</span><span class="p">)</span>
+<span class="n">A_i</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="o">+</span><span class="mi">5</span><span class="p">)</span><span class="o">*</span><span class="mf">2.6</span>
+<span class="c1">#external Walls</span>
+<span class="n">u_e</span><span class="o">=</span><span class="mf">0.13</span> <span class="o">*</span> <span class="mf">2.5</span><span class="o">/</span><span class="p">(</span><span class="mf">0.13</span> <span class="o">+</span> <span class="mf">0.20</span><span class="o">/</span><span class="mf">1.00</span> <span class="o">+</span> <span class="mf">0.10</span><span class="o">/</span><span class="mf">0.05</span> <span class="o">+</span> <span class="mf">0.04</span><span class="p">)</span>
+<span class="n">A_e</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="o">+</span><span class="mi">5</span><span class="p">)</span><span class="o">*</span><span class="mf">2.6</span>
+<span class="c1">#floor</span>
+<span class="n">u_f</span><span class="o">=</span><span class="mf">0.10</span> <span class="o">*</span> <span class="mi">5</span><span class="o">/</span><span class="p">(</span><span class="mf">0.10</span> <span class="o">+</span> <span class="mf">0.06</span><span class="o">/</span><span class="mf">1.20</span> <span class="o">+</span> <span class="mf">0.10</span><span class="o">/</span><span class="mf">0.05</span> <span class="o">+</span><span class="mf">0.20</span><span class="o">/</span><span class="mf">1.00</span> <span class="o">+</span> <span class="mf">0.04</span><span class="p">)</span>
+<span class="n">A_f</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="mi">5</span><span class="p">)</span>
+<span class="c1">#ceilling</span>
+<span class="n">u_c</span><span class="o">=</span><span class="mf">0.10</span> <span class="o">*</span> <span class="mf">0.7</span><span class="o">/</span><span class="p">(</span><span class="mf">0.10</span> <span class="o">+</span> <span class="mf">0.20</span><span class="o">/</span><span class="mf">1.00</span> <span class="o">+</span>  <span class="mf">0.10</span><span class="p">)</span>
+<span class="n">A_c</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="o">*</span><span class="mi">5</span><span class="p">)</span>
+<span class="c1">#radiator hc=2.5 // Assumption: vertical surfaces dominate</span>
+<span class="n">u_r</span><span class="o">=</span><span class="mf">2.5</span>
+<span class="n">A_r</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">*</span> <span class="mi">1</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="mi">1</span>  <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">*</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nodes</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">(</span><span class="mi">1</span><span class="p">,[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">]))</span>
+
+<span class="n">boundaries</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="c1">#internal Walls </span>
+<span class="n">boundaries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">boundary</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="n">u_i</span><span class="o">*</span><span class="n">A_i</span><span class="p">))</span>
+<span class="c1">#external Walls</span>
+<span class="n">boundaries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">boundary</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="n">u_e</span><span class="o">*</span><span class="n">A_e</span><span class="p">))</span>
+<span class="c1">#floor</span>
+<span class="n">boundaries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">boundary</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="n">u_f</span><span class="o">*</span><span class="n">A_f</span><span class="p">))</span>
+<span class="c1">#ceilling</span>
+<span class="n">boundaries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">boundary</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">20</span><span class="p">,</span><span class="n">u_c</span><span class="o">*</span><span class="n">A_c</span><span class="p">))</span>
+<span class="c1">#radiator</span>
+<span class="n">boundaries</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">boundary</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">55</span><span class="p">,</span><span class="n">u_r</span><span class="o">*</span><span class="n">A_r</span><span class="p">))</span>
+
+<span class="n">conductions</span> <span class="o">=</span> <span class="p">[]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># reference number of nodes to increase readability</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">nodes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">n</span>
+
+<span class="c1"># Initialising conductivity matrix K</span>
+<span class="n">K</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">))</span>
+
+<span class="c1"># Initialising boundary vector I0</span>
+<span class="n">I0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">))</span>
+
+<span class="c1"># iterater to keep track of cell numbers</span>
+<span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+    <span class="c1">#initialize empty conductivity matrix for the current layer</span>
+    <span class="n">I0i</span><span class="o">=</span><span class="mi">0</span>
+    <span class="n">Ki</span><span class="o">=</span><span class="mi">0</span>
+
+    <span class="c1">#Test for connected Boundaries, Sources and Nodes</span>
+    <span class="k">for</span> <span class="n">boundary</span> <span class="ow">in</span> <span class="n">boundaries</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">boundary</span><span class="o">.</span><span class="n">toNode</span> <span class="o">==</span> <span class="n">node</span><span class="o">.</span><span class="n">number</span><span class="p">:</span>
+            <span class="n">Ki</span> <span class="o">+=</span> <span class="n">boundary</span><span class="o">.</span><span class="n">K</span>
+            <span class="n">I0i</span> <span class="o">+=</span> <span class="n">boundary</span><span class="o">.</span><span class="n">K</span><span class="o">*</span><span class="n">boundary</span><span class="o">.</span><span class="n">temp</span>
+
+            
+    <span class="k">for</span> <span class="n">conduction</span> <span class="ow">in</span> <span class="n">conductions</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">conduction</span><span class="o">.</span><span class="n">toNode</span> <span class="o">==</span> <span class="n">node</span><span class="o">.</span><span class="n">number</span> <span class="ow">or</span> <span class="n">conduction</span><span class="o">.</span><span class="n">fromNode</span> <span class="o">==</span> <span class="n">node</span><span class="o">.</span><span class="n">number</span><span class="p">:</span>
+            <span class="n">Ki</span> <span class="o">+=</span> <span class="n">conduction</span><span class="o">.</span><span class="n">K</span>
+            
+    <span class="k">for</span> <span class="n">conduction</span> <span class="ow">in</span> <span class="n">conductions</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">conduction</span><span class="o">.</span><span class="n">toNode</span> <span class="o">==</span> <span class="n">node</span><span class="o">.</span><span class="n">number</span><span class="p">:</span>
+            <span class="n">K</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">number</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">conduction</span><span class="o">.</span><span class="n">fromNode</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span> <span class="n">conduction</span><span class="o">.</span><span class="n">K</span>
+            <span class="n">K</span><span class="p">[</span><span class="n">conduction</span><span class="o">.</span><span class="n">fromNode</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">number</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span> <span class="n">conduction</span><span class="o">.</span><span class="n">K</span>
+   
+    <span class="c1">#defining the diagonal axis</span>
+    <span class="n">K</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">number</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">node</span><span class="o">.</span><span class="n">number</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span> <span class="o">-</span> <span class="n">Ki</span>
+    
+    <span class="c1">#defining the I0</span>
+    <span class="n">I0</span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">number</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span> <span class="n">I0i</span>
+</pre></div>
+</div>
+</div>
+</div>
+<section id="calculating-the-temperature-field">
+<h4>Calculating the temperature field<a class="headerlink" href="#calculating-the-temperature-field" title="Permalink to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">K</span><span class="p">,</span><span class="o">-</span><span class="n">I0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([22.47987913])
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="numerical-solution">
+<h3>Numerical Solution<a class="headerlink" href="#numerical-solution" title="Permalink to this heading">#</a></h3>
+<section id="convergence">
+<h4>Convergence<a class="headerlink" href="#convergence" title="Permalink to this heading">#</a></h4>
+<p>After 10 000 timesteps the convergence criterias defined in <code class="docutils literal notranslate"><span class="pre">fvSolution</span></code>have not been reached. A comparision of the simplified analytical solutiona nd the numerical solition is shown in <code class="xref std std-numref docutils literal notranslate"><span class="pre">convergence</span></code>.</p>
+<div class="cell tag_hide-output docutils container">
+<div class="cell_input above-output-prompt docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;./Data/Raum3_insideVolume.csv&quot;</span><span class="p">)</span>
+
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;T_ana&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;avg(T)&quot;</span><span class="p">]))</span> <span class="o">*</span> <span class="n">T</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;avg(T)&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">/</span><span class="mi">5</span><span class="o">/</span><span class="mi">6</span><span class="o">/</span><span class="mf">2.6</span> <span class="o">-</span> <span class="mf">273.15</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
+<span class="n">df</span><span class="p">[</span><span class="s2">&quot;T_ana&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">();</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">([</span><span class="s2">&quot;numerical&quot;</span><span class="p">,</span> <span class="s2">&quot;simplified analytical&quot;</span><span class="p">])</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;timesteps $t$&quot;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Mean Airtemperatur $T_i$ in $\degree C$&quot;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;./Figures/convergence.svg&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<details class="hide below-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell output</span>
+<span class="expanded">Hide code cell output</span>
+</summary>
+<div class="cell_output docutils container">
+<img alt="_images/b869df95430a91647981c917ee0e54f8c50c5b8a0dc4137bf4c5b2a86b063ebc.png" src="_images/b869df95430a91647981c917ee0e54f8c50c5b8a0dc4137bf4c5b2a86b063ebc.png" />
+</div>
+</details>
+</div>
+<figure class="align-default" id="plt-convergence">
+<a class="reference internal image-reference" href="_images/convergence.svg"><img alt="_images/convergence.svg" src="_images/convergence.svg" width="500px" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 6 </span><span class="caption-text">Comparision of mean air temperature as a result of analytical and numerical Solution</span><a class="headerlink" href="#plt-convergence" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="temperature-field">
+<h3>Temperature field<a class="headerlink" href="#temperature-field" title="Permalink to this heading">#</a></h3>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-g-2 sd-g-xs-2 sd-g-sm-2 sd-g-md-2 sd-g-lg-2 docutils">
+<div class="sd-col sd-d-flex-column docutils">
+<figure class="align-default" id="t-cross">
+<a class="reference internal image-reference" href="_images/temp.png"><img alt="_images/temp.png" src="_images/temp.png" style="width: 100%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 7 </span><span class="caption-text">Resulting air temperature field in the crossection through the radiator</span><a class="headerlink" href="#t-cross" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+<div class="sd-col sd-d-flex-column docutils">
+<figure class="align-default" id="t-1-5m">
+<a class="reference internal image-reference" href="_images/temp-mid.png"><img alt="_images/temp-mid.png" src="_images/temp-mid.png" style="width: 100%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 8 </span><span class="caption-text">Resulting air temperature field at h=1.5 m</span><a class="headerlink" href="#t-1-5m" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<section id="percentage-of-people-dissatisfied-ppd">
+<h4>Percentage of People dissatisfied (PPD)<a class="headerlink" href="#percentage-of-people-dissatisfied-ppd" title="Permalink to this heading">#</a></h4>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-g-2 sd-g-xs-2 sd-g-sm-2 sd-g-md-2 sd-g-lg-2 docutils">
+<div class="sd-col sd-d-flex-column docutils">
+<figure class="align-default" id="ppd-cross">
+<a class="reference internal image-reference" href="_images/PPD.png"><img alt="_images/PPD.png" src="_images/PPD.png" style="width: 100%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 9 </span><span class="caption-text">Resulting PPD field in the crossection through the radiator</span><a class="headerlink" href="#ppd-cross" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+<div class="sd-col sd-d-flex-column docutils">
+<figure class="align-default" id="ppd-1-5">
+<a class="reference internal image-reference" href="_images/PPD-mid.png"><img alt="_images/PPD-mid.png" src="_images/PPD-mid.png" style="width: 100%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 10 </span><span class="caption-text">Resulting PPD field at h=1.5 m</span><a class="headerlink" href="#ppd-1-5" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="percentage-of-people-dissatisfied-pmv">
+<h4>Percentage of People dissatisfied (PMV)<a class="headerlink" href="#percentage-of-people-dissatisfied-pmv" title="Permalink to this heading">#</a></h4>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-g-2 sd-g-xs-2 sd-g-sm-2 sd-g-md-2 sd-g-lg-2 docutils">
+<div class="sd-col sd-d-flex-column docutils">
+<figure class="align-default" id="id2">
+<a class="reference internal image-reference" href="_images/PMV.png"><img alt="_images/PMV.png" src="_images/PMV.png" style="width: 100%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 11 </span><span class="caption-text">Resulting PPD field in the crossection through the radiator</span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+<div class="sd-col sd-d-flex-column docutils">
+<figure class="align-default" id="id3">
+<a class="reference internal image-reference" href="_images/PMV-mid.png"><img alt="_images/PMV-mid.png" src="_images/PMV-mid.png" style="width: 100%;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 12 </span><span class="caption-text">Resulting PPD field at h=1.5 m</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading">#</a></h2>
+<section id="things-to-try">
+<h3>Things to try<a class="headerlink" href="#things-to-try" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>neue openfoad version opencfd/openfoam-default:2313</p></li>
+<li><p>mesh neu machen</p></li>
+<li><p>feder faktoren anpassen</p></li>
+<li><p>forozenflow yes im solver</p>
+<ul>
+<li><p>mit loop im Allrun script</p>
+<ul>
+<li><p>run $Application for x timesteps</p></li>
+<li><p>Loop</p>
+<ul>
+<li><p>changeDictionary freeze field</p></li>
+<li><p>rune $App for x timesteps with frozen field</p></li>
+<li><p>changeDictionary unfreeze field</p></li>
+<li><p>run $App for y timesteps with unfrozen field</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Aufgabe5.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Excersise 5  - Air flow through a rectangular-channel</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="Test.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">&lt;no title&gt;</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-description">Problem Description</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geometrie">Geometrie</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#boundary-conditions">Boundary Conditions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#component-parameters">Component Parameters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis">Analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#software">Software</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mesh">Mesh</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solver">Solver</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#turbulance-model">Turbulance Model</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#radiation-model">Radiation Model</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Boundary Conditions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#results">Results</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analytical-solution">Analytical Solution</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-the-temperature-field">Calculating the temperature field</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#numerical-solution">Numerical Solution</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#convergence">Convergence</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#temperature-field">Temperature field</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#percentage-of-people-dissatisfied-ppd">Percentage of People dissatisfied (PPD)</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#percentage-of-people-dissatisfied-pmv">Percentage of People dissatisfied (PMV)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#things-to-try">Things to try</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Florian Schnabel
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
