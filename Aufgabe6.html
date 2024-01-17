@@ -66,7 +66,7 @@ const thebe_selector_output = ".output, .cell_output"
     <script>DOCUMENTATION_OPTIONS.pagename = 'Aufgabe6';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="&lt;no title&gt;" href="Test.html" />
+    <link rel="next" title="References" href="References.html" />
     <link rel="prev" title="Excersise 5 - Air flow through a rectangular-channel" href="Aufgabe5.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -326,7 +326,7 @@ document.write(`
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#radiation-model">Radiation Model</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Boundary Conditions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Boundary Conditions</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comfort">Comfort</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wall-heatflux">Wall Heatflux</a></li>
 </ul>
@@ -341,7 +341,7 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#temperature-and-velocity-field">Temperature and velocity field</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Comfort</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Comfort</a></li>
 </ul>
 </li>
 </ul>
@@ -361,16 +361,16 @@ document.write(`
     <font size="2">Florian Schnabel, 11807470, WS 2024</font><br />
 </body><section class="tex2jax_ignore mathjax_ignore" id="excersise-6-heated-room">
 <h1>Excersise 6  - Heated Room<a class="headerlink" href="#excersise-6-heated-room" title="Permalink to this heading">#</a></h1>
-<p>This Report shall include a thermal analysis of room heated by a single Radiator. In the first part of the analysis the fluid mechanical problem of the Air inside the room will be solved through the use of the <em>openFOAM</em> {cite} <code class="docutils literal notranslate"><span class="pre">openfoam</span></code> library. In the second part the heat losss and the comfort criterias defined in the <em>EN-ISO-7730</em> Standard {cite} <code class="docutils literal notranslate"><span class="pre">ISO7730</span></code> will be analysed.</p>
+<p>This Report shall include a thermal analysis of room heated by a single Radiator. In the first part of the analysis the fluid mechanical problem of the Air inside the room will be solved through the use of the <em>openFOAM</em> <span id="id1">[<a class="reference internal" href="References.html#id6" title="OpenCFD Ltd. Openfoam. URL: https://www.openfoam.com/ (visited on 2024-01-01).">5</a>]</span> library. In the second part the heat losss and the comfort criterias defined in the <em>EN-ISO-7730</em> Standard <span id="id2">[<a class="reference internal" href="References.html#id5" title="ISO/TC 159/SC 5. Iso 7730:2005 ergonomics of the thermal environment — analytical determination and interpretation of thermal comfort using calculation of the pmv and ppd indices and local thermal comfort criteria. International Organization for Standardization, 11 2005.">2</a>]</span> will be analysed.</p>
 <section id="problem-description">
 <h2>Problem Description<a class="headerlink" href="#problem-description" title="Permalink to this heading">#</a></h2>
 <section id="geometrie">
 <h3>Geometrie<a class="headerlink" href="#geometrie" title="Permalink to this heading">#</a></h3>
-<p>The Problem consists of a <em>6 m by 5 m by 2.6 m</em> room, with two neighbouring exterior and two neighbouring interior walls. The <em>1 m by 1 m by 0.30 m</em> radiator is positioned at middle of the longer exterior Wall. The Situation is shown in <a class="reference internal" href="#fig-geometry"><span class="std std-numref">Fig. 4</span></a>.</p>
+<p>The Problem consists of a <em>6 m by 5 m by 2.6 m</em> room, with two neighbouring exterior and two neighbouring interior walls. The <em>1 m by 1 m by 0.30 m</em> radiator is positioned at middle of the longer exterior Wall. The Situation is shown in <a class="reference internal" href="#fig-geometry"><span class="std std-numref">Fig. 5</span></a>.</p>
 <figure class="align-default" id="fig-geometry">
-<a class="reference internal image-reference" href="_images/Geometry.png"><img alt="_images/Geometry.png" src="_images/Geometry.png" style="width: 350px;" /></a>
+<a class="reference internal image-reference" href="_images/Geometry.png"><img alt="_images/Geometry.png" src="_images/Geometry.png" style="width: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Geometric properties of the problem</span><a class="headerlink" href="#fig-geometry" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 5 </span><span class="caption-text">Geometric properties of the problem</span><a class="headerlink" href="#fig-geometry" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -470,11 +470,11 @@ document.write(`
 <li><p>15-30 cm distance: 2 levels</p></li>
 <li><p>30-60 cm distance: 1 level</p></li>
 </ul>
-<p>To reduce processing time a minimum mesh size is ensured by setting <code class="docutils literal notranslate"><span class="pre">minRefinementCells</span> <span class="pre">400</span></code>. The Resulting Mesh is shown in <a class="reference internal" href="#fig-mesh"><span class="std std-numref">Fig. 5</span></a> as crosssection through the radiator.</p>
+<p>To reduce processing time a minimum mesh size is ensured by setting <code class="docutils literal notranslate"><span class="pre">minRefinementCells</span> <span class="pre">400</span></code>. The Resulting Mesh is shown in <a class="reference internal" href="#fig-mesh"><span class="std std-numref">Fig. 6</span></a> as crosssection through the radiator.</p>
 <figure class="align-default" id="fig-mesh">
 <a class="reference internal image-reference" href="_images/Mesh.png"><img alt="_images/Mesh.png" src="_images/Mesh.png" style="width: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 5 </span><span class="caption-text">Resulting Mesh in the crossection through the radiator</span><a class="headerlink" href="#fig-mesh" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 6 </span><span class="caption-text">Resulting Mesh in the crossection through the radiator</span><a class="headerlink" href="#fig-mesh" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -503,8 +503,8 @@ document.write(`
 <p>As a Radiation Model the <a class="reference external" href="https://www.openfoam.com/documentation/guides/latest/api/classFoam_1_1radiation_1_1viewFactor.html"><code class="docutils literal notranslate"><span class="pre">viewFactor*-Model</span></code></a> is chosen. In Contrast to the opaqueSolid Model the absorbtion of radiation by the air is neglected. In other words, only interaction between surfaces is considered. To further reduce processing time the interaction of surfaces with a view angle lower than 10° is neglected.</p>
 </section>
 </section>
-<section id="id1">
-<h3>Boundary Conditions<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<section id="id3">
+<h3>Boundary Conditions<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
 <p>For boundary faces consisting of layered constructions with known thickness and thermal conductivity the <a class="reference external" href="https://doc.openfoam.com/2306/tools/processing/boundary-conditions/rtm/derived/thermal/externalWallHeatFluxTemperature/"><code class="docutils literal notranslate"><span class="pre">externalWallHeatFluxTemperature</span></code></a> boundary condition can be specified for heat transfer coefficient mode. The in  <a class="reference internal" href="#tab-material"><span class="std std-numref">Table 1</span></a> listed thermal parameters are applied to the floor, ceilling and walls as follows:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    ceiling
     {
@@ -559,7 +559,7 @@ document.write(`
 </section>
 <section id="comfort">
 <h3>Comfort<a class="headerlink" href="#comfort" title="Permalink to this heading">#</a></h3>
-<p>To evaluate the thermal comfort in the room, the comfort index PPD and PMV are calculated with provided <code class="docutils literal notranslate"><span class="pre">libfieldFunctionObjects</span></code> according to the <em>EN-ISO-7730</em> Standard {cite} <code class="docutils literal notranslate"><span class="pre">ISO7730</span></code>. For persons in the room the following parameters are defined:</p>
+<p>To evaluate the thermal comfort in the room, the comfort index PPD and PMV are calculated with provided <code class="docutils literal notranslate"><span class="pre">fieldFunctionObjects</span></code> according to the <em>EN-ISO-7730</em> Standard {cite} <code class="docutils literal notranslate"><span class="pre">ISO7730</span></code>. For persons in the room the following parameters are defined:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>    <span class="n">colthing</span>        <span class="mf">0.5</span><span class="p">;</span>
     <span class="n">metabolicRate</span>   <span class="mf">1.2</span><span class="p">;</span>
     <span class="n">extWork</span>         <span class="mi">0</span><span class="p">;</span>
@@ -569,7 +569,7 @@ document.write(`
 </section>
 <section id="wall-heatflux">
 <h3>Wall Heatflux<a class="headerlink" href="#wall-heatflux" title="Permalink to this heading">#</a></h3>
-<p>The heat flux of the walls is calculated with provided <code class="docutils literal notranslate"><span class="pre">libfieldFunctionObjects</span></code>.</p>
+<p>The heat flux of the walls is calculated with provided <code class="docutils literal notranslate"><span class="pre">fieldFunctionObjects</span></code>.</p>
 </section>
 </section>
 <section id="results">
@@ -735,7 +735,7 @@ document.write(`
 <h3>Numerical Solution<a class="headerlink" href="#numerical-solution" title="Permalink to this heading">#</a></h3>
 <section id="convergence">
 <h4>Convergence<a class="headerlink" href="#convergence" title="Permalink to this heading">#</a></h4>
-<p>After 23 600 timesteps the above defined convergence criterias have not been reached. A comparision of the simplified analytical solutiona nd the numerical solition is shown in <a class="reference internal" href="#plt-convergence"><span class="std std-numref">Fig. 6</span></a>. It is to be mentioned that the analytic solution is sensitiv in regard to the convectiv heat transfer coefficient and the given range for inside climate (<span class="math notranslate nohighlight">\(2.5\)</span> to <span class="math notranslate nohighlight">\(5 W/m^2K\)</span> depending on surface orientation) has a significant impact on resulting mean air temperature. A possible reason for the numerical instabilities in <a class="reference internal" href="#plt-convergence"><span class="std std-numref">Fig. 6</span></a> could be too low relaxiation factors.</p>
+<p>After 23 600 timesteps the above defined convergence criterias have not been reached. A comparision of the simplified analytical solutiona nd the numerical solition is shown in <a class="reference internal" href="#plt-convergence"><span class="std std-numref">Fig. 7</span></a>. It is to be mentioned that the analytic solution is sensitiv in regard to the convectiv heat transfer coefficient and the given range for inside climate (<span class="math notranslate nohighlight">\(2.5\)</span> to <span class="math notranslate nohighlight">\(5 W/m^2K\)</span> depending on surface orientation) has a significant impact on resulting mean air temperature. A possible reason for the numerical instabilities in <a class="reference internal" href="#plt-convergence"><span class="std std-numref">Fig. 7</span></a> could be too low relaxiation factors.</p>
 <div class="cell tag_hide-output tag_hide-input docutils container">
 <details class="hide above-input">
 <summary aria-label="Toggle hidden content">
@@ -777,21 +777,21 @@ document.write(`
 <figure class="align-default" id="plt-convergence">
 <a class="reference internal image-reference" href="_images/convergence.svg"><img alt="_images/convergence.svg" src="_images/convergence.svg" width="500px" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 6 </span><span class="caption-text">Comparision of mean air temperature as a result of analytical and numerical Solution</span><a class="headerlink" href="#plt-convergence" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 7 </span><span class="caption-text">Comparision of mean air temperature as a result of analytical and numerical Solution</span><a class="headerlink" href="#plt-convergence" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
 </section>
 <section id="temperature-and-velocity-field">
 <h3>Temperature and velocity field<a class="headerlink" href="#temperature-and-velocity-field" title="Permalink to this heading">#</a></h3>
-<p>In <a class="reference internal" href="#t-cross"><span class="std std-numref">Fig. 7</span></a> and <a class="reference internal" href="#t-1-5m"><span class="std std-numref">Fig. 8</span></a> crosssections of the temperature field at timestep <span class="math notranslate nohighlight">\(t=23600\)</span> are shown.<a class="reference internal" href="#tubes"><span class="std std-numref">Fig. 9</span></a> shows a visualiziation of the air paths which pass through points above the radiator. Both the velocity and the temperatur field show the effect of natural convection and the resulting thermal circulation in the room. As a result of the bouyancy, the colder soil temperature and the lower thermal resistance of the floor a gradiant in the air temperature from the floor (18.03°C) to the ceiling (26.27°C) can be observed.</p>
+<p>In <a class="reference internal" href="#t-cross"><span class="std std-numref">Fig. 8</span></a> and <a class="reference internal" href="#t-1-5m"><span class="std std-numref">Fig. 9</span></a> crosssections of the temperature field at timestep <span class="math notranslate nohighlight">\(t=23600\)</span> are shown.<a class="reference internal" href="#tubes"><span class="std std-numref">Fig. 10</span></a> shows a visualiziation of the air paths which pass through points above the radiator. Both the velocity and the temperatur field show the effect of natural convection and the resulting thermal circulation in the room. As a result of the bouyancy, the colder soil temperature and the lower thermal resistance of the floor a gradiant in the air temperature from the floor (18.03°C) to the ceiling (26.27°C) can be observed.</p>
 <div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
 <div class="sd-row sd-g-2 sd-g-xs-2 sd-g-sm-2 sd-g-md-2 sd-g-lg-2 docutils">
 <div class="sd-col sd-d-flex-column docutils">
 <figure class="align-default" id="t-cross">
 <a class="reference internal image-reference" href="_images/temp.png"><img alt="_images/temp.png" src="_images/temp.png" style="width: 100%;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 7 </span><span class="caption-text">Resulting air temperature field in the crossection through the radiator</span><a class="headerlink" href="#t-cross" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 8 </span><span class="caption-text">Resulting air temperature field in the crossection through the radiator</span><a class="headerlink" href="#t-cross" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -799,7 +799,7 @@ document.write(`
 <figure class="align-default" id="t-1-5m">
 <a class="reference internal image-reference" href="_images/temp-mid.png"><img alt="_images/temp-mid.png" src="_images/temp-mid.png" style="width: 100%;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 8 </span><span class="caption-text">Resulting air temperature field at h=1.5 m</span><a class="headerlink" href="#t-1-5m" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 9 </span><span class="caption-text">Resulting air temperature field at h=1.5 m</span><a class="headerlink" href="#t-1-5m" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -808,22 +808,19 @@ document.write(`
 <figure class="align-default" id="tubes">
 <a class="reference internal image-reference" href="_images/tubes.png"><img alt="_images/tubes.png" src="_images/tubes.png" style="width: 100%;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 9 </span><span class="caption-text">Streamlines of the velocity field which pass through above the radiator</span><a class="headerlink" href="#tubes" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 10 </span><span class="caption-text">Streamlines of the velocity field which pass through above the radiator</span><a class="headerlink" href="#tubes" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-</pre></div>
-</div>
-<section id="id2">
-<h4>Comfort<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h4>
-<p><code class="xref std std-numref docutils literal notranslate"><span class="pre">PPD-cross</span></code> and <code class="xref std std-numref docutils literal notranslate"><span class="pre">PMV-cross</span></code> show the impact of the air temperature gradiant on the thermal comfort in the room. With a PPD of <span class="math notranslate nohighlight">\(75\%\)</span> above the floor and a PPD of <span class="math notranslate nohighlight">\(10\%\)</span> below the ceiling. <code class="xref std std-numref docutils literal notranslate"><span class="pre">PPD-cross</span></code> and <code class="xref std std-numref docutils literal notranslate"><span class="pre">PMV-cross</span></code> show a more homogenous distrubuition in the x and y direction. At a height of 1.5 m the PPD ranges between <span class="math notranslate nohighlight">\(5\%\)</span> and <span class="math notranslate nohighlight">\(30\%\)</span>.</p>
+<section id="id4">
+<h4>Comfort<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h4>
+<p><a class="reference internal" href="#ppd-cross"><span class="std std-numref">Fig. 11</span></a> and <a class="reference internal" href="#pmv-cross"><span class="std std-numref">Fig. 13</span></a> show the impact of the air temperature gradiant on the thermal comfort in the room. With a PPD of <span class="math notranslate nohighlight">\(75\%\)</span> above the floor and a PPD of <span class="math notranslate nohighlight">\(10\%\)</span> below the ceiling. <a class="reference internal" href="#ppd-cross"><span class="std std-numref">Fig. 11</span></a> and <a class="reference internal" href="#pmv-cross"><span class="std std-numref">Fig. 13</span></a> show a more homogenous distrubuition in the x and y direction. At a height of 1.5 m the PPD ranges between <span class="math notranslate nohighlight">\(5\%\)</span> and <span class="math notranslate nohighlight">\(30\%\)</span>.</p>
 <div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
 <div class="sd-row sd-g-2 sd-g-xs-2 sd-g-sm-2 sd-g-md-2 sd-g-lg-2 docutils">
 <div class="sd-col sd-d-flex-column docutils">
 <figure class="align-default" id="ppd-cross">
 <a class="reference internal image-reference" href="_images/PPD.png"><img alt="_images/PPD.png" src="_images/PPD.png" style="width: 100%;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 10 </span><span class="caption-text">Resulting PPD field in the crossection through the radiator</span><a class="headerlink" href="#ppd-cross" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 11 </span><span class="caption-text">Resulting PPD field in the crossection through the radiator</span><a class="headerlink" href="#ppd-cross" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -831,7 +828,7 @@ document.write(`
 <figure class="align-default" id="ppd-1-5">
 <a class="reference internal image-reference" href="_images/PPD-mid.png"><img alt="_images/PPD-mid.png" src="_images/PPD-mid.png" style="width: 100%;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 11 </span><span class="caption-text">Resulting PPD field at h=1.5 m</span><a class="headerlink" href="#ppd-1-5" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 12 </span><span class="caption-text">Resulting PPD field at h=1.5 m</span><a class="headerlink" href="#ppd-1-5" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -840,18 +837,18 @@ document.write(`
 <div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
 <div class="sd-row sd-g-2 sd-g-xs-2 sd-g-sm-2 sd-g-md-2 sd-g-lg-2 docutils">
 <div class="sd-col sd-d-flex-column docutils">
-<figure class="align-default" id="id3">
+<figure class="align-default" id="pmv-cross">
 <a class="reference internal image-reference" href="_images/PMV.png"><img alt="_images/PMV.png" src="_images/PMV.png" style="width: 100%;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 12 </span><span class="caption-text">Resulting PMV field in the crossection through the radiator</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 13 </span><span class="caption-text">Resulting PMV field in the crossection through the radiator</span><a class="headerlink" href="#pmv-cross" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
 <div class="sd-col sd-d-flex-column docutils">
-<figure class="align-default" id="id4">
+<figure class="align-default" id="pmv-1-5">
 <a class="reference internal image-reference" href="_images/PMV-mid.png"><img alt="_images/PMV-mid.png" src="_images/PMV-mid.png" style="width: 100%;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 13 </span><span class="caption-text">Resulting PMV field at h=1.5 m</span><a class="headerlink" href="#id4" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 14 </span><span class="caption-text">Resulting PMV field at h=1.5 m</span><a class="headerlink" href="#pmv-1-5" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </div>
@@ -903,11 +900,11 @@ document.write(`
       </div>
     </a>
     <a class="right-next"
-       href="Test.html"
+       href="References.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">&lt;no title&gt;</p>
+        <p class="prev-next-title">References</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -943,7 +940,7 @@ document.write(`
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#radiation-model">Radiation Model</a></li>
 </ul>
 </li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Boundary Conditions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Boundary Conditions</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comfort">Comfort</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#wall-heatflux">Wall Heatflux</a></li>
 </ul>
@@ -958,7 +955,7 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#temperature-and-velocity-field">Temperature and velocity field</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">Comfort</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Comfort</a></li>
 </ul>
 </li>
 </ul>

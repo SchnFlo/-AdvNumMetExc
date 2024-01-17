@@ -328,8 +328,8 @@ document.write(`
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variant-2-with-convection">Variant 2 - with convection</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#alteration-of-the-k-matrix">Alteration of the <span class="math notranslate nohighlight">\(K\)</span> matrix</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Calculating the temperature field</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Plot the Results</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Calculating the temperature field</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Plot the Results</a></li>
 </ul>
 </li>
 </ul>
@@ -349,19 +349,18 @@ document.write(`
     <font size="2">Florian Schnabel, 11807470, SS 2023</font><br />
 </body><section class="tex2jax_ignore mathjax_ignore" id="exercise-2-conduction-and-convection-with-rc-networks">
 <span id="sec-ex2"></span><h1>Exercise 2 - Conduction and Convection with RC-Networks<a class="headerlink" href="#exercise-2-conduction-and-convection-with-rc-networks" title="Permalink to this heading">#</a></h1>
-<p>This script aims to calculate the temperatures of an arbitrary number of nodes in a steady state. The script takes heatflows as a result of conduction, convection, heatsources and boundary conditions into account <code class="xref std std-numref docutils literal notranslate"><span class="pre">fig:RC-Networks</span></code>.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>---
-width: 350px
-name: fig:RC-Networks
----
-Conveductance network with three nodes {cite}`hagenthoft2001`
-</pre></div>
-</div>
+<p>This script aims to calculate the temperatures of an arbitrary number of nodes in a steady state. The script takes heatflows as a result of conduction, convection, heatsources and boundary conditions into account <a class="reference internal" href="#fig-rc-networks"><span class="std std-numref">Fig. 2</span></a>.</p>
+<figure class="align-default" id="fig-rc-networks">
+<a class="reference internal image-reference" href="_images/RC-Networks.png"><img alt="_images/RC-Networks.png" src="_images/RC-Networks.png" style="width: 350px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Conveductance network with three nodes <span id="id1">[<a class="reference internal" href="References.html#id3" title="Carl-Eric Hagentoft. Introduction to building physics. Studentlitteratur, Lund, 2001. URL: https://buildingphysicshagentoft.com/text-books/introduction-to-building-physics/.">3</a>]</span></span><a class="headerlink" href="#fig-rc-networks" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <section id="fundamentals">
 <h2>Fundamentals<a class="headerlink" href="#fundamentals" title="Permalink to this heading">#</a></h2>
 <section id="conservation">
 <h3>Conservation<a class="headerlink" href="#conservation" title="Permalink to this heading">#</a></h3>
-<p>As this application aims to calculate a steady state, the formulation of conservation of energy inside nodes can be simplified as follows <span id="id1">[<a class="reference internal" href="_oldbuild/jupyter_execute/References.html#id3" title="Carl-Eric Hagentoft. Introduction to building physics. Studentlitteratur, Lund, 2001. URL: https://buildingphysicshagentoft.com/text-books/introduction-to-building-physics/.">2</a>]</span>:</p>
+<p>As this application aims to calculate a steady state, the formulation of conservation of energy inside nodes can be simplified as follows <span id="id2">[<a class="reference internal" href="References.html#id3" title="Carl-Eric Hagentoft. Introduction to building physics. Studentlitteratur, Lund, 2001. URL: https://buildingphysicshagentoft.com/text-books/introduction-to-building-physics/.">3</a>]</span>:</p>
 <div class="math notranslate nohighlight" id="equation-gl-heatbalance">
 <span class="eqno">(7)<a class="headerlink" href="#equation-gl-heatbalance" title="Permalink to this equation">#</a></span>\[\sum\limits Q_i = \sum\limits_{j=1}^{j=n}K_{j,i} \cdot (T_j - T_i) + I_{0,i} = 0\]</div>
 <p>or in matrix notation:</p>
@@ -389,7 +388,7 @@ Conveductance network with three nodes {cite}`hagenthoft2001`
 <p>If only conductance is taken into account the conductivities in the diagonal result in the negative sum of the conductivities to all connected nodes and boundaries:</p>
 <div class="math notranslate nohighlight" id="equation-gl-diagoconduct">
 <span class="eqno">(10)<a class="headerlink" href="#equation-gl-diagoconduct" title="Permalink to this equation">#</a></span>\[ K_1 = K_{0,1} + K_{12} + K_{13} \]</div>
-<p>Taking convection into account (often reffered to as conveductances <span id="id2">[<a class="reference internal" href="_oldbuild/jupyter_execute/References.html#id3" title="Carl-Eric Hagentoft. Introduction to building physics. Studentlitteratur, Lund, 2001. URL: https://buildingphysicshagentoft.com/text-books/introduction-to-building-physics/.">2</a>]</span>) adds a dependency on direction to the conductances. Therefore <span class="math notranslate nohighlight">\(K_{ij} \neq K_{ji}\)</span>. For the three node system <a class="reference internal" href="_oldbuild/jupyter_execute/Aufgabe2.html#equation-gl-diagoconduct">()</a> remains true, but the now directional conveductances can be further split up:</p>
+<p>Taking convection into account (often reffered to as conveductances <span id="id3">[<a class="reference internal" href="References.html#id3" title="Carl-Eric Hagentoft. Introduction to building physics. Studentlitteratur, Lund, 2001. URL: https://buildingphysicshagentoft.com/text-books/introduction-to-building-physics/.">3</a>]</span>) adds a dependency on direction to the conductances. Therefore <span class="math notranslate nohighlight">\(K_{ij} \neq K_{ji}\)</span>. For the three node system <a class="reference internal" href="#equation-gl-diagoconduct">(10)</a> remains true, but the now directional conveductances can be further split up:</p>
 <div class="math notranslate nohighlight" id="equation-gl-offdiagoconduct">
 <span class="eqno">(11)<a class="headerlink" href="#equation-gl-offdiagoconduct" title="Permalink to this equation">#</a></span>\[ K_{12} =  K_{12}^* +  K_{12}^a \qquad \text{and} \qquad  K_{21} =  K_{12}^* +  K_{12}^a \]</div>
 <p>with:</p>
@@ -640,8 +639,8 @@ Conveductance network with three nodes {cite}`hagenthoft2001`
 </div>
 </div>
 </section>
-<section id="id3">
-<h4>Calculating the temperature field<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h4>
+<section id="id4">
+<h4>Calculating the temperature field<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">T</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">K</span><span class="p">,</span><span class="o">-</span><span class="n">I0</span><span class="p">)</span>
@@ -650,8 +649,8 @@ Conveductance network with three nodes {cite}`hagenthoft2001`
 </div>
 </div>
 </section>
-<section id="id4">
-<h4>Plot the Results<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h4>
+<section id="id5">
+<h4>Plot the Results<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h4>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">a</span><span class="o">=</span> <span class="p">[]</span>
@@ -773,8 +772,8 @@ Conveductance network with three nodes {cite}`hagenthoft2001`
 </li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#variant-2-with-convection">Variant 2 - with convection</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#alteration-of-the-k-matrix">Alteration of the <span class="math notranslate nohighlight">\(K\)</span> matrix</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">Calculating the temperature field</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Plot the Results</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">Calculating the temperature field</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">Plot the Results</a></li>
 </ul>
 </li>
 </ul>
