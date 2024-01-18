@@ -342,23 +342,23 @@ document.write(`
     <font size="2">Florian Schnabel, 11807470, WS 2024</font><br />
 </body><section class="tex2jax_ignore mathjax_ignore" id="exercise-4-integration-of-liquid-water-transport">
 <h1>Exercise 4 - Integration of liquid water transport<a class="headerlink" href="#exercise-4-integration-of-liquid-water-transport" title="Permalink to this heading">#</a></h1>
-<p>This script is an extension of the script elaborated in Exercise 3 of <em>Advanced Numerical Methods 1</em>. The base script was capable of  calculating the temperature and moisture field across a multi-layered building component, while considering water transport induced by vapor diffusion. Such a multi-layered building component is shown in <code class="xref std std-numref docutils literal notranslate"><span class="pre">fig:multilayCompEx2</span></code>.</p>
+<p>This script is an extension of the script elaborated in Exercise 3 of <em>Advanced Numerical Methods 1</em>. The base script was capable of  calculating the temperature and moisture field across a multi-layered building component, while considering water transport induced by vapor diffusion. Such a multi-layered building component is shown in <a class="reference internal" href="#fig-multilaycompex2"><span class="std std-numref">Fig. 4</span></a>.</p>
 <figure class="align-default" id="fig-multilaycompex2">
 <a class="reference internal image-reference" href="_images/BuildingComponent.png"><img alt="_images/BuildingComponent.png" src="_images/BuildingComponent.png" style="width: 350px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 3 </span><span class="caption-text">Multi-layered building component and discretisation requirements [excersise Description]</span><a class="headerlink" href="#fig-multilaycompex2" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text">Multi-layered building component and discretisation requirements [excersise Description]</span><a class="headerlink" href="#fig-multilaycompex2" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>To show the effect of liquid water transport the implementation will be tested by reproducing a suction expirement described in <span id="id1">[<a class="reference internal" href="_oldbuild/jupyter_execute/References.html#id7">3</a>]</span>. To simplify the problem, the component is restricted to a constant grid size. Therefore for each cell P <span class="math notranslate nohighlight">\(\Delta x_P = \Delta x_W = \Delta x_E = \Delta x_p = \Delta x_w = \Delta x_e = \Delta x\)</span></p>
+<p>To show the effect of liquid water transport the implementation will be tested by reproducing a suction expirement described in <span id="id1">[<a class="reference internal" href="References.html#id7" title="Angela Sasic Kalagasidis, Thomas Bednar, and Carl-Eric Hagentoft. Evaluation of the Interface Moisture Conductivity between Control Volumes— Comparison between Linear, Harmonic, and Integral Averaging. 2004.">4</a>]</span>. To simplify the problem, the component is restricted to a constant grid size. Therefore for each cell P <span class="math notranslate nohighlight">\(\Delta x_P = \Delta x_W = \Delta x_E = \Delta x_p = \Delta x_w = \Delta x_e = \Delta x\)</span></p>
 <section id="balance-equations">
 <h2>Balance Equations<a class="headerlink" href="#balance-equations" title="Permalink to this heading">#</a></h2>
-<p>To consider the latent heat effect the time derivative of the Temperaturefield seen in <a class="reference internal" href="_oldbuild/jupyter_execute/Aufgabe1.html#equation-heatflow">()</a> is expandend by the moisture induced pressure field.  The equation for heat conduction including latent heat is shown in <a class="reference internal" href="_oldbuild/jupyter_execute/Aufgabe3.html#equation-gl-heatmoist2">()</a>:</p>
+<p>To consider the latent heat effect the time derivative of the Temperaturefield seen in <a class="reference internal" href="Aufgabe1.html#equation-heatflow">(1)</a> is expandend by the moisture induced pressure field.  The equation for heat conduction including latent heat is shown in <a class="reference internal" href="#equation-gl-heatmoist2">(19)</a>:</p>
 <div class="math notranslate nohighlight" id="equation-gl-heatmoist2">
 <span class="eqno">(19)<a class="headerlink" href="#equation-gl-heatmoist2" title="Permalink to this equation">#</a></span>\[\rho \cdot c \cdot \frac{dT}{dt} = \nabla (\lambda \nabla T + L_v \delta_v \nabla p_{vap}) \]</div>
-<p>The introduced moisture field extended by the transport induced by liquide vapor pressure. <a class="reference internal" href="_oldbuild/jupyter_execute/Aufgabe3.html#equation-gl-moist">()</a>:</p>
+<p>The introduced moisture field extended by the transport induced by liquide vapor pressure. <a class="reference internal" href="#equation-gl-moist">(20)</a>:</p>
 <div class="math notranslate nohighlight" id="equation-gl-moist">
 <span class="eqno">(20)<a class="headerlink" href="#equation-gl-moist" title="Permalink to this equation">#</a></span>\[ \frac{dw}{dt} =  \nabla (\delta_v \nabla p_{vap}) - \nabla (K_w \nabla p_{vap}) \]</div>
-<p>With the total moisture conductivity <span class="math notranslate nohighlight">\(K_w\)</span> according to <span id="id2">[<a class="reference internal" href="_oldbuild/jupyter_execute/References.html#id7">3</a>]</span> (specialized for <span class="math notranslate nohighlight">\(u_f = 300\)</span>):</p>
+<p>With the total moisture conductivity <span class="math notranslate nohighlight">\(K_w\)</span> according to <span id="id2">[<a class="reference internal" href="References.html#id7" title="Angela Sasic Kalagasidis, Thomas Bednar, and Carl-Eric Hagentoft. Evaluation of the Interface Moisture Conductivity between Control Volumes— Comparison between Linear, Harmonic, and Integral Averaging. 2004.">4</a>]</span> (specialized for <span class="math notranslate nohighlight">\(u_f = 300\)</span>):</p>
 <div class="math notranslate nohighlight" id="equation-gl-k-w">
 <span class="eqno">(21)<a class="headerlink" href="#equation-gl-k-w" title="Permalink to this equation">#</a></span>\[ K_w(P_{suc,n)} = - \frac{\partial w(P_{suc})}{\partial P_{suc}} \cdot  \frac{n+1}{2n} (\frac{A}{300})^n (\frac{w(P_{suc})}{300})^n(n+1-(\frac{w(P_{suc})}{300})^n )\]</div>
 <p>and the corresponding water retention curve:</p>
@@ -367,7 +367,7 @@ document.write(`
 </section>
 <section id="space-discretisation">
 <h2>Space discretisation<a class="headerlink" href="#space-discretisation" title="Permalink to this heading">#</a></h2>
-<p>The discretisation of {eq}gl:heatmoist and {eq}gl:moist is done similar to section <a class="reference internal" href="_oldbuild/jupyter_execute/Aufgabe1.html#sec-ex1"><span class="std std-ref">Exercise 1</span></a> using the finite volume method and a representation as RC-Networks.  Evaluating for a cell P surrounded by a cell to the east and west results in <a class="reference internal" href="_oldbuild/jupyter_execute/Aufgabe3.html#equation-gl-heatmoistdis">()</a> and <a class="reference internal" href="_oldbuild/jupyter_execute/Aufgabe3.html#equation-gl-moistdis">()</a>:</p>
+<p>The discretisation of {eq}gl:heatmoist and {eq}gl:moist is done similar to section <a class="reference internal" href="Aufgabe1.html#sec-ex1"><span class="std std-ref">Exercise 1</span></a> using the finite volume method and a representation as RC-Networks.  Evaluating for a cell P surrounded by a cell to the east and west results in <a class="reference internal" href="#equation-gl-heatmoistdis">(25)</a> and <a class="reference internal" href="#equation-gl-moistdis">(26)</a>:</p>
 <div class="math notranslate nohighlight" id="equation-gl-heatmoistdis">
 <span class="eqno">(25)<a class="headerlink" href="#equation-gl-heatmoistdis" title="Permalink to this equation">#</a></span>\[\rho \cdot c \cdot \frac{T^{n+1}_P - T^n_P  }{\Delta t} = \frac{\lambda_w(T^n_E - T^n_P) - \lambda_w(T^n_P - T^n_W)}{\Delta x^2} + L_v \cdot \frac{\delta_{v,w}(p_{vap,E}^n - p_{vap,P}^n) - \delta_{v,e}(p_{vap,P}^n - p_{vap,W}^n)}{\Delta x^2}  \]</div>
 <div class="math notranslate nohighlight" id="equation-gl-moistdis">
@@ -380,10 +380,10 @@ document.write(`
 <p>The thermal and vapor diffusive conductivity matrices are calculated by harmonic averaging. The thermal conductivity between two cells (W,P) can be described as follows:</p>
 <div class="math notranslate nohighlight">
 \[ \lambda_{w} = \frac{\Delta x_w}{\frac{\Delta x_W}{2 \cdot \lambda_W} + \frac{\Delta x_P}{2 \cdot \lambda_P}} = \frac{1}{\frac{1}{2 \cdot \lambda_W} + \frac{1}{2 \cdot \lambda_P}}\]</div>
-<p>As eleborated in <span id="id3">[<a class="reference internal" href="_oldbuild/jupyter_execute/References.html#id7">3</a>]</span> harmoic averaging is not a suitable averaging method for liquid water transport. Therefore, in this implementation linear averaging will be used. The total moisture conductivity between two cells (W,P) can be described as follows:</p>
+<p>As eleborated in <span id="id3">[<a class="reference internal" href="References.html#id7" title="Angela Sasic Kalagasidis, Thomas Bednar, and Carl-Eric Hagentoft. Evaluation of the Interface Moisture Conductivity between Control Volumes— Comparison between Linear, Harmonic, and Integral Averaging. 2004.">4</a>]</span> harmoic averaging is not a suitable averaging method for liquid water transport. Therefore, in this implementation linear averaging will be used. The total moisture conductivity between two cells (W,P) can be described as follows:</p>
 <div class="math notranslate nohighlight">
 \[ K_{w} = \frac{K_{W}\frac{\Delta x_W}{2} }{x_w} + \frac{K_{P}\frac{\Delta x_P}{2} }{x_w} = \frac{K_W+K_P}{2}\]</div>
-<p>To ensure surface drying is prevented the vapor diffusion coefficient on the surface is set <span class="math notranslate nohighlight">\(\delta_v = 0\ m/s\)</span>  <span id="id4">[<a class="reference internal" href="_oldbuild/jupyter_execute/References.html#id7">3</a>]</span>.</p>
+<p>To ensure surface drying is prevented the vapor diffusion coefficient on the surface is set <span class="math notranslate nohighlight">\(\delta_v = 0\ m/s\)</span>  <span id="id4">[<a class="reference internal" href="References.html#id7" title="Angela Sasic Kalagasidis, Thomas Bednar, and Carl-Eric Hagentoft. Evaluation of the Interface Moisture Conductivity between Control Volumes— Comparison between Linear, Harmonic, and Integral Averaging. 2004.">4</a>]</span>.</p>
 </section>
 <section id="time-integration">
 <h2>Time Integration<a class="headerlink" href="#time-integration" title="Permalink to this heading">#</a></h2>
@@ -591,7 +591,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fa17a64f890&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f4df488f410&gt;]
 </pre></div>
 </div>
 <img alt="_images/1ba7d300918bec5e6b4ca41121697d3c78a184f37d5dd51d895496ff5ed9b616.png" src="_images/1ba7d300918bec5e6b4ca41121697d3c78a184f37d5dd51d895496ff5ed9b616.png" />
@@ -609,7 +609,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fa15092dcd0&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f4df6ba2a50&gt;]
 </pre></div>
 </div>
 <img alt="_images/b2f599ea74195294c79e21670e4e017caccd7a7feeb8fccc418b378e4e687cc4.png" src="_images/b2f599ea74195294c79e21670e4e017caccd7a7feeb8fccc418b378e4e687cc4.png" />
@@ -884,6 +884,86 @@ document.write(`
 
 <span class="c1">#dt_w_dt(t,vec_T_w)</span>
 <span class="n">result_coupled_fluid</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">integrate</span><span class="o">.</span><span class="n">solve_ivp</span><span class="p">(</span><span class="n">dt_w_dt</span><span class="p">,(</span><span class="mi">0</span><span class="p">,</span><span class="mi">60</span><span class="o">*</span><span class="mi">60</span><span class="o">*</span><span class="mi">24</span><span class="o">*</span><span class="mi">3</span><span class="p">),</span><span class="n">vec_T_w</span><span class="p">,</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;Radau&quot;</span><span class="p">)</span><span class="c1">#,atol=1e-10,rtol=1e-8)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyboardInterrupt</span><span class="g g-Whitespace">                         </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">25</span><span class="p">],</span> <span class="n">line</span> <span class="mi">6</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="c1">#dt_w_dt(t,vec_T_w)</span>
+<span class="ne">----&gt; </span><span class="mi">6</span> <span class="n">result_coupled_fluid</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">integrate</span><span class="o">.</span><span class="n">solve_ivp</span><span class="p">(</span><span class="n">dt_w_dt</span><span class="p">,(</span><span class="mi">0</span><span class="p">,</span><span class="mi">60</span><span class="o">*</span><span class="mi">60</span><span class="o">*</span><span class="mi">24</span><span class="o">*</span><span class="mi">3</span><span class="p">),</span><span class="n">vec_T_w</span><span class="p">,</span><span class="n">method</span><span class="o">=</span><span class="s2">&quot;Radau&quot;</span><span class="p">)</span><span class="c1">#,atol=1e-10,rtol=1e-8)</span>
+
+<span class="nn">File ~/.local/lib/python3.11/site-packages/scipy/integrate/_ivp/ivp.py:591,</span> in <span class="ni">solve_ivp</span><span class="nt">(fun, t_span, y0, method, t_eval, dense_output, events, vectorized, args, **options)</span>
+<span class="g g-Whitespace">    </span><span class="mi">589</span> <span class="n">status</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="g g-Whitespace">    </span><span class="mi">590</span> <span class="k">while</span> <span class="n">status</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">591</span>     <span class="n">message</span> <span class="o">=</span> <span class="n">solver</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">593</span>     <span class="k">if</span> <span class="n">solver</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="s1">&#39;finished&#39;</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">594</span>         <span class="n">status</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="nn">File ~/.local/lib/python3.11/site-packages/scipy/integrate/_ivp/base.py:181,</span> in <span class="ni">OdeSolver.step</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">179</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">180</span>     <span class="n">t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">t</span>
+<span class="ne">--&gt; </span><span class="mi">181</span>     <span class="n">success</span><span class="p">,</span> <span class="n">message</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_step_impl</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">183</span>     <span class="k">if</span> <span class="ow">not</span> <span class="n">success</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">184</span>         <span class="bp">self</span><span class="o">.</span><span class="n">status</span> <span class="o">=</span> <span class="s1">&#39;failed&#39;</span>
+
+<span class="nn">File ~/.local/lib/python3.11/site-packages/scipy/integrate/_ivp/radau.py:506,</span> in <span class="ni">Radau._step_impl</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">504</span> <span class="n">f_new</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fun</span><span class="p">(</span><span class="n">t_new</span><span class="p">,</span> <span class="n">y_new</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">505</span> <span class="k">if</span> <span class="n">recompute_jac</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">506</span>     <span class="n">J</span> <span class="o">=</span> <span class="n">jac</span><span class="p">(</span><span class="n">t_new</span><span class="p">,</span> <span class="n">y_new</span><span class="p">,</span> <span class="n">f_new</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">507</span>     <span class="n">current_jac</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="g g-Whitespace">    </span><span class="mi">508</span> <span class="k">elif</span> <span class="n">jac</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+
+<span class="nn">File ~/.local/lib/python3.11/site-packages/scipy/integrate/_ivp/radau.py:352,</span> in <span class="ni">Radau._validate_jac.&lt;locals&gt;.jac_wrapped</span><span class="nt">(t, y, f)</span>
+<span class="g g-Whitespace">    </span><span class="mi">350</span> <span class="k">def</span> <span class="nf">jac_wrapped</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">351</span>     <span class="bp">self</span><span class="o">.</span><span class="n">njev</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="ne">--&gt; </span><span class="mi">352</span>     <span class="n">J</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">jac_factor</span> <span class="o">=</span> <span class="n">num_jac</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fun_vectorized</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">353</span>                                  <span class="bp">self</span><span class="o">.</span><span class="n">atol</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">jac_factor</span><span class="p">,</span>
+<span class="g g-Whitespace">    </span><span class="mi">354</span>                                  <span class="n">sparsity</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">355</span>     <span class="k">return</span> <span class="n">J</span>
+
+<span class="nn">File ~/.local/lib/python3.11/site-packages/scipy/integrate/_ivp/common.py:318,</span> in <span class="ni">num_jac</span><span class="nt">(fun, t, y, f, threshold, factor, sparsity)</span>
+<span class="g g-Whitespace">    </span><span class="mi">315</span>         <span class="n">h</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">factor</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">y_scale</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">-</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">317</span> <span class="k">if</span> <span class="n">sparsity</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">318</span>     <span class="k">return</span> <span class="n">_dense_num_jac</span><span class="p">(</span><span class="n">fun</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">factor</span><span class="p">,</span> <span class="n">y_scale</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">319</span> <span class="k">else</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">320</span>     <span class="n">structure</span><span class="p">,</span> <span class="n">groups</span> <span class="o">=</span> <span class="n">sparsity</span>
+
+<span class="nn">File ~/.local/lib/python3.11/site-packages/scipy/integrate/_ivp/common.py:328,</span> in <span class="ni">_dense_num_jac</span><span class="nt">(fun, t, y, f, h, factor, y_scale)</span>
+<span class="g g-Whitespace">    </span><span class="mi">326</span> <span class="n">n</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">327</span> <span class="n">h_vecs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">328</span> <span class="n">f_new</span> <span class="o">=</span> <span class="n">fun</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">+</span> <span class="n">h_vecs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">329</span> <span class="n">diff</span> <span class="o">=</span> <span class="n">f_new</span> <span class="o">-</span> <span class="n">f</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">330</span> <span class="n">max_ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">diff</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="nn">File ~/.local/lib/python3.11/site-packages/scipy/integrate/_ivp/base.py:133,</span> in <span class="ni">OdeSolver.__init__.&lt;locals&gt;.fun_vectorized</span><span class="nt">(t, y)</span>
+<span class="g g-Whitespace">    </span><span class="mi">131</span> <span class="n">f</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">132</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">yi</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">T</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">133</span>     <span class="n">f</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fun</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">yi</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">134</span> <span class="k">return</span> <span class="n">f</span>
+
+<span class="nn">File ~/.local/lib/python3.11/site-packages/scipy/integrate/_ivp/base.py:20,</span> in <span class="ni">check_arguments.&lt;locals&gt;.fun_wrapped</span><span class="nt">(t, y)</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span> <span class="k">def</span> <span class="nf">fun_wrapped</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+<span class="ne">---&gt; </span><span class="mi">20</span>     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">fun</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+
+<span class="nn">Cell In[24], line 27,</span> in <span class="ni">dt_w_dt</span><span class="nt">(t, vec_T_w)</span>
+<span class="g g-Whitespace">     </span><span class="mi">25</span> <span class="n">psuc</span> <span class="o">=</span> <span class="n">fc_psuc_w</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">26</span> <span class="n">Kleit</span> <span class="o">=</span> <span class="n">fc_Kw_psuc_wsuc_n</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="mi">13</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">27</span> <span class="n">W</span> <span class="o">=</span> <span class="n">new_Cmatrix_norm_avg</span><span class="p">(</span><span class="n">Kleit</span><span class="p">,</span><span class="n">layers</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">29</span> <span class="n">K</span> <span class="o">=</span> <span class="n">new_Cmatrix_harm_avg</span><span class="p">(</span><span class="n">thermConduct</span><span class="p">,</span><span class="n">layers</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">32</span> <span class="n">delta_T</span> <span class="o">=</span> <span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">K</span><span class="p">,</span><span class="n">T</span><span class="p">)</span> <span class="o">+</span>  <span class="n">deltapv</span> <span class="o">*</span> <span class="n">Lv</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">pvap</span><span class="p">)</span> <span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">c</span><span class="o">*</span><span class="n">rho</span><span class="p">)</span>
+
+<span class="nn">Cell In[21], line 24,</span> in <span class="ni">new_Cmatrix_norm_avg</span><span class="nt">(Kw, layers)</span>
+<span class="g g-Whitespace">     </span><span class="mi">21</span>         <span class="n">W_current</span><span class="p">[</span><span class="n">counter</span><span class="p">,</span><span class="n">counter</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="o">/</span> <span class="n">deltaX</span> <span class="o">**</span><span class="mi">2</span> <span class="o">*</span><span class="p">(</span><span class="n">Kw</span><span class="p">[</span><span class="n">counter</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">Kw</span><span class="p">[</span><span class="n">counter</span><span class="p">])</span>
+<span class="g g-Whitespace">     </span><span class="mi">22</span>         <span class="n">W_current</span><span class="p">[</span><span class="n">counter</span><span class="p">,</span><span class="n">counter</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">2</span> <span class="o">/</span> <span class="n">deltaX</span> <span class="o">**</span><span class="mi">2</span> <span class="o">*</span><span class="p">(</span><span class="n">Kw</span><span class="p">[</span><span class="n">counter</span><span class="p">]</span> <span class="o">+</span> <span class="n">Kw</span><span class="p">[</span><span class="n">counter</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
+<span class="ne">---&gt; </span><span class="mi">24</span>         <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="g g-Whitespace">     </span><span class="mi">25</span> <span class="n">W</span> <span class="o">+=</span> <span class="n">W_current</span>
+<span class="g g-Whitespace">     </span><span class="mi">27</span> <span class="c1">#The diagonal of the conductivity matrix is defined as the negative sum of the </span>
+<span class="g g-Whitespace">     </span><span class="mi">28</span> <span class="c1">#&quot;east&quot; and &quot;west&quot; conductivity for the cell</span>
+
+<span class="ne">KeyboardInterrupt</span>: 
 </pre></div>
 </div>
 </div>
