@@ -357,24 +357,18 @@ document.write(`
 \[ \dot{m}_a = - \frac{\rho_a \cdot k}{\mu} \nabla P \]</div>
 <p>For low air speed, air can be aproximated as an incompressible fluid (<span class="math notranslate nohighlight">\(\frac{\delta \rho_a}{\delta x} = \frac{\delta \rho_a}{\delta y}  = const.\)</span>). Further assuming <span class="math notranslate nohighlight">\(\mu,k = const.\)</span> leads to a constant mass flow in the channel:</p>
 <div class="math notranslate nohighlight" id="equation-gl-laplace">
-<span class="eqno">(27)<a class="headerlink" href="#equation-gl-laplace" title="Permalink to this equation">#</a></span>\[ 
-\nabla^2 P = 0 
-\]</div>
+<span class="eqno">(27)<a class="headerlink" href="#equation-gl-laplace" title="Permalink to this equation">#</a></span>\[ \nabla^2 P = 0 \]</div>
 <section id="analytical-solution">
 <h2>Analytical Solution<a class="headerlink" href="#analytical-solution" title="Permalink to this heading">#</a></h2>
 <p>For a steady flow in rectangular channel the Navier–Stokes Equations can be solved analytically leading to an explixcit solution of the average velocity in the channel <code class="xref std std-numref docutils literal notranslate"><span class="pre">gl:anasol</span></code> <span id="id2">[<a class="reference internal" href="References.html#id8" title="Michel O. Deville. An Introduction to the Mechanics of Incompressible Fluids. Springer International Publishing, Cham, 2022. ISBN 978-3-031-04682-7 978-3-031-04683-4. URL: https://link.springer.com/10.1007/978-3-031-04683-4 (visited on 2024-01-31), doi:10.1007/978-3-031-04683-4.">3</a>]</span>:</p>
 <div class="math notranslate nohighlight" id="equation-gl-anasol">
-<span class="eqno">(28)<a class="headerlink" href="#equation-gl-anasol" title="Permalink to this equation">#</a></span>\[ 
-v_{avg} = \frac{h^2}{12 \mu} \frac{\delta P}{L} 
-\]</div>
+<span class="eqno">(28)<a class="headerlink" href="#equation-gl-anasol" title="Permalink to this equation">#</a></span>\[ v_{avg} = \frac{h^2}{12 \mu} \frac{\delta P}{L} \]</div>
 </section>
 <section id="numerical-solution">
 <h2>Numerical Solution<a class="headerlink" href="#numerical-solution" title="Permalink to this heading">#</a></h2>
 <p>The steady state can solved by solving a linear equation System in the following form:</p>
 <div class="math notranslate nohighlight" id="equation-gl-lem">
-<span class="eqno">(29)<a class="headerlink" href="#equation-gl-lem" title="Permalink to this equation">#</a></span>\[ 
-\tilde{A} \cdot \vec{x} = \vec{b} 
-\]</div>
+<span class="eqno">(29)<a class="headerlink" href="#equation-gl-lem" title="Permalink to this equation">#</a></span>\[ \tilde{A} \cdot \vec{x} = \vec{b} \]</div>
 <p>with:</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\tilde{A}\ \dots\)</span> “Laplace Matrix”</p>
@@ -403,9 +397,7 @@ v_{avg} = \frac{h^2}{12 \mu} \frac{\delta P}{L}
 </figcaption>
 </figure>
 <p>Discretising <code class="xref std std-numref docutils literal notranslate"><span class="pre">gl:laplace</span></code> for an interior cell leads to:
-$<span class="math notranslate nohighlight">\(
-A_P \cdot P_P + A_E \cdot P_E + A_W \cdot P_W + A_N \cdot P_N + A_S \cdot P_S = 0
-\)</span>$ (gl:Coeff)
+$<span class="math notranslate nohighlight">\( A_P \cdot P_P + A_E \cdot P_E + A_W \cdot P_W + A_N \cdot P_N + A_S \cdot P_S = 0 \)</span>$ (gl:Coeff)
 with:</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(A_E = A_W = \Delta y / \Delta x\)</span></p></li>
@@ -548,13 +540,12 @@ P_i=P_{BC}
 <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">A</span> <span class="o">=</span> <span class="n">newSystemMatrix_nx_ny</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span><span class="n">ny</span><span class="p">,</span><span class="n">deltax</span><span class="p">,</span><span class="n">deltay</span><span class="p">)</span>
 
-<span class="nn">Cell In[4], line 19,</span> in <span class="ni">newSystemMatrix_nx_ny</span><span class="nt">(nx, ny, deltax, deltay)</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="n">A</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">#Right</span>
-<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">nx</span><span class="p">):</span>
-<span class="g g-Whitespace">     </span><span class="mi">18</span>     <span class="c1">#First cell of each row</span>
-<span class="ne">---&gt; </span><span class="mi">19</span>     <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="n">nx</span><span class="p">,:]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="nn">Cell In[4], line 22,</span> in <span class="ni">newSystemMatrix_nx_ny</span><span class="nt">(nx, ny, deltax, deltay)</span>
 <span class="g g-Whitespace">     </span><span class="mi">20</span>     <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="n">nx</span><span class="p">,</span><span class="n">i</span><span class="o">*</span><span class="n">nx</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="g g-Whitespace">     </span><span class="mi">21</span>     <span class="c1">#Last cell of each row</span>
+<span class="ne">---&gt; </span><span class="mi">22</span>     <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="n">nx</span><span class="o">+</span><span class="n">nx</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span>     <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="n">nx</span><span class="o">+</span><span class="n">nx</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="o">*</span><span class="n">nx</span><span class="o">+</span><span class="n">nx</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="c1">#Neumann</span>
 
 <span class="nn">File ~/.local/lib/python3.11/site-packages/scipy/sparse/_lil.py:331,</span> in <span class="ni">lil_matrix.__setitem__</span><span class="nt">(self, key, x)</span>
 <span class="g g-Whitespace">    </span><span class="mi">329</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_set_intXint</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">key</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="p">)</span>
