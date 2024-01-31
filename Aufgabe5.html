@@ -61,6 +61,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'Aufgabe5';</script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -310,12 +312,23 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#construction-of-the-system-matrix">Construction of the System Matrix</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-state">Initial State</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transport-coefficients">Transport coefficients</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-the-pressure-field">Solving the Pressure Field</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#velocity-field-and-averaging">Velocity field and averaging</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparision-to-analytical-solution">Comparision to Analytical Solution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analytical-solution">Analytical Solution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numerical-solution">Numerical Solution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#space-discretization">Space Discretization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boundary-conditions">Boundary conditions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#neumann-condition">Neumann Condition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dirichlet-condition">Dirichlet Condition</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#construction-of-the-system-matrix">Construction of the System Matrix</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-state">Initial State</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#transport-coefficients">Transport coefficients</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-the-pressure-field">Solving the Pressure Field</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#velocity-field-and-averaging">Velocity field and averaging</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparision-to-analytical-solution">Comparision to Analytical Solution</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convergence-study">Convergence study</a></li>
 </ul>
             </nav>
@@ -332,6 +345,133 @@ document.write(`
     <font size="2">Florian Schnabel, 11807470, WS 2024</font><br />
 </body><section class="tex2jax_ignore mathjax_ignore" id="excersise-5-air-flow-through-a-rectangular-channel">
 <h1>Excersise 5  - Air flow through a rectangular-channel<a class="headerlink" href="#excersise-5-air-flow-through-a-rectangular-channel" title="Permalink to this heading">#</a></h1>
+<p>This script aims to calculate the air flow through a two dimensional channel in a steady state. A depiction of such a channel can be seen in <a class="reference internal" href="#fig-channel"><span class="std std-numref">Fig. 5</span></a>.</p>
+<figure class="align-default" id="fig-channel">
+<a class="reference internal image-reference" href="_images/channel.png"><img alt="_images/channel.png" src="_images/channel.png" style="width: 350px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5 </span><span class="caption-text">Depiction of a rectangular channel [excersise Description] <span id="id1">[<a class="reference internal" href="References.html#id3" title="Carl-Eric Hagentoft. Introduction to building physics. Studentlitteratur, Lund, 2001. URL: https://buildingphysicshagentoft.com/text-books/introduction-to-building-physics/.">4</a>]</span></span><a class="headerlink" href="#fig-channel" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Assuming flow thorugh a prous medium the airflow can be described by Darcy’s Law :</p>
+<div class="math notranslate nohighlight">
+\[ \dot{m}_a = - \frac{\rho_a \cdot k}{\mu} \nabla P \]</div>
+<p>For low air speed, air can be aproximated as an incompressible fluid (<span class="math notranslate nohighlight">\(\frac{\delta \rho_a}{\delta x} = \frac{\delta \rho_a}{\delta y}  = const.\)</span>). Further assuming <span class="math notranslate nohighlight">\(\mu,k = const.\)</span> leads to a constant mass flow in the channel:</p>
+<div class="math notranslate nohighlight" id="equation-gl-laplace">
+<span class="eqno">(27)<a class="headerlink" href="#equation-gl-laplace" title="Permalink to this equation">#</a></span>\[ 
+\nabla^2 P = 0 
+\]</div>
+<section id="analytical-solution">
+<h2>Analytical Solution<a class="headerlink" href="#analytical-solution" title="Permalink to this heading">#</a></h2>
+<p>For a steady flow in rectangular channel the Navier–Stokes Equations can be solved analytically leading to an explixcit solution of the average velocity in the channel <code class="xref std std-numref docutils literal notranslate"><span class="pre">gl:anasol</span></code> <span id="id2">[<a class="reference internal" href="References.html#id8" title="Michel O. Deville. An Introduction to the Mechanics of Incompressible Fluids. Springer International Publishing, Cham, 2022. ISBN 978-3-031-04682-7 978-3-031-04683-4. URL: https://link.springer.com/10.1007/978-3-031-04683-4 (visited on 2024-01-31), doi:10.1007/978-3-031-04683-4.">3</a>]</span>:</p>
+<div class="math notranslate nohighlight" id="equation-gl-anasol">
+<span class="eqno">(28)<a class="headerlink" href="#equation-gl-anasol" title="Permalink to this equation">#</a></span>\[ 
+v_{avg} = \frac{h^2}{12 \mu} \frac{\delta P}{L} 
+\]</div>
+</section>
+<section id="numerical-solution">
+<h2>Numerical Solution<a class="headerlink" href="#numerical-solution" title="Permalink to this heading">#</a></h2>
+<p>The steady state can solved by solving a linear equation System in the following form:</p>
+<div class="math notranslate nohighlight" id="equation-gl-lem">
+<span class="eqno">(29)<a class="headerlink" href="#equation-gl-lem" title="Permalink to this equation">#</a></span>\[ 
+\tilde{A} \cdot \vec{x} = \vec{b} 
+\]</div>
+<p>with:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\tilde{A}\ \dots\)</span> “Laplace Matrix”</p>
+<ul>
+<li><p>Discretization</p></li>
+<li><p>Neumann Conditions</p></li>
+<li><p>tranpsort coefficients</p></li>
+</ul>
+</li>
+<li><p><span class="math notranslate nohighlight">\(b\ \dots\)</span> Initial state</p>
+<ul>
+<li><p>Dirchilet Boundary conditions</p></li>
+<li><p>Sources</p></li>
+</ul>
+</li>
+<li><p><span class="math notranslate nohighlight">\(x\ \dots\)</span> unknown Pressure Field</p></li>
+</ul>
+</section>
+<section id="space-discretization">
+<h2>Space Discretization<a class="headerlink" href="#space-discretization" title="Permalink to this heading">#</a></h2>
+<p>To allow an assambly in the LEM the Cells are discretized using an index the shema shown in <a class="reference internal" href="#fig-discretization"><span class="std std-numref">Fig. 6</span></a>.</p>
+<figure class="align-default" id="fig-discretization">
+<a class="reference internal image-reference" href="_images/discretization.png"><img alt="_images/discretization.png" src="_images/discretization.png" style="width: 350px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 6 </span><span class="caption-text">Depiction of the Discretization Shema</span><a class="headerlink" href="#fig-discretization" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Discretising <code class="xref std std-numref docutils literal notranslate"><span class="pre">gl:laplace</span></code> for an interior cell leads to:
+$<span class="math notranslate nohighlight">\(
+A_P \cdot P_P + A_E \cdot P_E + A_W \cdot P_W + A_N \cdot P_N + A_S \cdot P_S = 0
+\)</span>$ (gl:Coeff)
+with:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(A_E = A_W = \Delta y / \Delta x\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(A_N = A_S = \Delta x / \Delta y\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(A_P = -2 (\Delta y / \Delta x+ \Delta y / \Delta x)\)</span></p></li>
+</ul>
+<p>Apllying <span class="math notranslate nohighlight">\(1/(\Delta x \Delta y)\)</span> to <code class="xref std std-numref docutils literal notranslate"><span class="pre">gl:coeff</span></code>, <code class="xref std std-numref docutils literal notranslate"><span class="pre">gl:LEM</span></code> can be written as follows:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\begin{split}  b = \left[ 
+\begin{array}{ccccccc}
+      &amp;   &amp;  &amp; &amp; \cdots  &amp;  &amp;   &amp;     \\
+    \vdots &amp;   &amp;  &amp; \ddots &amp;  &amp;   &amp;   &amp;   \\
+      &amp; \frac{1}{\Delta y^2} &amp; \cdots &amp; \frac{1}{\Delta y^2} &amp; -(.\frac{2}{\Delta y^2}+\frac{2}{\Delta x^2}) &amp; \frac{1}{\Delta x^2} &amp; \cdots &amp; \frac{1}{\Delta y^2} \\
+    \vdots &amp;   &amp;  &amp; &amp;&amp;\ddots &amp;    \\
+     &amp;   &amp;  &amp; &amp; \cdots  &amp;  &amp;   &amp;   &amp;   \\
+\end{array}
+\right] \cdot 
+\left[
+\begin{array}{c}
+    P_1 \\
+    \vdots \\
+    P_{n-N_x} \\
+    \vdots \\
+    P_{n-1} \\
+    P_n \\
+    P_{n+1} \\
+    \vdots \\
+    P_{n+N_x} \\
+    \vdots \\
+    P_{N_yN_x} \\\end{split}\\\end{array}
+\right]
+\end{aligned}\end{align} \]</div>
+</section>
+<section id="boundary-conditions">
+<h2>Boundary conditions<a class="headerlink" href="#boundary-conditions" title="Permalink to this heading">#</a></h2>
+<section id="neumann-condition">
+<h3>Neumann Condition<a class="headerlink" href="#neumann-condition" title="Permalink to this heading">#</a></h3>
+<p>A Neumann Condition on the south side can be described as follows:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{\partial P}{\partial y} \approx \frac{P_N-P_S}{2 \Delta y}=0
+\]</div>
+<p>Discretising <code class="xref std std-numref docutils literal notranslate"><span class="pre">gl:laplace</span></code> for an interior cell with a Neumann Condition to the south results in:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{\Delta x^2} (P_E + P_W - 2 P_P) + \frac{1}{\Delta y^2} (2 P_N - 2 P_P)
+\]</div>
+<p>Which equals to multiplying the to <span class="math notranslate nohighlight">\(P_N\)</span> corresbonding entry in <span class="math notranslate nohighlight">\([A]\)</span> by <span class="math notranslate nohighlight">\(2\)</span> and setting the to <span class="math notranslate nohighlight">\(P_S\)</span> corresbonding Value to <span class="math notranslate nohighlight">\(0\)</span></p>
+</section>
+<section id="dirichlet-condition">
+<h3>Dirichlet Condition<a class="headerlink" href="#dirichlet-condition" title="Permalink to this heading">#</a></h3>
+<p>The Dirchilet Conditions are considered in the inital State vector as:</p>
+<div class="math notranslate nohighlight">
+\[
+P_i=P_{BC}
+\]</div>
+<p>Discretising <code class="xref std std-numref docutils literal notranslate"><span class="pre">gl:laplace</span></code> for an interior cell with a Dirichlet Condition to the west results in:</p>
+<div class="math notranslate nohighlight">
+\[
+\frac{1}{\Delta x^2} (P_E + P_{BC} - 2 P_P) + \frac{1}{\Delta y^2} (P_S + P_N - 2 P_P)
+\]</div>
+<p>And therefore setting the to <span class="math notranslate nohighlight">\(P_W\)</span> corresbonding entry in <span class="math notranslate nohighlight">\([A]\)</span> to <span class="math notranslate nohighlight">\(1\)</span>.</p>
+</section>
+</section>
+<section id="implementation">
+<h2>Implementation<a class="headerlink" href="#implementation" title="Permalink to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -362,7 +502,7 @@ document.write(`
 </div>
 </div>
 <section id="construction-of-the-system-matrix">
-<h2>Construction of the System Matrix<a class="headerlink" href="#construction-of-the-system-matrix" title="Permalink to this heading">#</a></h2>
+<h3>Construction of the System Matrix<a class="headerlink" href="#construction-of-the-system-matrix" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">newSystemMatrix_nx_ny</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span><span class="n">ny</span><span class="p">,</span><span class="n">deltax</span><span class="p">,</span><span class="n">deltay</span><span class="p">):</span>
@@ -389,10 +529,8 @@ document.write(`
         <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="n">nx</span><span class="o">+</span><span class="n">nx</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="n">nx</span><span class="o">+</span><span class="n">nx</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="o">*</span><span class="n">nx</span><span class="o">+</span><span class="n">nx</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="c1">#Neumann</span>
-    <span class="c1">#A[range(nx,nx*2),range(0,nx)]*=2 #Bottom </span>
-    <span class="n">A</span><span class="p">[</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">nx</span><span class="p">),</span><span class="nb">range</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span><span class="n">nx</span><span class="o">*</span><span class="mi">2</span><span class="p">)]</span><span class="o">*=</span><span class="mi">2</span> <span class="c1">#test </span>
-    <span class="c1">#A[range(nx*ny - 2*nx,nx*ny - nx),range(nx*ny - nx,nx*ny)]*=2 #Top</span>
-    <span class="n">A</span><span class="p">[</span><span class="nb">range</span><span class="p">(</span><span class="n">nx</span><span class="o">*</span><span class="n">ny</span> <span class="o">-</span> <span class="n">nx</span><span class="p">,</span><span class="n">nx</span><span class="o">*</span><span class="n">ny</span><span class="p">),</span><span class="nb">range</span><span class="p">(</span><span class="n">nx</span><span class="o">*</span><span class="n">ny</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">nx</span><span class="p">,</span><span class="n">nx</span><span class="o">*</span><span class="n">ny</span> <span class="o">-</span> <span class="n">nx</span><span class="p">)]</span><span class="o">*=</span><span class="mi">2</span> <span class="c1">#Test</span>
+    <span class="n">A</span><span class="p">[</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">nx</span><span class="p">),</span><span class="nb">range</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span><span class="n">nx</span><span class="o">*</span><span class="mi">2</span><span class="p">)]</span><span class="o">*=</span><span class="mi">2</span>  
+    <span class="n">A</span><span class="p">[</span><span class="nb">range</span><span class="p">(</span><span class="n">nx</span><span class="o">*</span><span class="n">ny</span> <span class="o">-</span> <span class="n">nx</span><span class="p">,</span><span class="n">nx</span><span class="o">*</span><span class="n">ny</span><span class="p">),</span><span class="nb">range</span><span class="p">(</span><span class="n">nx</span><span class="o">*</span><span class="n">ny</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">nx</span><span class="p">,</span><span class="n">nx</span><span class="o">*</span><span class="n">ny</span> <span class="o">-</span> <span class="n">nx</span><span class="p">)]</span><span class="o">*=</span><span class="mi">2</span> <span class="c1">#</span>
     <span class="k">return</span> <span class="n">A</span>
 </pre></div>
 </div>
@@ -442,7 +580,7 @@ document.write(`
 </div>
 </section>
 <section id="initial-state">
-<h2>Initial State<a class="headerlink" href="#initial-state" title="Permalink to this heading">#</a></h2>
+<h3>Initial State<a class="headerlink" href="#initial-state" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">newPinit</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span><span class="n">ny</span><span class="p">,</span><span class="n">Pbcr</span><span class="p">,</span><span class="n">Pbcl</span><span class="p">):</span>
@@ -464,7 +602,7 @@ document.write(`
 </div>
 </section>
 <section id="transport-coefficients">
-<h2>Transport coefficients<a class="headerlink" href="#transport-coefficients" title="Permalink to this heading">#</a></h2>
+<h3>Transport coefficients<a class="headerlink" href="#transport-coefficients" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#height of the channel</span>
@@ -478,7 +616,7 @@ document.write(`
 </div>
 </section>
 <section id="solving-the-pressure-field">
-<h2>Solving the Pressure Field<a class="headerlink" href="#solving-the-pressure-field" title="Permalink to this heading">#</a></h2>
+<h3>Solving the Pressure Field<a class="headerlink" href="#solving-the-pressure-field" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">solveP</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span><span class="n">ny</span><span class="p">,</span><span class="n">A</span><span class="p">,</span><span class="n">P_init</span><span class="p">):</span>
@@ -501,7 +639,7 @@ document.write(`
 </div>
 </section>
 <section id="velocity-field-and-averaging">
-<h2>Velocity field and averaging<a class="headerlink" href="#velocity-field-and-averaging" title="Permalink to this heading">#</a></h2>
+<h3>Velocity field and averaging<a class="headerlink" href="#velocity-field-and-averaging" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">averageV</span><span class="p">(</span><span class="n">P_matrix</span><span class="p">,</span><span class="n">deltax</span><span class="p">,</span><span class="n">nx</span><span class="p">,</span><span class="n">ny</span><span class="p">,</span><span class="n">mu</span><span class="p">,</span><span class="n">k</span><span class="p">):</span>
@@ -521,7 +659,7 @@ document.write(`
 </div>
 </section>
 <section id="comparision-to-analytical-solution">
-<h2>Comparision to Analytical Solution<a class="headerlink" href="#comparision-to-analytical-solution" title="Permalink to this heading">#</a></h2>
+<h3>Comparision to Analytical Solution<a class="headerlink" href="#comparision-to-analytical-solution" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">v_ana</span> <span class="o">=</span> <span class="n">h</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="mi">12</span> <span class="o">/</span> <span class="n">mu</span> <span class="o">*</span> <span class="p">(</span><span class="n">P_init</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">P_init</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">lx</span>
@@ -561,6 +699,7 @@ document.write(`
 </div>
 </div>
 </div>
+</section>
 </section>
 <section id="convergence-study">
 <h2>Convergence study<a class="headerlink" href="#convergence-study" title="Permalink to this heading">#</a></h2>
@@ -696,12 +835,23 @@ document.write(`
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#construction-of-the-system-matrix">Construction of the System Matrix</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-state">Initial State</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#transport-coefficients">Transport coefficients</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-the-pressure-field">Solving the Pressure Field</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#velocity-field-and-averaging">Velocity field and averaging</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#comparision-to-analytical-solution">Comparision to Analytical Solution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analytical-solution">Analytical Solution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#numerical-solution">Numerical Solution</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#space-discretization">Space Discretization</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#boundary-conditions">Boundary conditions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#neumann-condition">Neumann Condition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dirichlet-condition">Dirichlet Condition</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation">Implementation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#construction-of-the-system-matrix">Construction of the System Matrix</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#initial-state">Initial State</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#transport-coefficients">Transport coefficients</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#solving-the-pressure-field">Solving the Pressure Field</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#velocity-field-and-averaging">Velocity field and averaging</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#comparision-to-analytical-solution">Comparision to Analytical Solution</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convergence-study">Convergence study</a></li>
 </ul>
   </nav></div>
