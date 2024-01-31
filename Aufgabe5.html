@@ -402,17 +402,18 @@ v_{avg} = \frac{h^2}{12 \mu} \frac{\delta P}{L}
 <p><span class="caption-number">Fig. 6 </span><span class="caption-text">Depiction of the Discretization Shema</span><a class="headerlink" href="#fig-discretization" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>Discretising <a class="reference internal" href="#equation-gl-laplace">(27)</a> for an interior cell leads to:
-$<span class="math notranslate nohighlight">\( 
+<p>Discretising <a class="reference internal" href="#equation-gl-laplace">(27)</a> for an interior cell leads to:</p>
+<div class="math notranslate nohighlight" id="equation-gl-coeff">
+<span class="eqno">(30)<a class="headerlink" href="#equation-gl-coeff" title="Permalink to this equation">#</a></span>\[ 
 A_P \cdot P_P + A_E \cdot P_E + A_W \cdot P_W + A_N \cdot P_N + A_S \cdot P_S = 0 
-\)</span>$ (gl:Coeff)
-with:</p>
+\]</div>
+<p>with:</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(A_E = A_W = \Delta y / \Delta x\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(A_N = A_S = \Delta x / \Delta y\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(A_P = -2 (\Delta y / \Delta x+ \Delta y / \Delta x)\)</span></p></li>
 </ul>
-<p>Apllying <span class="math notranslate nohighlight">\(1/(\Delta x \Delta y)\)</span> to <code class="xref eq docutils literal notranslate"><span class="pre">gl:Coeff</span></code>, <a class="reference internal" href="#equation-gl-lem">(29)</a> can be written as follows:</p>
+<p>Apllying <span class="math notranslate nohighlight">\(1/(\Delta x \Delta y)\)</span> to <a class="reference internal" href="#equation-gl-coeff">(30)</a>, <a class="reference internal" href="#equation-gl-lem">(29)</a> can be written as follows:</p>
 <div class="math notranslate nohighlight">
 \[ \begin{align}\begin{aligned}  b = \left[ \\\begin{split}\begin{array}{cccccccc}
       &amp;   &amp;  &amp; &amp; \cdots  &amp;  &amp;   &amp;     \\
@@ -546,13 +547,12 @@ P_i=P_{BC}
 <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">A</span> <span class="o">=</span> <span class="n">newSystemMatrix_nx_ny</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span><span class="n">ny</span><span class="p">,</span><span class="n">deltax</span><span class="p">,</span><span class="n">deltay</span><span class="p">)</span>
 
-<span class="nn">Cell In[4], line 19,</span> in <span class="ni">newSystemMatrix_nx_ny</span><span class="nt">(nx, ny, deltax, deltay)</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="n">A</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">#Right</span>
-<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">nx</span><span class="p">):</span>
-<span class="g g-Whitespace">     </span><span class="mi">18</span>     <span class="c1">#First cell of each row</span>
-<span class="ne">---&gt; </span><span class="mi">19</span>     <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="n">nx</span><span class="p">,:]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="nn">Cell In[4], line 22,</span> in <span class="ni">newSystemMatrix_nx_ny</span><span class="nt">(nx, ny, deltax, deltay)</span>
 <span class="g g-Whitespace">     </span><span class="mi">20</span>     <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="n">nx</span><span class="p">,</span><span class="n">i</span><span class="o">*</span><span class="n">nx</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="g g-Whitespace">     </span><span class="mi">21</span>     <span class="c1">#Last cell of each row</span>
+<span class="ne">---&gt; </span><span class="mi">22</span>     <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="n">nx</span><span class="o">+</span><span class="n">nx</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span>     <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="n">nx</span><span class="o">+</span><span class="n">nx</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="o">*</span><span class="n">nx</span><span class="o">+</span><span class="n">nx</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="c1">#Neumann</span>
 
 <span class="nn">File ~/.local/lib/python3.11/site-packages/scipy/sparse/_lil.py:331,</span> in <span class="ni">lil_matrix.__setitem__</span><span class="nt">(self, key, x)</span>
 <span class="g g-Whitespace">    </span><span class="mi">329</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_set_intXint</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">key</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="p">)</span>
