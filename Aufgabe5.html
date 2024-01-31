@@ -357,18 +357,24 @@ document.write(`
 \[ \dot{m}_a = - \frac{\rho_a \cdot k}{\mu} \nabla P \]</div>
 <p>For low air speed, air can be aproximated as an incompressible fluid (<span class="math notranslate nohighlight">\(\frac{\delta \rho_a}{\delta x} = \frac{\delta \rho_a}{\delta y}  = const.\)</span>). Further assuming <span class="math notranslate nohighlight">\(\mu,k = const.\)</span> leads to a constant mass flow in the channel:</p>
 <div class="math notranslate nohighlight" id="equation-gl-laplace">
-<span class="eqno">(27)<a class="headerlink" href="#equation-gl-laplace" title="Permalink to this equation">#</a></span>\[ \nabla^2 P = 0 \]</div>
+<span class="eqno">(27)<a class="headerlink" href="#equation-gl-laplace" title="Permalink to this equation">#</a></span>\[ 
+\nabla^2 P = 0 
+\]</div>
 <section id="analytical-solution">
 <h2>Analytical Solution<a class="headerlink" href="#analytical-solution" title="Permalink to this heading">#</a></h2>
-<p>For a steady flow in rectangular channel the Navier–Stokes Equations can be solved analytically leading to an explixcit solution of the average velocity in the channel <code class="xref std std-numref docutils literal notranslate"><span class="pre">gl:anasol</span></code> <span id="id2">[<a class="reference internal" href="References.html#id8" title="Michel O. Deville. An Introduction to the Mechanics of Incompressible Fluids. Springer International Publishing, Cham, 2022. ISBN 978-3-031-04682-7 978-3-031-04683-4. URL: https://link.springer.com/10.1007/978-3-031-04683-4 (visited on 2024-01-31), doi:10.1007/978-3-031-04683-4.">3</a>]</span>:</p>
+<p>For a steady flow in rectangular channel the Navier–Stokes Equations can be solved analytically leading to an explixcit solution of the average velocity in the channel <a class="reference internal" href="#equation-gl-anasol">(28)</a> <span id="id2">[<a class="reference internal" href="References.html#id8" title="Michel O. Deville. An Introduction to the Mechanics of Incompressible Fluids. Springer International Publishing, Cham, 2022. ISBN 978-3-031-04682-7 978-3-031-04683-4. URL: https://link.springer.com/10.1007/978-3-031-04683-4 (visited on 2024-01-31), doi:10.1007/978-3-031-04683-4.">3</a>]</span>:</p>
 <div class="math notranslate nohighlight" id="equation-gl-anasol">
-<span class="eqno">(28)<a class="headerlink" href="#equation-gl-anasol" title="Permalink to this equation">#</a></span>\[ v_{avg} = \frac{h^2}{12 \mu} \frac{\delta P}{L} \]</div>
+<span class="eqno">(28)<a class="headerlink" href="#equation-gl-anasol" title="Permalink to this equation">#</a></span>\[ 
+v_{avg} = \frac{h^2}{12 \mu} \frac{\delta P}{L} 
+\]</div>
 </section>
 <section id="numerical-solution">
 <h2>Numerical Solution<a class="headerlink" href="#numerical-solution" title="Permalink to this heading">#</a></h2>
 <p>The steady state can solved by solving a linear equation System in the following form:</p>
 <div class="math notranslate nohighlight" id="equation-gl-lem">
-<span class="eqno">(29)<a class="headerlink" href="#equation-gl-lem" title="Permalink to this equation">#</a></span>\[ \tilde{A} \cdot \vec{x} = \vec{b} \]</div>
+<span class="eqno">(29)<a class="headerlink" href="#equation-gl-lem" title="Permalink to this equation">#</a></span>\[ 
+\tilde{A} \cdot \vec{x} = \vec{b} 
+\]</div>
 <p>with:</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\tilde{A}\ \dots\)</span> “Laplace Matrix”</p>
@@ -396,27 +402,27 @@ document.write(`
 <p><span class="caption-number">Fig. 6 </span><span class="caption-text">Depiction of the Discretization Shema</span><a class="headerlink" href="#fig-discretization" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>Discretising <code class="xref std std-numref docutils literal notranslate"><span class="pre">gl:laplace</span></code> for an interior cell leads to:
-$<span class="math notranslate nohighlight">\( A_P \cdot P_P + A_E \cdot P_E + A_W \cdot P_W + A_N \cdot P_N + A_S \cdot P_S = 0 \)</span>$ (gl:Coeff)
+<p>Discretising <a class="reference internal" href="#equation-gl-laplace">(27)</a> for an interior cell leads to:
+$<span class="math notranslate nohighlight">\( 
+A_P \cdot P_P + A_E \cdot P_E + A_W \cdot P_W + A_N \cdot P_N + A_S \cdot P_S = 0 
+\)</span>$ (gl:Coeff)
 with:</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(A_E = A_W = \Delta y / \Delta x\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(A_N = A_S = \Delta x / \Delta y\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(A_P = -2 (\Delta y / \Delta x+ \Delta y / \Delta x)\)</span></p></li>
 </ul>
-<p>Apllying <span class="math notranslate nohighlight">\(1/(\Delta x \Delta y)\)</span> to <code class="xref std std-numref docutils literal notranslate"><span class="pre">gl:coeff</span></code>, <code class="xref std std-numref docutils literal notranslate"><span class="pre">gl:LEM</span></code> can be written as follows:</p>
+<p>Apllying <span class="math notranslate nohighlight">\(1/(\Delta x \Delta y)\)</span> to <code class="xref eq docutils literal notranslate"><span class="pre">gl:Coeff</span></code>, <a class="reference internal" href="#equation-gl-lem">(29)</a> can be written as follows:</p>
 <div class="math notranslate nohighlight">
-\[ \begin{align}\begin{aligned}\begin{split}  b = \left[ 
-\begin{array}{ccccccc}
+\[ \begin{align}\begin{aligned}  b = \left[ \\\begin{split}\begin{array}{cccccccc}
       &amp;   &amp;  &amp; &amp; \cdots  &amp;  &amp;   &amp;     \\
     \vdots &amp;   &amp;  &amp; \ddots &amp;  &amp;   &amp;   &amp;   \\
       &amp; \frac{1}{\Delta y^2} &amp; \cdots &amp; \frac{1}{\Delta y^2} &amp; -(.\frac{2}{\Delta y^2}+\frac{2}{\Delta x^2}) &amp; \frac{1}{\Delta x^2} &amp; \cdots &amp; \frac{1}{\Delta y^2} \\
-    \vdots &amp;   &amp;  &amp; &amp;&amp;\ddots &amp;    \\
-     &amp;   &amp;  &amp; &amp; \cdots  &amp;  &amp;   &amp;   &amp;   \\
-\end{array}
-\right] \cdot 
-\left[
-\begin{array}{c}
+    \vdots &amp;   &amp;  &amp; &amp;\ddots &amp; &amp; &amp;   \\
+     &amp;   &amp;  &amp; &amp; \cdots  &amp;  &amp;   &amp;      \\
+\end{array}\end{split}\\\right] 
+\cdot 
+\left[\\\begin{split}\begin{array}{c}
     P_1 \\
     \vdots \\
     P_{n-N_x} \\
@@ -427,8 +433,8 @@ with:</p>
     \vdots \\
     P_{n+N_x} \\
     \vdots \\
-    P_{N_yN_x} \\\end{split}\\\end{array}
-\right]
+    P_{N_yN_x} \\
+\end{array}\end{split}\\\right]
 \end{aligned}\end{align} \]</div>
 </section>
 <section id="boundary-conditions">
@@ -440,12 +446,12 @@ with:</p>
 \[
 \frac{\partial P}{\partial y} \approx \frac{P_N-P_S}{2 \Delta y}=0
 \]</div>
-<p>Discretising <code class="xref std std-numref docutils literal notranslate"><span class="pre">gl:laplace</span></code> for an interior cell with a Neumann Condition to the south results in:</p>
+<p>Discretising <a class="reference internal" href="#equation-gl-laplace">(27)</a> for an interior cell with a Neumann Condition to the south results in:</p>
 <div class="math notranslate nohighlight">
 \[
 \frac{1}{\Delta x^2} (P_E + P_W - 2 P_P) + \frac{1}{\Delta y^2} (2 P_N - 2 P_P)
 \]</div>
-<p>Which equals to multiplying the to <span class="math notranslate nohighlight">\(P_N\)</span> corresbonding entry in <span class="math notranslate nohighlight">\([A]\)</span> by <span class="math notranslate nohighlight">\(2\)</span> and setting the to <span class="math notranslate nohighlight">\(P_S\)</span> corresbonding Value to <span class="math notranslate nohighlight">\(0\)</span></p>
+<p>Which equals to multiplying the to <span class="math notranslate nohighlight">\(P_N\)</span> corresbonding entry in <span class="math notranslate nohighlight">\([A]\)</span> by <span class="math notranslate nohighlight">\(2\)</span> and setting the to <span class="math notranslate nohighlight">\(P_S\)</span> corresbonding Value to <span class="math notranslate nohighlight">\(0\)</span>.</p>
 </section>
 <section id="dirichlet-condition">
 <h3>Dirichlet Condition<a class="headerlink" href="#dirichlet-condition" title="Permalink to this heading">#</a></h3>
@@ -454,7 +460,7 @@ with:</p>
 \[
 P_i=P_{BC}
 \]</div>
-<p>Discretising <code class="xref std std-numref docutils literal notranslate"><span class="pre">gl:laplace</span></code> for an interior cell with a Dirichlet Condition to the west results in:</p>
+<p>Discretising <a class="reference internal" href="#equation-gl-laplace">(27)</a> for an interior cell with a Dirichlet Condition to the west results in:</p>
 <div class="math notranslate nohighlight">
 \[
 \frac{1}{\Delta x^2} (P_E + P_{BC} - 2 P_P) + \frac{1}{\Delta y^2} (P_S + P_N - 2 P_P)
@@ -540,12 +546,13 @@ P_i=P_{BC}
 <span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
 <span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">A</span> <span class="o">=</span> <span class="n">newSystemMatrix_nx_ny</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span><span class="n">ny</span><span class="p">,</span><span class="n">deltax</span><span class="p">,</span><span class="n">deltay</span><span class="p">)</span>
 
-<span class="nn">Cell In[4], line 22,</span> in <span class="ni">newSystemMatrix_nx_ny</span><span class="nt">(nx, ny, deltax, deltay)</span>
+<span class="nn">Cell In[4], line 19,</span> in <span class="ni">newSystemMatrix_nx_ny</span><span class="nt">(nx, ny, deltax, deltay)</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="n">A</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">#Right</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">nx</span><span class="p">):</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span>     <span class="c1">#First cell of each row</span>
+<span class="ne">---&gt; </span><span class="mi">19</span>     <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="n">nx</span><span class="p">,:]</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="g g-Whitespace">     </span><span class="mi">20</span>     <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="n">nx</span><span class="p">,</span><span class="n">i</span><span class="o">*</span><span class="n">nx</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="g g-Whitespace">     </span><span class="mi">21</span>     <span class="c1">#Last cell of each row</span>
-<span class="ne">---&gt; </span><span class="mi">22</span>     <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="n">nx</span><span class="o">+</span><span class="n">nx</span><span class="o">-</span><span class="mi">1</span><span class="p">,:]</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="g g-Whitespace">     </span><span class="mi">23</span>     <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="n">nx</span><span class="o">+</span><span class="n">nx</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="o">*</span><span class="n">nx</span><span class="o">+</span><span class="n">nx</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-<span class="g g-Whitespace">     </span><span class="mi">24</span> <span class="c1">#Neumann</span>
 
 <span class="nn">File ~/.local/lib/python3.11/site-packages/scipy/sparse/_lil.py:331,</span> in <span class="ni">lil_matrix.__setitem__</span><span class="nt">(self, key, x)</span>
 <span class="g g-Whitespace">    </span><span class="mi">329</span>     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_set_intXint</span><span class="p">(</span><span class="n">key</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">key</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="p">)</span>
@@ -659,7 +666,7 @@ P_i=P_{BC}
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0009523809523809526 0.0009533342866676086
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0009523809523809526 0.0009533342866676021
 </pre></div>
 </div>
 </div>
@@ -678,7 +685,7 @@ P_i=P_{BC}
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(0.5, 0, &#39;Pressure $P$ [Pa]&#39;)
 </pre></div>
 </div>
-<img alt="_images/7f0e1b8e7b17820b0fb1154707d5cf11cdcb28d360c596e1d394adc21a2adac8.png" src="_images/7f0e1b8e7b17820b0fb1154707d5cf11cdcb28d360c596e1d394adc21a2adac8.png" />
+<img alt="_images/eea20129bb214c07f539be7ce00486dee8c09a570d6880e4bbdb21f21ff1b855.png" src="_images/eea20129bb214c07f539be7ce00486dee8c09a570d6880e4bbdb21f21ff1b855.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -745,7 +752,7 @@ P_i=P_{BC}
 200 200
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_200562/1554237472.py:11: UserWarning: *c* argument looks like a single numeric RGB or RGBA sequence, which should be avoided as value-mapping will have precedence in case its length matches with *x* &amp; *y*.  Please use the *color* keyword-argument or provide a 2D array with a single row if you intend to specify the same RGB or RGBA value for all points.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_197526/1554237472.py:11: UserWarning: *c* argument looks like a single numeric RGB or RGBA sequence, which should be avoided as value-mapping will have precedence in case its length matches with *x* &amp; *y*.  Please use the *color* keyword-argument or provide a 2D array with a single row if you intend to specify the same RGB or RGBA value for all points.
   plt.scatter(tupel[0],v_avg,c=[0,0,1])
 </pre></div>
 </div>
@@ -753,7 +760,7 @@ P_i=P_{BC}
 1000 1000
 </pre></div>
 </div>
-<img alt="_images/bf756c9ee66a401bd8f4c54378db0c3123ecd71a783334706bdfc326fda16745.png" src="_images/bf756c9ee66a401bd8f4c54378db0c3123ecd71a783334706bdfc326fda16745.png" />
+<img alt="_images/7ec425013795ca369838181399694d5ca3e599964c87fc380d85c908ddb73ee6.png" src="_images/7ec425013795ca369838181399694d5ca3e599964c87fc380d85c908ddb73ee6.png" />
 </div>
 </div>
 </section>

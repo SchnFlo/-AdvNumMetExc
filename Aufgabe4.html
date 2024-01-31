@@ -591,7 +591,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x705498571110&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7eeb701889d0&gt;]
 </pre></div>
 </div>
 <img alt="_images/1ba7d300918bec5e6b4ca41121697d3c78a184f37d5dd51d895496ff5ed9b616.png" src="_images/1ba7d300918bec5e6b4ca41121697d3c78a184f37d5dd51d895496ff5ed9b616.png" />
@@ -609,7 +609,7 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x705490300110&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7eeb700b8850&gt;]
 </pre></div>
 </div>
 <img alt="_images/b2f599ea74195294c79e21670e4e017caccd7a7feeb8fccc418b378e4e687cc4.png" src="_images/b2f599ea74195294c79e21670e4e017caccd7a7feeb8fccc418b378e4e687cc4.png" />
@@ -948,14 +948,18 @@ document.write(`
 <span class="g g-Whitespace">     </span><span class="mi">19</span> <span class="k">def</span> <span class="nf">fun_wrapped</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
 <span class="ne">---&gt; </span><span class="mi">20</span>     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">fun</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
 
-<span class="nn">Cell In[24], line 32,</span> in <span class="ni">dt_w_dt</span><span class="nt">(t, vec_T_w)</span>
-<span class="g g-Whitespace">     </span><span class="mi">27</span> <span class="n">W</span> <span class="o">=</span> <span class="n">new_Cmatrix_norm_avg</span><span class="p">(</span><span class="n">Kleit</span><span class="p">,</span><span class="n">layers</span><span class="p">)</span>
+<span class="nn">Cell In[24], line 27,</span> in <span class="ni">dt_w_dt</span><span class="nt">(t, vec_T_w)</span>
+<span class="g g-Whitespace">     </span><span class="mi">25</span> <span class="n">psuc</span> <span class="o">=</span> <span class="n">fc_psuc_w</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">26</span> <span class="n">Kleit</span> <span class="o">=</span> <span class="n">fc_Kw_psuc_wsuc_n</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="mi">13</span><span class="p">)</span>
+<span class="ne">---&gt; </span><span class="mi">27</span> <span class="n">W</span> <span class="o">=</span> <span class="n">new_Cmatrix_norm_avg</span><span class="p">(</span><span class="n">Kleit</span><span class="p">,</span><span class="n">layers</span><span class="p">)</span>
 <span class="g g-Whitespace">     </span><span class="mi">29</span> <span class="n">K</span> <span class="o">=</span> <span class="n">new_Cmatrix_harm_avg</span><span class="p">(</span><span class="n">thermConduct</span><span class="p">,</span><span class="n">layers</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">32</span> <span class="n">delta_T</span> <span class="o">=</span> <span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">K</span><span class="p">,</span><span class="n">T</span><span class="p">)</span> <span class="o">+</span>  <span class="n">deltapv</span> <span class="o">*</span> <span class="n">Lv</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">pvap</span><span class="p">)</span> <span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">c</span><span class="o">*</span><span class="n">rho</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">35</span> <span class="n">liquittransport</span> <span class="o">=</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">W</span><span class="p">,</span><span class="n">psuc</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">36</span> <span class="n">vaportransport</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">pvap</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">32</span> <span class="n">delta_T</span> <span class="o">=</span> <span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">K</span><span class="p">,</span><span class="n">T</span><span class="p">)</span> <span class="o">+</span>  <span class="n">deltapv</span> <span class="o">*</span> <span class="n">Lv</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">M</span><span class="p">,</span><span class="n">pvap</span><span class="p">)</span> <span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">c</span><span class="o">*</span><span class="n">rho</span><span class="p">)</span>
 
-<span class="nn">File &lt;__array_function__ internals&gt;:200,</span> in <span class="ni">dot</span><span class="nt">(*args, **kwargs)</span>
+<span class="nn">Cell In[21], line 1,</span> in <span class="ni">new_Cmatrix_norm_avg</span><span class="nt">(Kw, layers)</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="k">def</span> <span class="nf">new_Cmatrix_norm_avg</span><span class="p">(</span><span class="n">Kw</span><span class="p">,</span><span class="n">layers</span><span class="p">):</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span>     <span class="c1"># reference number of cells to increase readability</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span>     <span class="n">n</span> <span class="o">=</span> <span class="n">layers</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">n</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>     <span class="c1"># Initialising conductivity matrix K and M</span>
 
 <span class="ne">KeyboardInterrupt</span>: 
 </pre></div>
